@@ -12,4 +12,10 @@ urlpatterns = [
     path('finish_auth', views.finish_login),
     path('key_registration', views.RegisterKey.as_view()),
     path('protected', views.protected),
+    path('applications', views.ApplicationVersionList.as_view()),
+    path('firmwares', views.SeFirmwareVersionList.as_view()),
+    path('devices', views.DeviceVersionList.as_view()),
+    path('device_versions', views.DeviceList.as_view()),
+    path('device_versions_detail', views.DeviceVersionDetailList.as_view()),
+    path('application_versions', views.ApplicationList.as_view()),
 ]

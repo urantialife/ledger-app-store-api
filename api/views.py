@@ -4,16 +4,46 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.contrib.auth import authenticate
-from api.serializers import UserSerializer, U2FKeySerializer
-from api.models import U2FRegistrationRequest, U2FAuthenticationRequest, U2FKey
+from api.serializers import UserSerializer, U2FKeySerializer, ApplicationVersionSerializer, ApplicationSerializer, DeviceVersionSerializer, DeviceVersionDetailSerializer, SeFirmwareVersionSerializer, DeviceSerializer
+from api.models import U2FRegistrationRequest, U2FAuthenticationRequest, U2FKey, ApplicationVersion, Application, SeFirmwareVersion, DeviceVersion, Device
 from rest_framework import generics
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_409_CONFLICT, HTTP_404_NOT_FOUND
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from u2flib_server import u2f
+
+
+class ApplicationVersionList(generics.ListAPIView):
+    queryset = ApplicationVersion.objects.all()
+    serializer_class = ApplicationVersionSerializer
+
+
+class SeFirmwareVersionList(generics.ListAPIView):
+    queryset = SeFirmwareVersion.objects.all()
+    serializer_class = SeFirmwareVersionSerializer
+
+
+class DeviceVersionDetailList(generics.ListAPIView):
+    queryset = DeviceVersion.objects.all()
+    serializer_class = DeviceVersionDetailSerializer
+
+
+class DeviceVersionList(generics.ListAPIView):
+    queryset = DeviceVersion.objects.all()
+    serializer_class = DeviceVersionSerializer
+
+
+class DeviceList(generics.ListAPIView):
+    queryset = Device.objects.all()
+    serializer_class = DeviceSerializer
+
+
+class ApplicationList(generics.ListAPIView):
+    queryset = Application.objects.all()
+    serializer_class = ApplicationSerializer
 
 
 class UserList(generics.ListAPIView):
@@ -97,7 +127,7 @@ def finish_login(request):
     try:
         device, counter, _ = u2f.complete_authentication(json_auth_req, response)
         # TODO: store login_counter and verify it's increasing
-        device = user.u2f_keys.get(key_handle=device['keyHandle'])
+        device = user.u2f_key.get(key_handle=device['keyHandle'])
         device.last_used_at = timezone.now()
         device.save()
         auth_req.delete()
@@ -109,6 +139,6 @@ def finish_login(request):
 
 
 @api_view(["GET"])
-@permission_classes((IsAuthenticated, ))
+@permission_classes((IsAuthenticated,))
 def protected(request):
     return Response({"resp": "success"})
