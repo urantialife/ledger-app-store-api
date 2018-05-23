@@ -16,6 +16,8 @@ djangorestframework = "*"
 django-rest-swagger = "*"
 "python-u2flib-server" = "*"
 fire = "*"
+semver = "*"
+django-cors-headers = "*"
 
 
 [requires]

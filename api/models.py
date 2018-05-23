@@ -1,141 +1,193 @@
 from django.db import models
 
 
+class Provider(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True, null=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
+    date_last_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class Resource(models.Model):
+    """
+    Abstract class with default value inherited by all types
+    of Resources
+    """
+    # Resources might have a Hash and Signature Field
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True, null=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
+    date_last_modified = models.DateTimeField(auto_now=True)
+    providers = models.ManyToManyField(Provider)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
 class U2FKey(models.Model):
-    user = models.ForeignKey('auth.User', related_name='u2f_key', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        'auth.User',
+        related_name='u2f_key',
+        on_delete=models.CASCADE
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     last_used_at = models.DateTimeField(null=True)
-
-    public_key = models.TextField(unique=True)
-    key_handle = models.TextField()
-    app_id = models.TextField()
+    publicKey = models.TextField(unique=True)
+    keyHandle = models.TextField()
+    appId = models.TextField()
     version = models.CharField(max_length=255, default='U2F_V2')
 
 
 class U2FRegistrationRequest(models.Model):
-    user = models.ForeignKey('auth.User', related_name='u2f_registration_request', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        'auth.User',
+        related_name='u2f_registration_request',
+        on_delete=models.CASCADE
+    )
     body = models.TextField(null=True)
 
 
 class U2FAuthenticationRequest(models.Model):
-    user = models.ForeignKey('auth.User', related_name='u2f_authentication_request', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        'auth.User',
+        related_name='u2f_authentication_request',
+        on_delete=models.CASCADE
+    )
     body = models.TextField(null=True)
 
 
-class Device(models.Model):
+class Publisher(Resource):
+    pass
+
+
+class Device(Resource):
+    pass
+
+
+class DeviceVersion(Resource):
+    display_name = models.CharField(max_length=255, null=True, blank=True)
+    target_id = models.CharField(max_length=255, null=True, blank=True)
+    device = models.ForeignKey(
+        Device,
+        related_name='device_versions',
+        on_delete=models.CASCADE,
+    )
+
+
+class SeFirmware(Resource):
+    pass
+
+
+class SeFirmwareVersion(Resource):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True)
-
-    def __str__(self):
-        return "%s" % (self.name)
-
-
-class DeviceVersion(models.Model):
-    name = models.CharField(max_length=255)
-    target_id = models.CharField(max_length=255, null=True)
-    description = models.CharField(max_length=255, null=True)
-    date_creation = models.DateTimeField(auto_now_add=True)
-    device = models.ForeignKey(Device, related_name='device_version', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return "%s" % (self.name)
-
-
-class McuVersion(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True)
-    version = models.CharField(max_length=255)
-    date_creation = models.DateTimeField(auto_now_add=True)
-    device_version = models.ForeignKey(DeviceVersion, related_name='mcu_version', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return "%s" % (self.name)
-
-
-class SeFirmwareVersion(models.Model):
-    name = models.CharField(max_length=255)
-    notes = models.CharField(max_length=255, null=True)
-    bolos_version_min = models.CharField(max_length=255, null=True)
-    bolos_version_max = models.CharField(max_length=255, null=True)
-    final_perso = models.CharField(max_length=255, null=True)
-    final_target_id = models.CharField(max_length=255, null=True)
-    final_firmware = models.CharField(max_length=255, null=True)
-    final_firmware_key = models.CharField(max_length=255, null=True)
-    final_hash = models.CharField(max_length=255, null=True)
-    osu_perso = models.CharField(max_length=255, null=True)
-    osu_target_id = models.CharField(max_length=255, null=True)
-    osu_firmware = models.CharField(max_length=255, null=True)
-    osu_firmware_key = models.CharField(max_length=255, null=True)
-    osu_hash = models.CharField(max_length=255, null=True)
-    date_creation = models.DateTimeField(auto_now_add=True)
-    device_version = models.ForeignKey(DeviceVersion, related_name='se_firmware_version', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return "%s" % (self.name)
+    display_name = models.CharField(max_length=255, null=True, blank=True)
+    notes = models.TextField(blank=True, null=True)
+    final_perso = models.CharField(max_length=255, null=True, blank=True)
+    final_target_id = models.CharField(max_length=255, null=True, blank=True)
+    final_firmware = models.CharField(max_length=255, null=True, blank=True)
+    final_firmware_key = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+    )
+    final_hash = models.CharField(max_length=255, null=True, blank=True)
+    osu_perso = models.CharField(max_length=255, null=True, blank=True)
+    osu_target_id = models.CharField(max_length=255, null=True, blank=True)
+    osu_firmware = models.CharField(max_length=255, null=True, blank=True)
+    osu_firmware_key = models.CharField(max_length=255, null=True, blank=True)
+    osu_hash = models.CharField(max_length=255, null=True, blank=True)
+    se_firmware = models.ForeignKey(
+        SeFirmware,
+        related_name='se_firmware_versions',
+        on_delete=models.CASCADE,
+        null=True
+    )
+    device_versions = models.ManyToManyField(
+        DeviceVersion,
+        related_name='se_firmware_versions',
+        blank=True,
+    )
+    previous_se_firmware_versions = models.ManyToManyField(
+        'self',
+        related_name='next_se_firmware_versions',
+        blank=True
+    )
 
 
-class Application(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True)
-
-    def __str__(self):
-        return "%s" % (self.name)
+class Mcu(Resource):
+    pass
 
 
-class ApplicationVersion(models.Model):
-    name = models.CharField(max_length=255)
-    icon = models.CharField(max_length=255, null=True)
-    notes = models.CharField(max_length=255, null=True)
-    hash = models.CharField(max_length=255, null=True)
-    date_creation = models.DateTimeField(auto_now_add=True)
-    bolos_version_min = models.CharField(max_length=255, null=True)
-    bolos_version_max = models.CharField(max_length=255, null=True)
-    perso = models.CharField(max_length=255, null=True)
-    target_id = models.CharField(max_length=255, null=True)
-    firmware = models.CharField(max_length=255, null=True)
-    firmware_key = models.CharField(max_length=255, null=True)
-    delete_key = models.CharField(max_length=255, null=True)
-    delete = models.CharField(max_length=255, null=True)
-    app = models.ForeignKey(Application, related_name='app_version', on_delete=models.CASCADE)
-    device_version = models.ForeignKey(DeviceVersion, related_name='app_version', on_delete=models.CASCADE)
+class McuVersion(Resource):
+    from_bootloader_version = models.CharField(max_length=255)
+    apdu = models.CharField(max_length=255)
+    mcu = models.ForeignKey(
+        Mcu,
+        related_name='mcu_versions',
+        on_delete=models.CASCADE,
+    )
 
-    def __str__(self):
-        return "%s" % (self.name)
+    device_versions = models.ManyToManyField(
+        DeviceVersion,
+        related_name='mcu_versions',
+        blank=True,
+    )
+
+    se_firmware_versions = models.ManyToManyField(
+        SeFirmwareVersion,
+        related_name='mcu_versions',
+        blank=True,
+    )
 
 
-# class BootLoader(models.Model):
-#     name = models.CharField(max_length=255)
-#     description = models.CharField(max_length=255, null=True)
-#
-#     def __str__(self):
-#         return "%s" % (self.name)
-#
-#
-# class BootLoaderVersion(models.Model):
-#     name = models.CharField(max_length=255)
-#     description = models.CharField(max_length=255, null=True)
-#     version = models.CharField(max_length=255)
-#     date_creation = models.DateTimeField(auto_now_add=True)
-#     se = models.ForeignKey(BootLoader, related_name='bl_version', on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return "%s" % (self.name)
-#
-#
-# class Lib(models.Model):
-#     name = models.CharField(max_length=255)
-#     description = models.CharField(max_length=255, null=True)
-#
-#     def __str__(self):
-#         return "%s" % (self.name)
-#
-#
-# class LibVersion(models.Model):
-#     name = models.CharField(max_length=255)
-#     description = models.CharField(max_length=255, null=True)
-#     version = models.CharField(max_length=255)
-#     date_creation = models.DateTimeField(auto_now_add=True)
-#     se = models.ForeignKey(Lib, related_name='lib_version', on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return "%s" % (self.name)
+class Category(Resource):
+    pass
+
+
+class Application(Resource):
+    category = models.ForeignKey(
+        Category,
+        related_name='applications',
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+
+    publisher = models.ForeignKey(
+        Publisher,
+        related_name='applications',
+        on_delete=models.CASCADE,
+        null=True,
+    )
+
+
+class ApplicationVersion(Resource):
+    display_name = models.CharField(max_length=255, null=True, blank=True)
+    icon = models.CharField(max_length=255, null=True, blank=True)
+    notes = models.TextField(blank=True, null=True)
+    hash = models.CharField(max_length=255, null=True, blank=True)
+    perso = models.CharField(max_length=255, null=True, blank=True)
+    firmware = models.CharField(max_length=255, null=True, blank=True)
+    firmware_key = models.CharField(max_length=255, null=True, blank=True)
+    delete = models.CharField(max_length=255, null=True, blank=True)
+    delete_key = models.CharField(max_length=255, null=True, blank=True)
+    app = models.ForeignKey(
+        Application,
+        related_name='application_versions',
+        on_delete=models.CASCADE,
+    )
+    device_versions = models.ManyToManyField(
+        DeviceVersion,
+        related_name='application_versions',
+        blank=True,
+    )
+    se_firmware_versions = models.ManyToManyField(
+        SeFirmwareVersion,
+        related_name="application_versions",
+        blank=True,
+    )

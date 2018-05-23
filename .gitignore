@@ -3,7 +3,9 @@
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
+ledger_app_store/__pycache__/
 *.py[cod]
+api/migrations/
 *$py.class
 
 # C extensions
@@ -104,3 +106,6 @@ ENV/
 .mypy_cache/
 
 .idea/
+
+# Development DB
+*.sqlite3
