@@ -117,7 +117,8 @@ def se_firmware_version_by_name_and_device(request):
         se_firmware_ver = get_object_or_404(SeFirmwareVersion, name=se_firmware_version_name, device_versions__id=device_version_id)
     else:
         target_id = request.data.get('target_id')
-        se_firmware_ver = get_object_or_404(SeFirmwareVersion, name=se_firmware_version_name, target_id=target_id)
+        device_ver = get_object_or_404(DeviceVersion, target_id=target_id)
+        se_firmware_ver = get_object_or_404(SeFirmwareVersion, name=se_firmware_version_name, device_versions=device_ver)
 
     serializer = SeFirmwareVersionSerializer(se_firmware_ver)
     return Response(serializer.data)

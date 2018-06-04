@@ -126,7 +126,6 @@ class Mcu(Resource):
 
 class McuVersion(Resource):
     from_bootloader_version = models.CharField(max_length=255)
-    apdu = models.CharField(max_length=255)
     mcu = models.ForeignKey(
         Mcu,
         related_name='mcu_versions',

@@ -37,11 +37,12 @@ urlpatterns = [
     #### CATEGORIES ####
     path('categories', views.CategoryView.as_view()),
     path('categories/<int:pk>', views.CategoryDetail.as_view()),
-    #### CATEGORIES ####
+    #### MCU ####
     path('mcu', views.McuView.as_view()),
     path('mcu/<int:pk>', views.McuDetail.as_view()),
     path('mcu_versions', views.McuVersionView.as_view()),
     path('mcu_versions/<int:pk>', views.McuVersionDetail.as_view()),
+    path('mcu_versions_bootloader', views.mcu_version_by_bootloader_version),
     #### GET LAST FIRM ####
     path('get_latest_firmware', views.get_latest),
     # path('get_app_updates', views.get_app_updates),
