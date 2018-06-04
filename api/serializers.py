@@ -216,6 +216,7 @@ class McuVersionSerializer(serializers.ModelSerializer):
             'description',
             'providers',
             'device_versions',
+            'from_bootloader_version',
             'se_firmware_versions',
             'date_creation',
             'date_last_modified',
