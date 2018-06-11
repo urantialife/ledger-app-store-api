@@ -1,16 +1,12 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [dev-packages]
-
-
+"pep8" = "*"
 
 [packages]
-
 django = "*"
 djangorestframework = "*"
 django-rest-swagger = "*"
@@ -19,7 +15,5 @@ fire = "*"
 semver = "*"
 django-cors-headers = "*"
 
-
 [requires]
-
 python_version = "3.6"

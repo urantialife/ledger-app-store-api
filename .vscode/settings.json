@@ -1,9 +1,0 @@
-{
-  "python.pythonPath":
-    "/Users/valentindealmeida/Documents/Projects/pythonEnv/bin/python",
-  "python.linting.pylintEnabled": false,
-  "python.linting.enabled": true,
-  "python.linting.pep8Enabled": true,
-  "python.formatting.provider": "autopep8",
-  "editor.formatOnSave": true
-}
