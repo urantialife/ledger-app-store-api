@@ -17,7 +17,7 @@ class Resource(models.Model):
     of Resources
     """
     # Resources might have a Hash and Signature Field
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     date_creation = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
@@ -84,38 +84,53 @@ class SeFirmware(Resource):
     pass
 
 
-class SeFirmwareVersion(Resource):
-    name = models.CharField(max_length=255)
+class SeFirmwareFinalVersion(Resource):
+    version = models.IntegerField()
     display_name = models.CharField(max_length=255, null=True, blank=True)
     notes = models.TextField(blank=True, null=True)
-    final_perso = models.CharField(max_length=255, null=True, blank=True)
-    final_target_id = models.CharField(max_length=255, null=True, blank=True)
-    final_firmware = models.CharField(max_length=255, null=True, blank=True)
-    final_firmware_key = models.CharField(
+    perso = models.CharField(max_length=255, null=True, blank=True)
+
+    firmware = models.CharField(max_length=255, null=True, blank=True)
+    firmware_key = models.CharField(
         max_length=255,
         null=True,
         blank=True
     )
-    final_hash = models.CharField(max_length=255, null=True, blank=True)
-    osu_perso = models.CharField(max_length=255, null=True, blank=True)
-    osu_target_id = models.CharField(max_length=255, null=True, blank=True)
-    osu_firmware = models.CharField(max_length=255, null=True, blank=True)
-    osu_firmware_key = models.CharField(max_length=255, null=True, blank=True)
-    osu_hash = models.CharField(max_length=255, null=True, blank=True)
+    hash = models.CharField(max_length=255, null=True, blank=True)
     se_firmware = models.ForeignKey(
         SeFirmware,
-        related_name='se_firmware_versions',
+        related_name='se_firmware_final_versions',
         on_delete=models.CASCADE,
         null=True
     )
     device_versions = models.ManyToManyField(
         DeviceVersion,
-        related_name='se_firmware_versions',
+        related_name='se_firmware_final_versions',
         blank=True,
     )
-    previous_se_firmware_versions = models.ManyToManyField(
-        'self',
-        related_name='next_se_firmware_versions',
+
+
+class SeFirmwareOSUVersion(Resource):
+    display_name = models.CharField(max_length=255, null=True, blank=True)
+    notes = models.TextField(blank=True, null=True)
+    perso = models.CharField(max_length=255, null=True, blank=True)
+    firmware = models.CharField(max_length=255, null=True, blank=True)
+    firmware_key = models.CharField(max_length=255, null=True, blank=True)
+    hash = models.CharField(max_length=255, null=True, blank=True)
+    next_se_firmware_final_version = models.ForeignKey(
+        SeFirmwareFinalVersion,
+        related_name='osu_versions',
+        on_delete=models.CASCADE,
+        null=True
+    )
+    device_versions = models.ManyToManyField(
+        DeviceVersion,
+        related_name='osu_versions',
+        blank=True,
+    )
+    previous_se_firmware_final_versions = models.ManyToManyField(
+        SeFirmwareFinalVersion,
+        related_name='next_se_firmware_osu_versions',
         blank=True
     )
 
@@ -138,8 +153,8 @@ class McuVersion(Resource):
         blank=True,
     )
 
-    se_firmware_versions = models.ManyToManyField(
-        SeFirmwareVersion,
+    se_firmware_final_versions = models.ManyToManyField(
+        SeFirmwareFinalVersion,
         related_name='mcu_versions',
         blank=True,
     )
@@ -166,6 +181,7 @@ class Application(Resource):
 
 
 class ApplicationVersion(Resource):
+    version = models.IntegerField()
     display_name = models.CharField(max_length=255, null=True, blank=True)
     icon = models.CharField(max_length=255, null=True, blank=True)
     notes = models.TextField(blank=True, null=True)
@@ -185,8 +201,8 @@ class ApplicationVersion(Resource):
         related_name='application_versions',
         blank=True,
     )
-    se_firmware_versions = models.ManyToManyField(
-        SeFirmwareVersion,
+    se_firmware_final_versions = models.ManyToManyField(
+        SeFirmwareFinalVersion,
         related_name="application_versions",
         blank=True,
     )
