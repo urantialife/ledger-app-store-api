@@ -1,6 +1,6 @@
 from django.contrib import admin
 from api.models import U2FKey, Application, ApplicationVersion, DeviceVersion
-from api.models import Device, SeFirmwareVersion, U2FRegistrationRequest
+from api.models import Device, SeFirmwareOSUVersion, SeFirmwareFinalVersion, U2FRegistrationRequest
 from api.models import Provider, Publisher, Mcu, McuVersion, SeFirmware
 from api.models import Category
 from api.models import U2FAuthenticationRequest
@@ -16,6 +16,7 @@ admin.site.register(ApplicationVersion)
 admin.site.register(Device)
 admin.site.register(DeviceVersion)
 admin.site.register(SeFirmware)
-admin.site.register(SeFirmwareVersion)
+admin.site.register(SeFirmwareFinalVersion)
+admin.site.register(SeFirmwareOSUVersion)
 admin.site.register(Mcu)
 admin.site.register(McuVersion)
