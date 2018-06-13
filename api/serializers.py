@@ -27,8 +27,7 @@ class SeFirmwareFinalVersionSerializer(serializers.ModelSerializer):
 
     osu_versions = serializers.PrimaryKeyRelatedField(
         many=True,
-        allow_null=True,
-        queryset=SeFirmwareOSUVersion.objects.all(),
+        read_only=True,
     )
 
     mcu_versions = serializers.PrimaryKeyRelatedField(
@@ -46,7 +45,7 @@ class SeFirmwareFinalVersionSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
-            'version'
+            'version',
             'se_firmware',
             'description',
             'display_name',
@@ -204,7 +203,7 @@ class DeviceVersionSerializer(serializers.ModelSerializer):
             'providers',
             'mcu_versions',
             'se_firmware_final_versions',
-            'osu_version',
+            'osu_versions',
             'application_versions',
             'date_creation',
             'date_last_modified',
