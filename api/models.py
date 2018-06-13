@@ -85,7 +85,7 @@ class SeFirmware(Resource):
 
 
 class SeFirmwareFinalVersion(Resource):
-    version = models.IntegerField()
+    version = models.CharField(max_length=255)
     display_name = models.CharField(max_length=255, null=True, blank=True)
     notes = models.TextField(blank=True, null=True)
     perso = models.CharField(max_length=255, null=True, blank=True)
@@ -181,7 +181,7 @@ class Application(Resource):
 
 
 class ApplicationVersion(Resource):
-    version = models.IntegerField()
+    version = models.CharField(max_length=255)
     display_name = models.CharField(max_length=255, null=True, blank=True)
     icon = models.CharField(max_length=255, null=True, blank=True)
     notes = models.TextField(blank=True, null=True)
