@@ -3,16 +3,33 @@ from django.contrib.auth.models import User
 from api.models import U2FKey, SeFirmwareFinalVersion, SeFirmwareOSUVersion, Application
 from api.models import ApplicationVersion, Device, DeviceVersion, SeFirmware
 from api.models import Publisher, Provider, Category, Mcu, McuVersion
-
+import semver
 
 # VERSION RESOURCES SERIALIZERS
 
+
+class VersionField(serializers.Field):
+
+    def to_representation(self, obj):
+        b = obj.version.to_bytes(4, byteorder='big')
+        return "%d.%d.%d".format(b[1], b[2], b[3])
+
+    def to_internal_value(self, data):
+        print("toto")
+        v = semver.parse(data)
+        internal = bytes([0, v.major, v.minor, v.patch])
+        return int.from_bytes(internal)
+
+
 class SeFirmwareFinalVersionSerializer(serializers.ModelSerializer):
+
     providers = serializers.PrimaryKeyRelatedField(
         many=True,
         allow_null=True,
         queryset=Provider.objects.all(),
     )
+
+    version = VersionField(read_only=True)
 
     se_firmware = serializers.PrimaryKeyRelatedField(
         many=False,
@@ -116,6 +133,8 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
         allow_null=True,
         queryset=Provider.objects.all(),
     )
+
+    version = VersionField(read_only=True)
 
     app = serializers.PrimaryKeyRelatedField(
         many=False,
