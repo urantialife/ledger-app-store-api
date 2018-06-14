@@ -11,74 +11,14 @@ import semver
 class VersionField(serializers.Field):
 
     def to_representation(self, obj):
-        b = obj.version.to_bytes(4, byteorder='big')
-        return "%d.%d.%d".format(b[1], b[2], b[3])
+        b = obj.to_bytes(4, byteorder='big')
+        return '{0}.{1}.{2}'.format(b[1], b[2], b[3])
 
     def to_internal_value(self, data):
-        print("toto")
         v = semver.parse(data)
         internal = bytes([0, v.major, v.minor, v.patch])
         return int.from_bytes(internal)
 
-
-class SeFirmwareFinalVersionSerializer(serializers.ModelSerializer):
-
-    providers = serializers.PrimaryKeyRelatedField(
-        many=True,
-        allow_null=True,
-        queryset=Provider.objects.all(),
-    )
-
-    version = VersionField(read_only=True)
-
-    se_firmware = serializers.PrimaryKeyRelatedField(
-        many=False,
-        queryset=SeFirmware.objects.all(),
-    )
-
-    device_versions = serializers.PrimaryKeyRelatedField(
-        many=True,
-        allow_null=True,
-        queryset=DeviceVersion.objects.all(),
-    )
-
-    osu_versions = serializers.PrimaryKeyRelatedField(
-        many=True,
-        read_only=True,
-    )
-
-    mcu_versions = serializers.PrimaryKeyRelatedField(
-        many=True,
-        read_only=True,
-    )
-
-    application_versions = serializers.PrimaryKeyRelatedField(
-        many=True,
-        read_only=True,
-    )
-
-    class Meta:
-        model = SeFirmwareFinalVersion
-        fields = (
-            'id',
-            'name',
-            'version',
-            'se_firmware',
-            'description',
-            'display_name',
-            'notes',
-            'perso',
-            'firmware',
-            'firmware_key',
-            'hash',
-            'osu_versions',
-            'date_creation',
-            'date_last_modified',
-            'device_versions',
-            'mcu_versions',
-            'application_versions',
-            'providers',
-        )
 
 
 class SeFirmwareOSUVersionSerializer(serializers.ModelSerializer):
@@ -126,6 +66,67 @@ class SeFirmwareOSUVersionSerializer(serializers.ModelSerializer):
         )
 
 
+
+class SeFirmwareFinalVersionSerializer(serializers.ModelSerializer):
+
+    providers = serializers.PrimaryKeyRelatedField(
+        many=True,
+        allow_null=True,
+        queryset=Provider.objects.all(),
+    )
+
+    version = VersionField()
+
+    se_firmware = serializers.PrimaryKeyRelatedField(
+        many=False,
+        queryset=SeFirmware.objects.all(),
+    )
+
+    device_versions = serializers.PrimaryKeyRelatedField(
+        many=True,
+        allow_null=True,
+        queryset=DeviceVersion.objects.all(),
+    )
+
+    osu_versions = SeFirmwareOSUVersionSerializer(
+        many=True,
+        read_only=True,
+    )
+
+    mcu_versions = serializers.PrimaryKeyRelatedField(
+        many=True,
+        read_only=True,
+    )
+
+    application_versions = serializers.PrimaryKeyRelatedField(
+        many=True,
+        read_only=True,
+    )
+
+    class Meta:
+        model = SeFirmwareFinalVersion
+        fields = (
+            'id',
+            'name',
+            'version',
+            'se_firmware',
+            'description',
+            'display_name',
+            'notes',
+            'perso',
+            'firmware',
+            'firmware_key',
+            'hash',
+            'osu_versions',
+            'date_creation',
+            'date_last_modified',
+            'device_versions',
+            'mcu_versions',
+            'application_versions',
+            'providers',
+        )
+
+
 class ApplicationVersionSerializer(serializers.ModelSerializer):
     providers = serializers.PrimaryKeyRelatedField(
         many=True,
@@ -133,7 +134,7 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
         queryset=Provider.objects.all(),
     )
 
-    version = VersionField(read_only=True)
+    version = VersionField()
 
     app = serializers.PrimaryKeyRelatedField(
         many=False,
