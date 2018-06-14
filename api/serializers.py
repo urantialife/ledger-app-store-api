@@ -16,9 +16,8 @@ class VersionField(serializers.Field):
 
     def to_internal_value(self, data):
         v = semver.parse(data)
-        internal = bytes([0, v.major, v.minor, v.patch])
-        return int.from_bytes(internal)
-
+        internal = bytes([0, v["major"], v["minor"], v["patch"]])
+        return int.from_bytes(internal, 'big')
 
 
 class SeFirmwareOSUVersionSerializer(serializers.ModelSerializer):
@@ -64,7 +63,6 @@ class SeFirmwareOSUVersionSerializer(serializers.ModelSerializer):
             'device_versions',
             'providers',
         )
-
 
 
 class SeFirmwareFinalVersionSerializer(serializers.ModelSerializer):
