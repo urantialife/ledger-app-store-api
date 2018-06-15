@@ -14,7 +14,6 @@ urlpatterns = [
     ### APPLICATIONS ###
     path('applications', views.ApplicationView.as_view()),
     path('applications/<int:pk>', views.ApplicationDetail.as_view()),
-    path('application_versions', views.get_app_to_display),
     path('application_versions', views.ApplicationVersionView.as_view()),
     path('application_versions/<int:pk>',
          views.ApplicationVersionDetail.as_view()),
@@ -53,7 +52,7 @@ urlpatterns = [
     path('mcu_versions', views.McuVersionView.as_view()),
     path('mcu_versions/<int:pk>', views.McuVersionDetail.as_view()),
     path('mcu_versions_bootloader', views.mcu_version_by_bootloader_version),
-    ### GET LAST FIRM ###
+    ### LIVE CALLS ###
     path('get_latest_firmware', views.get_latest),
-    # path('get_app_updates', views.get_app_updates),
+    path('get_apps', views.get_app_to_display),
 ]
