@@ -7,8 +7,11 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'ledger_app_store.settings'
 django.setup()
 
 if __name__ == '__main__':
-    provider1 = Provider.objects.create(name="Ledger Live")
+    provider1 = Provider.objects.create(name="Ledger")
     provider2 = Provider.objects.create(name="DAS")
+    provider3 = Provider.objects.create(name="Bitclub")
+    provider4 = Provider.objects.create(name="Shitcoins")
+    provider5 = Provider.objects.create(name="Beta testing")
 
     # DEVICE CREATION
 
@@ -21,17 +24,20 @@ if __name__ == '__main__':
         target_id=823132162,
         device=device1
     )
-    device_ver1.provider.add(provider1, provider2)
+    device_ver1.providers.add(provider1, provider2, provider3)
+
     device_ver2 = DeviceVersion.objects.create(
         name="blue_2",
         target_id=822083586,
         device=device2
     )
+    device_ver2.providers.add(provider1)
     device_ver3 = DeviceVersion.objects.create(
         name="blue_1",
         target_id=822083585,
         device=device2
     )
+    device_ver3.providers.add(provider1)
     device_ver4 = DeviceVersion.objects.create(
         name="aramis",
         target_id=824180738,
@@ -42,13 +48,18 @@ if __name__ == '__main__':
         target_id=823132163,
         device=device1
     )
+    device_ver5.providers.add(provider1, provider2, provider3)
 
     # FIRMWARE CREATION
 
-    firmware = SeFirmware.objects.create(name="Ledger nano S")
+    firmware = SeFirmware.objects.create(name="Ledger nano S firmware")
+    firmware.add(provider1)
     firmware2 = SeFirmware.objects.create(name="DAS firmware")
+    firmware2.add(provider2)
     firmware3 = SeFirmware.objects.create(name="Bitclub firmware")
+    firmware2.add(provider3)
 
+    # FIRMWARE FINAL CREATION
     firmware_final_ver1 = SeFirmwareFinalVersion.objects.create(
         name="1.3.1",
         version=int.from_bytes(bytes([0, 1, 3, 1]), 'big')
@@ -60,6 +71,7 @@ if __name__ == '__main__':
         se_firmware=firmware
     )
     firmware_final_ver1.device_versions.add(device_ver1)
+    firmware_final_ver1.providers.add(provider1)
 
     firmware_final_ver2 = SeFirmwareFinalVersion.objects.create(
         name="1.4.1",
@@ -72,6 +84,7 @@ if __name__ == '__main__':
         se_firmware=firmware
     )
     firmware_final_ver2.device_versions.add(device_ver5)
+    firmware_final_ver2.providers.add(provider1)
 
     firmware_final_ver3 = SeFirmwareFinalVersion.objects.create(
         name="1.4.2",
@@ -112,7 +125,7 @@ if __name__ == '__main__':
     firmware_final_ver5.device_versions.add(device_ver1)
     firmware_final_ver5.providers.add(provider2)
 
-# OSU
+    # OSU CREATION
     firmware_osu_ver1 = SeFirmwareOSUVersion.objects.create(
         name="1.4.2-osu",
         notes="The firmware 1.4.2 update brings several user experience and minor security improvements:\n- User Pin code's start number is now always randomized\n- Each recovery word's first letter is now always randomized\n- Improvement of the interaction between microcontroller (MCU) and secure element to remove confusing error message\n- Verification & checks of installed applications\n- Improved dashboard responsiveness\n\nTo update your device, please [refer to our step by step guide](https://support.ledgerwallet.com/hc/en-us/articles/360002731113).\n\nMore information about the firmware available on [our firmware 1.4.2 FAQ](https://www.ledger.fr/2018/04/17/announcing-ledger-firmware-1-4-2/)\n",
@@ -125,6 +138,7 @@ if __name__ == '__main__':
     firmware_osu_ver1.next_se_firmware_final_version.add(firmware_final_ver3)
     firmware_osu_ver1.previous_se_firmware_final_versions.add(
         firmware_final_ver1)
+    firmware_osu_ver1.providers.add(provider1)
 
     firmware_osu_ver2 = SeFirmwareOSUVersion.objects.create(
         name="1.4.1-osu",
@@ -138,6 +152,7 @@ if __name__ == '__main__':
     firmware_osu_ver2.next_se_firmware_final_version.add(firmware_final_ver2)
     firmware_osu_ver2.previous_se_firmware_final_versions.add(
         firmware_final_ver1)
+    firmware_osu_ver2.providers.add(provider1)
 
     firmware_osu_ver3 = SeFirmwareOSUVersion.objects.create(
         name="1.3.1-osu",
@@ -149,6 +164,7 @@ if __name__ == '__main__':
     )
     firmware_osu_ver3.device_versions.add(device_ver1)
     firmware_osu_ver3.next_se_firmware_final_version.add(firmware_final_ver1)
+    firmware_osu_ver3.providers.add(provider1)
 
     firmware_osu_ver4 = SeFirmwareOSUVersion.objects.create(
         name="1.4.2-osu",
@@ -162,6 +178,7 @@ if __name__ == '__main__':
     firmware_osu_ver4.next_se_firmware_final_version.add(firmware_final_ver3)
     firmware_osu_ver4.previous_se_firmware_final_versions.add(
         firmware_final_ver2)
+    firmware_osu_ver4.providers.add(provider1)
 
     firmware_osu_ver5 = SeFirmwareOSUVersion.objects.create(
         name="1.4.2-das-osu",
@@ -175,3 +192,10 @@ if __name__ == '__main__':
     firmware_osu_ver5.next_se_firmware_final_version.add(firmware_final_ver4)
     firmware_osu_ver5.previous_se_firmware_final_versions.add(
         firmware_final_ver5)
+    firmware_osu_ver5.providers.add(provider2)
+
+    # APP CREATION
+    app1 = Application.object.create(
+        name="Bitcoin"
+    )
+    app1.provider.add()
