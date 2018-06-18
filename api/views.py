@@ -60,23 +60,32 @@ class ApplicationVersionDetail(generics.RetrieveUpdateDestroyAPIView):
 def get_app_to_display(request):
     current_se_firmware_final_version_id = request.data.get(
         'current_se_firmware_final_version')
-    current_device_final_version_id = request.data.get('device_version')
+    current_device_version_id = request.data.get('device_version')
     providers_id_list = request.data.get('providers')
-    apps_to_display = None
+    compatible_apps = None
     try:
-        apps_to_display = ApplicationVersion.objects.filter(
+        compatible_apps = ApplicationVersion.objects.filter(
             device_versions__id=current_device_version_id,
             se_firmware_final_versions=current_se_firmware_final_version_id,
             providers__in=providers_id_list
         )
     except ApplicationVersion.DoesNotExist:
+        print("execption")
         None
-    if not apps_to_display:
+    if not compatible_apps:
         return Response({"application_versions": {}, "result": "null"})
 
-    apps_to_display = apps_to_display.order_by('-version').distinct('app')
-
-    serializer = ApplicationVersionSerializer(apps_to_display, many=True)
+    listed_apps = []
+    excluded_appVer = []
+    for appVer in compatible_apps.order_by("-version"):
+        if not(appVer.app.id in listed_apps):
+            listed_apps.append(appVer.app.id)
+            print("listed", appVer.app.id, listed_apps)
+        else:
+            excluded_appVer.append(appVer.id)
+    apps_to_display = compatible_apps.exclude(id__in=excluded_appVer)
+    serializer = ApplicationVersionSerializer(
+        apps_to_display.order_by("name"), many=True)
     return Response({"application_versions": serializer.data})
 
 
