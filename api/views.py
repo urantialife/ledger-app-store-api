@@ -192,13 +192,13 @@ def get_latest(request):
         )
     except SeFirmwareOSUVersion.DoesNotExist:
         None
-    if not next_se_firmware_versions:
+    if not next_se_firmware_osu_versions:
         return Response({"se_firmware_osu_version": {}, "result": "null"})
 
     res_osu_ver = None
     for osu_ver in next_se_firmware_osu_versions:
         if res_osu_ver is not None:
-            if res_osu_ver.next_se_firmware_final_version.version >= osu_ver.next_se_firmware_final_version.name.version:
+            if res_osu_ver.next_se_firmware_final_version.version >= osu_ver.next_se_firmware_final_version.version:
                 break
         else:
             res_osu_ver = osu_ver
