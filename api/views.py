@@ -195,8 +195,8 @@ def get_latest(request):
     res_osu_ver = None
     for osu_ver in next_se_firmware_osu_versions:
         if res_osu_ver is not None:
-            if res_osu_ver.next_se_firmware_final_version.version >= osu_ver.next_se_firmware_final_version.version:
-                break
+            if osu_ver.next_se_firmware_final_version.version >= res_osu_ver.next_se_firmware_final_version.version:
+                res_osu_ver = osu_ver
         else:
             res_osu_ver = osu_ver
 
