@@ -274,87 +274,87 @@ if __name__ == '__main__':
 
     # APP CREATION
     app0 = Application.objects.create(name="Bitcoin")
-    app0.providers.add(provider1, provider6)
+    app0.providers.add(provider1)
     app1 = Application.objects.create(name="Bitcoin Cash")
-    app1.providers.add(provider1, provider6)
+    app1.providers.add(provider1)
     app2 = Application.objects.create(name="Bitcoin Gold")
-    app2.providers.add(provider1, provider6)
+    app2.providers.add(provider1)
     app3 = Application.objects.create(name="Bitcoin Private")
-    app3.providers.add(provider1, provider6)
+    app3.providers.add(provider1)
     app4 = Application.objects.create(name="Bitcoin testnet")
-    app4.providers.add(provider1, provider6)
+    app4.providers.add(provider1)
     app5 = Application.objects.create(name="Digibyte")
-    app5.providers.add(provider1, provider6)
+    app5.providers.add(provider1)
     app6 = Application.objects.create(name="HCash")
-    app6.providers.add(provider1, provider6)
+    app6.providers.add(provider1)
     app7 = Application.objects.create(name="Qtum")
-    app7.providers.add(provider1, provider6)
+    app7.providers.add(provider1)
     app8 = Application.objects.create(name="PIVX")
-    app8.providers.add(provider1, provider6)
+    app8.providers.add(provider1)
     app9 = Application.objects.create(name="Stealth")
-    app9.providers.add(provider1, provider6)
+    app9.providers.add(provider1)
     app10 = Application.objects.create(name="Vertcoin")
-    app10.providers.add(provider1, provider6)
+    app10.providers.add(provider1)
     app11 = Application.objects.create(name="Viacoin")
-    app11.providers.add(provider1, provider6)
+    app11.providers.add(provider1)
     app12 = Application.objects.create(name="Ubiq")
-    app12.providers.add(provider1, provider6)
+    app12.providers.add(provider1)
     app13 = Application.objects.create(name="Expanse")
-    app13.providers.add(provider1, provider6)
+    app13.providers.add(provider1)
     app14 = Application.objects.create(name="Dash")
-    app14.providers.add(provider1, provider6)
+    app14.providers.add(provider1)
     app15 = Application.objects.create(name="Dogecoin")
-    app15.providers.add(provider1, provider6)
+    app15.providers.add(provider1)
     app16 = Application.objects.create(name="Ethereum")
-    app16.providers.add(provider1, provider6)
+    app16.providers.add(provider1)
     app17 = Application.objects.create(name="Fido U2F")
-    app17.providers.add(provider1, provider6)
+    app17.providers.add(provider1)
     app18 = Application.objects.create(name="Litecoin")
-    app18.providers.add(provider1, provider6)
+    app18.providers.add(provider1)
     app19 = Application.objects.create(name="Stratis")
-    app19.providers.add(provider1, provider6)
+    app19.providers.add(provider1)
     app20 = Application.objects.create(name="Ripple")
-    app20.providers.add(provider1, provider6)
+    app20.providers.add(provider1)
     app21 = Application.objects.create(name="Zcash")
-    app21.providers.add(provider1, provider6)
+    app21.providers.add(provider1)
     app22 = Application.objects.create(name="ZenCash")
-    app22.providers.add(provider1, provider6)
+    app22.providers.add(provider1)
     app23 = Application.objects.create(name="Komodo")
-    app23.providers.add(provider1, provider6)
+    app23.providers.add(provider1)
     app24 = Application.objects.create(name="Peercoin")
-    app24.providers.add(provider1, provider6)
+    app24.providers.add(provider1)
     app25 = Application.objects.create(name="PoSW")
-    app25.providers.add(provider1, provider6)
+    app25.providers.add(provider1)
     app26 = Application.objects.create(name="Ark")
-    app26.providers.add(provider1, provider6)
+    app26.providers.add(provider1)
     app27 = Application.objects.create(name="Neo")
-    app27.providers.add(provider1, provider6)
+    app27.providers.add(provider1)
     app28 = Application.objects.create(name="SSH/GPG Agent")
-    app28.providers.add(provider1, provider6)
+    app28.providers.add(provider1)
     app29 = Application.objects.create(name="Passwords Manager")
-    app29.providers.add(provider1, provider6)
+    app29.providers.add(provider1)
     app30 = Application.objects.create(name="Stellar")
-    app30.providers.add(provider1, provider6)
+    app30.providers.add(provider1)
     app31 = Application.objects.create(name="Woleet")
-    app31.providers.add(provider1, provider6)
+    app31.providers.add(provider1)
     app32 = Application.objects.create(name="Monero")
-    app32.providers.add(provider1, provider6)
+    app32.providers.add(provider1)
     app33 = Application.objects.create(name="Hello")
-    app33.providers.add(provider1, provider6)
+    app33.providers.add(provider1)
     app34 = Application.objects.create(name="Open PGP")
-    app34.providers.add(provider1, provider6)
+    app34.providers.add(provider1)
     app35 = Application.objects.create(name="Nano")
-    app35.providers.add(provider1, provider6)
+    app35.providers.add(provider1)
     app36 = Application.objects.create(name="Nimiq")
-    app36.providers.add(provider1, provider6)
+    app36.providers.add(provider1)
     app37 = Application.objects.create(name="DasCoin")
     app37.providers.add(provider2)
     app38 = Application.objects.create(name="Stealthcoin")
-    app38.providers.add(provider1, provider6)
+    app38.providers.add(provider1)
     app39 = Application.objects.create(name="Clubcoin")
-    app39.providers.add(provider1, provider6)
+    app39.providers.add(provider1)
     app40 = Application.objects.create(name="Bitcoin Beta")
-    app40.providers.add(provider1, provider6)
+    app40.providers.add(provider1)
     # nanos-1.4 ,
     appVer1 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -369,7 +369,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin/app_del_key",
         app=app0
     )
-    appVer1.providers.add(provider1, provider6)
+    appVer1.providers.add(provider1)
     appVer1.device_versions.add(device_ver5)
     appVer1.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -386,7 +386,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin_cash/app_del_key",
         app=app1
     )
-    appVer2.providers.add(provider1, provider6)
+    appVer2.providers.add(provider1)
     appVer2.device_versions.add(device_ver5)
     appVer2.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -403,7 +403,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin_gold/app_del_key",
         app=app2
     )
-    appVer3.providers.add(provider1, provider6)
+    appVer3.providers.add(provider1)
     appVer3.device_versions.add(device_ver5)
     appVer3.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -420,7 +420,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin_private/app_del_key",
         app=app3
     )
-    appVer4.providers.add(provider1, provider6)
+    appVer4.providers.add(provider1)
     appVer4.device_versions.add(device_ver5)
     appVer4.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -437,7 +437,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin_testnet/app_del_key",
         app=app4
     )
-    appVer5.providers.add(provider1, provider6)
+    appVer5.providers.add(provider1)
     appVer5.device_versions.add(device_ver5)
     appVer5.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -454,7 +454,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/digibyte/app_del_key",
         app=app5
     )
-    appVer6.providers.add(provider1, provider6)
+    appVer6.providers.add(provider1)
     appVer6.device_versions.add(device_ver5)
     appVer6.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -471,7 +471,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/hcash/app_del_key",
         app=app6
     )
-    appVer7.providers.add(provider1, provider6)
+    appVer7.providers.add(provider1)
     appVer7.device_versions.add(device_ver5)
     appVer7.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -488,7 +488,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/qtum/app_del_key",
         app=app7
     )
-    appVer8.providers.add(provider1, provider6)
+    appVer8.providers.add(provider1)
     appVer8.device_versions.add(device_ver5)
     appVer8.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -505,7 +505,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/pivx/app_del_key",
         app=app8
     )
-    appVer9.providers.add(provider1, provider6)
+    appVer9.providers.add(provider1)
     appVer9.device_versions.add(device_ver5)
     appVer9.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -522,7 +522,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/stealthcoin/app_del_key",
         app=app9
     )
-    appVer10.providers.add(provider1, provider6)
+    appVer10.providers.add(provider1)
     appVer10.device_versions.add(device_ver5)
     appVer10.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -539,7 +539,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/vertcoin/app_del_key",
         app=app10
     )
-    appVer11.providers.add(provider1, provider6)
+    appVer11.providers.add(provider1)
     appVer11.device_versions.add(device_ver5)
     appVer11.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -556,7 +556,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/viacoin/app_del_key",
         app=app11
     )
-    appVer12.providers.add(provider1, provider6)
+    appVer12.providers.add(provider1)
     appVer12.device_versions.add(device_ver5)
     appVer12.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -573,7 +573,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/ubiq/app_del_key",
         app=app12
     )
-    appVer13.providers.add(provider1, provider6)
+    appVer13.providers.add(provider1)
     appVer13.device_versions.add(device_ver5)
     appVer13.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -590,7 +590,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/expanse/app_del_key",
         app=app13
     )
-    appVer14.providers.add(provider1, provider6)
+    appVer14.providers.add(provider1)
     appVer14.device_versions.add(device_ver5)
     appVer14.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -607,7 +607,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/dash/app_del_key",
         app=app14
     )
-    appVer15.providers.add(provider1, provider6)
+    appVer15.providers.add(provider1)
     appVer15.device_versions.add(device_ver5)
     appVer15.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -624,7 +624,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/dogecoin/app_del_key",
         app=app15
     )
-    appVer16.providers.add(provider1, provider6)
+    appVer16.providers.add(provider1)
     appVer16.device_versions.add(device_ver5)
     appVer16.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -641,7 +641,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/ethereum/app_del_key",
         app=app16
     )
-    appVer17.providers.add(provider1, provider6)
+    appVer17.providers.add(provider1)
     appVer17.device_versions.add(device_ver5)
     appVer17.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -658,7 +658,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/u2f/app_del_key",
         app=app17
     )
-    appVer18.providers.add(provider1, provider6)
+    appVer18.providers.add(provider1)
     appVer18.device_versions.add(device_ver5)
     appVer18.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -675,7 +675,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/litecoin/app_del_key",
         app=app18
     )
-    appVer19.providers.add(provider1, provider6)
+    appVer19.providers.add(provider1)
     appVer19.device_versions.add(device_ver5)
     appVer19.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -692,7 +692,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/stratis/app_del_key",
         app=app19
     )
-    appVer20.providers.add(provider1, provider6)
+    appVer20.providers.add(provider1)
     appVer20.device_versions.add(device_ver5)
     appVer20.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -709,7 +709,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/ripple/app_del_key",
         app=app20
     )
-    appVer21.providers.add(provider1, provider6)
+    appVer21.providers.add(provider1)
     appVer21.device_versions.add(device_ver5)
     appVer21.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -726,7 +726,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/zcash/app_del_key",
         app=app21
     )
-    appVer22.providers.add(provider1, provider6)
+    appVer22.providers.add(provider1)
     appVer22.device_versions.add(device_ver5)
     appVer22.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -743,7 +743,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/zencash/app_del_key",
         app=app22
     )
-    appVer23.providers.add(provider1, provider6)
+    appVer23.providers.add(provider1)
     appVer23.device_versions.add(device_ver5)
     appVer23.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -760,7 +760,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/komodo/app_del_key",
         app=app23
     )
-    appVer24.providers.add(provider1, provider6)
+    appVer24.providers.add(provider1)
     appVer24.device_versions.add(device_ver5)
     appVer24.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -777,7 +777,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/peercoin/app_del_key",
         app=app24
     )
-    appVer25.providers.add(provider1, provider6)
+    appVer25.providers.add(provider1)
     appVer25.device_versions.add(device_ver5)
     appVer25.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -794,7 +794,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/posw/app_del_key",
         app=app25
     )
-    appVer26.providers.add(provider1, provider6)
+    appVer26.providers.add(provider1)
     appVer26.device_versions.add(device_ver5)
     appVer26.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -811,7 +811,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/ark/app_del_key",
         app=app26
     )
-    appVer27.providers.add(provider1, provider6)
+    appVer27.providers.add(provider1)
     appVer27.device_versions.add(device_ver5)
     appVer27.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -828,7 +828,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/neo/app_del_key",
         app=app27
     )
-    appVer28.providers.add(provider1, provider6)
+    appVer28.providers.add(provider1)
     appVer28.device_versions.add(device_ver5)
     appVer28.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -845,7 +845,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/sshgpg/app_del_key",
         app=app28
     )
-    appVer29.providers.add(provider1, provider6)
+    appVer29.providers.add(provider1)
     appVer29.device_versions.add(device_ver5)
     appVer29.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -862,7 +862,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/pwmgr/app_del_key",
         app=app29
     )
-    appVer30.providers.add(provider1, provider6)
+    appVer30.providers.add(provider1)
     appVer30.device_versions.add(device_ver5)
     appVer30.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -879,7 +879,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/stellar/app_del_key",
         app=app30
     )
-    appVer31.providers.add(provider1, provider6)
+    appVer31.providers.add(provider1)
     appVer31.device_versions.add(device_ver5)
     appVer31.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -896,7 +896,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/woleet/app_del_key",
         app=app31
     )
-    appVer32.providers.add(provider1, provider6)
+    appVer32.providers.add(provider1)
     appVer32.device_versions.add(device_ver5)
     appVer32.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -913,7 +913,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/monero/app_del_key",
         app=app32
     )
-    appVer33.providers.add(provider1, provider6)
+    appVer33.providers.add(provider1)
     appVer33.device_versions.add(device_ver5)
     appVer33.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -930,7 +930,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/hello/app_del_key",
         app=app33
     )
-    appVer34.providers.add(provider1, provider6)
+    appVer34.providers.add(provider1)
     appVer34.device_versions.add(device_ver5)
     appVer34.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -947,7 +947,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/openpgp/app_del_key",
         app=app34
     )
-    appVer35.providers.add(provider1, provider6)
+    appVer35.providers.add(provider1)
     appVer35.device_versions.add(device_ver5)
     appVer35.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -964,7 +964,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/nano/app_del_key",
         app=app35
     )
-    appVer36.providers.add(provider1, provider6)
+    appVer36.providers.add(provider1)
     appVer36.device_versions.add(device_ver5)
     appVer36.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -981,7 +981,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/nimiq/app_del_key",
         app=app36
     )
-    appVer37.providers.add(provider1, provider6)
+    appVer37.providers.add(provider1)
     appVer37.device_versions.add(device_ver5)
     appVer37.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1015,7 +1015,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin/app_del_key",
         app=app0
     )
-    appVer39.providers.add(provider1, provider6)
+    appVer39.providers.add(provider1)
     appVer39.device_versions.add(device_ver5)
     appVer39.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1032,7 +1032,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin_cash/app_del_key",
         app=app1
     )
-    appVer40.providers.add(provider1, provider6)
+    appVer40.providers.add(provider1)
     appVer40.device_versions.add(device_ver5)
     appVer40.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1049,7 +1049,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/ethereum/app_del_key",
         app=app16
     )
-    appVer41.providers.add(provider1, provider6)
+    appVer41.providers.add(provider1)
     appVer41.device_versions.add(device_ver5)
     appVer41.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1066,7 +1066,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/ripple/app_del_key",
         app=app20
     )
-    appVer42.providers.add(provider1, provider6)
+    appVer42.providers.add(provider1)
     appVer42.device_versions.add(device_ver5)
     appVer42.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1083,7 +1083,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/bitcoin/app_del_key",
         app=app0
     )
-    appVer43.providers.add(provider1, provider6)
+    appVer43.providers.add(provider1)
     appVer43.device_versions.add(device_ver5)
     appVer43.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1100,7 +1100,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/bitcoin_cash/app_del_key",
         app=app1
     )
-    appVer44.providers.add(provider1, provider6)
+    appVer44.providers.add(provider1)
     appVer44.device_versions.add(device_ver5)
     appVer44.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1117,7 +1117,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/bitcoin_gold/app_del_key",
         app=app2
     )
-    appVer45.providers.add(provider1, provider6)
+    appVer45.providers.add(provider1)
     appVer45.device_versions.add(device_ver5)
     appVer45.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1134,7 +1134,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/bitcoin_testnet/app_del_key",
         app=app4
     )
-    appVer46.providers.add(provider1, provider6)
+    appVer46.providers.add(provider1)
     appVer46.device_versions.add(device_ver5)
     appVer46.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1151,7 +1151,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/digibyte/app_del_key",
         app=app5
     )
-    appVer47.providers.add(provider1, provider6)
+    appVer47.providers.add(provider1)
     appVer47.device_versions.add(device_ver5)
     appVer47.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1168,7 +1168,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/hcash/app_del_key",
         app=app6
     )
-    appVer48.providers.add(provider1, provider6)
+    appVer48.providers.add(provider1)
     appVer48.device_versions.add(device_ver5)
     appVer48.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1185,7 +1185,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/qtum/app_del_key",
         app=app7
     )
-    appVer49.providers.add(provider1, provider6)
+    appVer49.providers.add(provider1)
     appVer49.device_versions.add(device_ver5)
     appVer49.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1202,7 +1202,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/pivx/app_del_key",
         app=app8
     )
-    appVer50.providers.add(provider1, provider6)
+    appVer50.providers.add(provider1)
     appVer50.device_versions.add(device_ver5)
     appVer50.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1219,7 +1219,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/stealthcoin/app_del_key",
         app=app38
     )
-    appVer51.providers.add(provider1, provider6)
+    appVer51.providers.add(provider1)
     appVer51.device_versions.add(device_ver5)
     appVer51.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1236,7 +1236,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/vertcoin/app_del_key",
         app=app10
     )
-    appVer52.providers.add(provider1, provider6)
+    appVer52.providers.add(provider1)
     appVer52.device_versions.add(device_ver5)
     appVer52.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1253,7 +1253,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/viacoin/app_del_key",
         app=app11
     )
-    appVer53.providers.add(provider1, provider6)
+    appVer53.providers.add(provider1)
     appVer53.device_versions.add(device_ver5)
     appVer53.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1270,7 +1270,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/ubiq/app_del_key",
         app=app12
     )
-    appVer54.providers.add(provider1, provider6)
+    appVer54.providers.add(provider1)
     appVer54.device_versions.add(device_ver5)
     appVer54.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1287,7 +1287,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/expanse/app_del_key",
         app=app13
     )
-    appVer55.providers.add(provider1, provider6)
+    appVer55.providers.add(provider1)
     appVer55.device_versions.add(device_ver5)
     appVer55.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1304,7 +1304,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/dash/app_del_key",
         app=app14
     )
-    appVer56.providers.add(provider1, provider6)
+    appVer56.providers.add(provider1)
     appVer56.device_versions.add(device_ver5)
     appVer56.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1321,7 +1321,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/dogecoin/app_del_key",
         app=app15
     )
-    appVer57.providers.add(provider1, provider6)
+    appVer57.providers.add(provider1)
     appVer57.device_versions.add(device_ver5)
     appVer57.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1338,7 +1338,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/ethereum/app_del_key",
         app=app16
     )
-    appVer58.providers.add(provider1, provider6)
+    appVer58.providers.add(provider1)
     appVer58.device_versions.add(device_ver5)
     appVer58.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1355,7 +1355,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/u2f/app_del_key",
         app=app17
     )
-    appVer59.providers.add(provider1, provider6)
+    appVer59.providers.add(provider1)
     appVer59.device_versions.add(device_ver5)
     appVer59.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1372,7 +1372,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/litecoin/app_del_key",
         app=app18
     )
-    appVer60.providers.add(provider1, provider6)
+    appVer60.providers.add(provider1)
     appVer60.device_versions.add(device_ver5)
     appVer60.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1389,7 +1389,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/stratis/app_del_key",
         app=app19
     )
-    appVer61.providers.add(provider1, provider6)
+    appVer61.providers.add(provider1)
     appVer61.device_versions.add(device_ver5)
     appVer61.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1406,7 +1406,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/ripple/app_del_key",
         app=app20
     )
-    appVer62.providers.add(provider1, provider6)
+    appVer62.providers.add(provider1)
     appVer62.device_versions.add(device_ver5)
     appVer62.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1423,7 +1423,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/zcash/app_del_key",
         app=app21
     )
-    appVer63.providers.add(provider1, provider6)
+    appVer63.providers.add(provider1)
     appVer63.device_versions.add(device_ver5)
     appVer63.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1440,7 +1440,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/komodo/app_del_key",
         app=app23
     )
-    appVer64.providers.add(provider1, provider6)
+    appVer64.providers.add(provider1)
     appVer64.device_versions.add(device_ver5)
     appVer64.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1457,7 +1457,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/sshgpg/st31_gpg_del_key",
         app=app28
     )
-    appVer65.providers.add(provider1, provider6)
+    appVer65.providers.add(provider1)
     appVer65.device_versions.add(device_ver5)
     appVer65.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1474,7 +1474,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/posw/app_del_key",
         app=app25
     )
-    appVer66.providers.add(provider1, provider6)
+    appVer66.providers.add(provider1)
     appVer66.device_versions.add(device_ver5)
     appVer66.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1491,7 +1491,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/ark/app_del_key",
         app=app26
     )
-    appVer67.providers.add(provider1, provider6)
+    appVer67.providers.add(provider1)
     appVer67.device_versions.add(device_ver5)
     appVer67.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1508,7 +1508,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/neo/app_del_key",
         app=app27
     )
-    appVer68.providers.add(provider1, provider6)
+    appVer68.providers.add(provider1)
     appVer68.device_versions.add(device_ver5)
     appVer68.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1525,7 +1525,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/sshgpg/app_del_key",
         app=app28
     )
-    appVer69.providers.add(provider1, provider6)
+    appVer69.providers.add(provider1)
     appVer69.device_versions.add(device_ver5)
     appVer69.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1542,7 +1542,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/pwmgr/app_del_key",
         app=app29
     )
-    appVer70.providers.add(provider1, provider6)
+    appVer70.providers.add(provider1)
     appVer70.device_versions.add(device_ver5)
     appVer70.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1559,7 +1559,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/stellar/app_del_key",
         app=app30
     )
-    appVer71.providers.add(provider1, provider6)
+    appVer71.providers.add(provider1)
     appVer71.device_versions.add(device_ver5)
     appVer71.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1576,7 +1576,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/monero/app_del_key",
         app=app32
     )
-    appVer72.providers.add(provider1, provider6)
+    appVer72.providers.add(provider1)
     appVer72.device_versions.add(device_ver5)
     appVer72.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
@@ -1593,7 +1593,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.1/openpgp/app_del_key",
         app=app34
     )
-    appVer73.providers.add(provider1, provider6)
+    appVer73.providers.add(provider1)
     appVer73.device_versions.add(device_ver5)
     appVer73.se_firmware_final_versions.add(firmware_final_ver3)
     # blue_2 ,
@@ -1610,7 +1610,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/bitcoin/st31_bitcoin_del_key",
         app=app0
     )
-    appVer74.providers.add(provider1, provider6)
+    appVer74.providers.add(provider1)
     appVer74.device_versions.add(device_ver2)
     appVer74.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1627,7 +1627,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/bitcoin_cash/app_del_key",
         app=app1
     )
-    appVer75.providers.add(provider1, provider6)
+    appVer75.providers.add(provider1)
     appVer75.device_versions.add(device_ver2)
     appVer75.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1644,7 +1644,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/dash/st31_dash_del_key",
         app=app14
     )
-    appVer76.providers.add(provider1, provider6)
+    appVer76.providers.add(provider1)
     appVer76.device_versions.add(device_ver2)
     appVer76.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1661,7 +1661,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/dogecoin/st31_dogecoin_del_key",
         app=app15
     )
-    appVer77.providers.add(provider1, provider6)
+    appVer77.providers.add(provider1)
     appVer77.device_versions.add(device_ver2)
     appVer77.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1678,7 +1678,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/ethereum/st31_etc_del_key",
         app=app16
     )
-    appVer78.providers.add(provider1, provider6)
+    appVer78.providers.add(provider1)
     appVer78.device_versions.add(device_ver2)
     appVer78.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1695,7 +1695,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/fido_u2f/st31_fido_u2f_del_key",
         app=app17
     )
-    appVer79.providers.add(provider1, provider6)
+    appVer79.providers.add(provider1)
     appVer79.device_versions.add(device_ver2)
     appVer79.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1712,7 +1712,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/litecoin/st31_litecoin_del_key",
         app=app18
     )
-    appVer80.providers.add(provider1, provider6)
+    appVer80.providers.add(provider1)
     appVer80.device_versions.add(device_ver2)
     appVer80.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1729,7 +1729,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/stratis/st31_stratis_del_key",
         app=app19
     )
-    appVer81.providers.add(provider1, provider6)
+    appVer81.providers.add(provider1)
     appVer81.device_versions.add(device_ver2)
     appVer81.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1746,7 +1746,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/zcash/st31_zcash_del_key",
         app=app21
     )
-    appVer82.providers.add(provider1, provider6)
+    appVer82.providers.add(provider1)
     appVer82.device_versions.add(device_ver2)
     appVer82.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1763,7 +1763,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/ripple/app_del_key",
         app=app20
     )
-    appVer83.providers.add(provider1, provider6)
+    appVer83.providers.add(provider1)
     appVer83.device_versions.add(device_ver2)
     appVer83.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1780,7 +1780,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/posw/app_del_key",
         app=app25
     )
-    appVer84.providers.add(provider1, provider6)
+    appVer84.providers.add(provider1)
     appVer84.device_versions.add(device_ver2)
     appVer84.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1797,7 +1797,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/ubiq/app_del_key",
         app=app12
     )
-    appVer85.providers.add(provider1, provider6)
+    appVer85.providers.add(provider1)
     appVer85.device_versions.add(device_ver2)
     appVer85.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1814,7 +1814,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/expanse/app_del_key",
         app=app13
     )
-    appVer86.providers.add(provider1, provider6)
+    appVer86.providers.add(provider1)
     appVer86.device_versions.add(device_ver2)
     appVer86.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1831,7 +1831,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/pivx/app_del_key",
         app=app8
     )
-    appVer87.providers.add(provider1, provider6)
+    appVer87.providers.add(provider1)
     appVer87.device_versions.add(device_ver2)
     appVer87.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1848,7 +1848,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/stealthcoin/app_del_key",
         app=app38
     )
-    appVer88.providers.add(provider1, provider6)
+    appVer88.providers.add(provider1)
     appVer88.device_versions.add(device_ver2)
     appVer88.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1865,7 +1865,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/vertcoin/app_del_key",
         app=app10
     )
-    appVer89.providers.add(provider1, provider6)
+    appVer89.providers.add(provider1)
     appVer89.device_versions.add(device_ver2)
     appVer89.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1882,7 +1882,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/viacoin/app_del_key",
         app=app11
     )
-    appVer90.providers.add(provider1, provider6)
+    appVer90.providers.add(provider1)
     appVer90.device_versions.add(device_ver2)
     appVer90.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1899,7 +1899,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/komodo/app_del_key",
         app=app23
     )
-    appVer91.providers.add(provider1, provider6)
+    appVer91.providers.add(provider1)
     appVer91.device_versions.add(device_ver2)
     appVer91.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1916,7 +1916,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/bitcoin_gold/app_del_key",
         app=app2
     )
-    appVer92.providers.add(provider1, provider6)
+    appVer92.providers.add(provider1)
     appVer92.device_versions.add(device_ver2)
     appVer92.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1933,7 +1933,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/digibyte/app_del_key",
         app=app5
     )
-    appVer93.providers.add(provider1, provider6)
+    appVer93.providers.add(provider1)
     appVer93.device_versions.add(device_ver2)
     appVer93.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1950,7 +1950,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/hcash/app_del_key",
         app=app6
     )
-    appVer94.providers.add(provider1, provider6)
+    appVer94.providers.add(provider1)
     appVer94.device_versions.add(device_ver2)
     appVer94.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1967,7 +1967,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/qtum/app_del_key",
         app=app7
     )
-    appVer95.providers.add(provider1, provider6)
+    appVer95.providers.add(provider1)
     appVer95.device_versions.add(device_ver2)
     appVer95.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -1984,7 +1984,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/neo/app_del_key",
         app=app27
     )
-    appVer96.providers.add(provider1, provider6)
+    appVer96.providers.add(provider1)
     appVer96.device_versions.add(device_ver2)
     appVer96.se_firmware_final_versions.add(firmware_final_ver0)
     # blue_2 ,
@@ -2001,7 +2001,7 @@ if __name__ == '__main__':
         delete_key="blue/2.0/stellar/app_del_key",
         app=app30
     )
-    appVer97.providers.add(provider1, provider6)
+    appVer97.providers.add(provider1)
     appVer97.device_versions.add(device_ver2)
     appVer97.se_firmware_final_versions.add(firmware_final_ver0)
     # nanos ,
@@ -2018,7 +2018,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin/st31_bitcoin_del_key",
         app=app0
     )
-    appVer98.providers.add(provider1, provider6)
+    appVer98.providers.add(provider1)
     appVer98.device_versions.add(device_ver1)
     appVer98.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2035,7 +2035,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin_cash/app_del_key",
         app=app1
     )
-    appVer99.providers.add(provider1, provider6)
+    appVer99.providers.add(provider1)
     appVer99.device_versions.add(device_ver1)
     appVer99.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2052,7 +2052,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/dash/st31_dash_del_key",
         app=app14
     )
-    appVer100.providers.add(provider1, provider6)
+    appVer100.providers.add(provider1)
     appVer100.device_versions.add(device_ver1)
     appVer100.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2069,7 +2069,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/dogecoin/st31_dogecoin_del_key",
         app=app15
     )
-    appVer101.providers.add(provider1, provider6)
+    appVer101.providers.add(provider1)
     appVer101.device_versions.add(device_ver1)
     appVer101.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2086,7 +2086,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ethereum/st31_etc_del_key",
         app=app16
     )
-    appVer102.providers.add(provider1, provider6)
+    appVer102.providers.add(provider1)
     appVer102.device_versions.add(device_ver1)
     appVer102.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2103,7 +2103,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/fido_u2f/st31_fido_u2f_del_key",
         app=app17
     )
-    appVer103.providers.add(provider1, provider6)
+    appVer103.providers.add(provider1)
     appVer103.device_versions.add(device_ver1)
     appVer103.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2120,7 +2120,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/komodo/st31_komodo_del_key",
         app=app23
     )
-    appVer104.providers.add(provider1, provider6)
+    appVer104.providers.add(provider1)
     appVer104.device_versions.add(device_ver1)
     appVer104.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2137,7 +2137,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/litecoin/st31_litecoin_del_key",
         app=app18
     )
-    appVer105.providers.add(provider1, provider6)
+    appVer105.providers.add(provider1)
     appVer105.device_versions.add(device_ver1)
     appVer105.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2154,7 +2154,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/stratis/st31_stratis_del_key",
         app=app19
     )
-    appVer106.providers.add(provider1, provider6)
+    appVer106.providers.add(provider1)
     appVer106.device_versions.add(device_ver1)
     appVer106.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2171,7 +2171,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/zcash/st31_zcash_del_key",
         app=app21
     )
-    appVer107.providers.add(provider1, provider6)
+    appVer107.providers.add(provider1)
     appVer107.device_versions.add(device_ver1)
     appVer107.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2188,7 +2188,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ssh-agent/st31_gpg_del_key",
         app=app28
     )
-    appVer108.providers.add(provider1, provider6)
+    appVer108.providers.add(provider1)
     appVer108.device_versions.add(device_ver1)
     appVer108.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2205,7 +2205,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/pwmgr/app_del_key",
         app=app29
     )
-    appVer109.providers.add(provider1, provider6)
+    appVer109.providers.add(provider1)
     appVer109.device_versions.add(device_ver1)
     appVer109.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2222,7 +2222,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/openpgp/app_del_key",
         app=app34
     )
-    appVer110.providers.add(provider1, provider6)
+    appVer110.providers.add(provider1)
     appVer110.device_versions.add(device_ver1)
     appVer110.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2239,7 +2239,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/hello/app_del_key",
         app=app33
     )
-    appVer111.providers.add(provider1, provider6)
+    appVer111.providers.add(provider1)
     appVer111.device_versions.add(device_ver1)
     appVer111.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2256,7 +2256,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ripple/app_del_key",
         app=app20
     )
-    appVer112.providers.add(provider1, provider6)
+    appVer112.providers.add(provider1)
     appVer112.device_versions.add(device_ver1)
     appVer112.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2273,7 +2273,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/posw/app_del_key",
         app=app25
     )
-    appVer113.providers.add(provider1, provider6)
+    appVer113.providers.add(provider1)
     appVer113.device_versions.add(device_ver1)
     appVer113.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2290,7 +2290,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ark/app_del_key",
         app=app26
     )
-    appVer114.providers.add(provider1, provider6)
+    appVer114.providers.add(provider1)
     appVer114.device_versions.add(device_ver1)
     appVer114.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2307,7 +2307,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ubiq/app_del_key",
         app=app12
     )
-    appVer115.providers.add(provider1, provider6)
+    appVer115.providers.add(provider1)
     appVer115.device_versions.add(device_ver1)
     appVer115.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2324,7 +2324,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/expanse/app_del_key",
         app=app13
     )
-    appVer116.providers.add(provider1, provider6)
+    appVer116.providers.add(provider1)
     appVer116.device_versions.add(device_ver1)
     appVer116.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2341,7 +2341,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/pivx/app_del_key",
         app=app8
     )
-    appVer117.providers.add(provider1, provider6)
+    appVer117.providers.add(provider1)
     appVer117.device_versions.add(device_ver1)
     appVer117.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2358,7 +2358,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/stealthcoin/app_del_key",
         app=app38
     )
-    appVer118.providers.add(provider1, provider6)
+    appVer118.providers.add(provider1)
     appVer118.device_versions.add(device_ver1)
     appVer118.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2375,7 +2375,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/vertcoin/app_del_key",
         app=app10
     )
-    appVer119.providers.add(provider1, provider6)
+    appVer119.providers.add(provider1)
     appVer119.device_versions.add(device_ver1)
     appVer119.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2392,7 +2392,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/viacoin/app_del_key",
         app=app11
     )
-    appVer120.providers.add(provider1, provider6)
+    appVer120.providers.add(provider1)
     appVer120.device_versions.add(device_ver1)
     appVer120.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2409,7 +2409,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin_testnet/app_del_key",
         app=app4
     )
-    appVer121.providers.add(provider1, provider6)
+    appVer121.providers.add(provider1)
     appVer121.device_versions.add(device_ver1)
     appVer121.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2426,7 +2426,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/neo/app_del_key",
         app=app27
     )
-    appVer122.providers.add(provider1, provider6)
+    appVer122.providers.add(provider1)
     appVer122.device_versions.add(device_ver1)
     appVer122.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2443,7 +2443,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin_gold/app_del_key",
         app=app2
     )
-    appVer123.providers.add(provider1, provider6)
+    appVer123.providers.add(provider1)
     appVer123.device_versions.add(device_ver1)
     appVer123.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2460,7 +2460,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/stellar/app_del_key",
         app=app30
     )
-    appVer124.providers.add(provider1, provider6)
+    appVer124.providers.add(provider1)
     appVer124.device_versions.add(device_ver1)
     appVer124.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2477,7 +2477,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/digibyte/app_del_key",
         app=app5
     )
-    appVer125.providers.add(provider1, provider6)
+    appVer125.providers.add(provider1)
     appVer125.device_versions.add(device_ver1)
     appVer125.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2494,7 +2494,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/hcash/app_del_key",
         app=app6
     )
-    appVer126.providers.add(provider1, provider6)
+    appVer126.providers.add(provider1)
     appVer126.device_versions.add(device_ver1)
     appVer126.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2511,7 +2511,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/qtum/app_del_key",
         app=app7
     )
-    appVer127.providers.add(provider1, provider6)
+    appVer127.providers.add(provider1)
     appVer127.device_versions.add(device_ver1)
     appVer127.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2528,9 +2528,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin/st31_bitcoin_del_key",
         app=app0
     )
-    appVer128.providers.add(provider1, provider6)
-    appVer128.device_versions.add(device_ver1)
-    appVer128.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer128.providers.add(provider3)
+    appVer128.device_versions.add(device_ver0)
+    appVer128.se_firmware_final_versions.add(firmware_final_ver6)
     # nanos ,
     appVer129 = ApplicationVersion.objects.create(
         name="Ethereum",
@@ -2545,9 +2545,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ethereum/st31_etc_del_key",
         app=app16
     )
-    appVer129.providers.add(provider1, provider6)
-    appVer129.device_versions.add(device_ver1)
-    appVer129.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer129.providers.add(provider3)
+    appVer129.device_versions.add(device_ver0)
+    appVer129.se_firmware_final_versions.add(firmware_final_ver6)
     # nanos ,
     appVer130 = ApplicationVersion.objects.create(
         name="Clubcoin",
@@ -2562,9 +2562,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1-club/clubcoin/app_del_key",
         app=app39
     )
-    appVer130.providers.add(provider1, provider6)
-    appVer130.device_versions.add(device_ver1)
-    appVer130.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer130.providers.add(provider3)
+    appVer130.device_versions.add(device_ver0)
+    appVer130.se_firmware_final_versions.add(firmware_final_ver6)
     # nanos ,
     appVer131 = ApplicationVersion.objects.create(
         name="Zcash",
@@ -2579,9 +2579,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/zcash/st31_zcash_del_key",
         app=app21
     )
-    appVer131.providers.add(provider1, provider6)
-    appVer131.device_versions.add(device_ver1)
-    appVer131.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer131.providers.add(provider3)
+    appVer131.device_versions.add(device_ver0)
+    appVer131.se_firmware_final_versions.add(firmware_final_ver6)
     # nanos ,
     appVer132 = ApplicationVersion.objects.create(
         name="Fido U2F",
@@ -2596,9 +2596,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/fido_u2f/st31_fido_u2f_del_key",
         app=app17
     )
-    appVer132.providers.add(provider1, provider6)
-    appVer132.device_versions.add(device_ver1)
-    appVer132.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer132.providers.add(provider3)
+    appVer132.device_versions.add(device_ver0)
+    appVer132.se_firmware_final_versions.add(firmware_final_ver6)
     # nanos ,
     appVer133 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -2613,7 +2613,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin/st31_bitcoin_del_key",
         app=app0
     )
-    appVer133.providers.add(provider1, provider6)
+    appVer133.providers.add(provider1)
     appVer133.device_versions.add(device_ver1)
     appVer133.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2630,7 +2630,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin_cash/app_del_key",
         app=app1
     )
-    appVer134.providers.add(provider1, provider6)
+    appVer134.providers.add(provider1)
     appVer134.device_versions.add(device_ver1)
     appVer134.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2647,7 +2647,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ethereum/st31_etc_del_key",
         app=app16
     )
-    appVer135.providers.add(provider1, provider6)
+    appVer135.providers.add(provider1)
     appVer135.device_versions.add(device_ver1)
     appVer135.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2664,7 +2664,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ripple/app_del_key",
         app=app20
     )
-    appVer136.providers.add(provider1, provider6)
+    appVer136.providers.add(provider1)
     appVer136.device_versions.add(device_ver1)
     appVer136.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2698,7 +2698,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3/bitcoin/st31_bitcoin_del_key",
         app=app0
     )
-    appVer138.providers.add(provider1, provider6)
+    appVer138.providers.add(provider1)
     appVer138.device_versions.add(device_ver1)
     appVer138.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2715,7 +2715,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3/dash/st31_dash_del_key",
         app=app14
     )
-    appVer139.providers.add(provider1, provider6)
+    appVer139.providers.add(provider1)
     appVer139.device_versions.add(device_ver1)
     appVer139.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2732,7 +2732,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3/dogecoin/st31_dogecoin_del_key",
         app=app15
     )
-    appVer140.providers.add(provider1, provider6)
+    appVer140.providers.add(provider1)
     appVer140.device_versions.add(device_ver1)
     appVer140.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2749,7 +2749,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3/ethereum/st31_etc_del_key",
         app=app16
     )
-    appVer141.providers.add(provider1, provider6)
+    appVer141.providers.add(provider1)
     appVer141.device_versions.add(device_ver1)
     appVer141.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2766,7 +2766,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3/fido_u2f/st31_fido_u2f_del_key",
         app=app17
     )
-    appVer142.providers.add(provider1, provider6)
+    appVer142.providers.add(provider1)
     appVer142.device_versions.add(device_ver1)
     appVer142.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2783,7 +2783,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3/litecoin/st31_litecoin_del_key",
         app=app18
     )
-    appVer143.providers.add(provider1, provider6)
+    appVer143.providers.add(provider1)
     appVer143.device_versions.add(device_ver1)
     appVer143.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2800,7 +2800,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3/stratis/st31_stratis_del_key",
         app=app19
     )
-    appVer144.providers.add(provider1, provider6)
+    appVer144.providers.add(provider1)
     appVer144.device_versions.add(device_ver1)
     appVer144.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2817,7 +2817,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3/zcash/st31_zcash_del_key",
         app=app21
     )
-    appVer145.providers.add(provider1, provider6)
+    appVer145.providers.add(provider1)
     appVer145.device_versions.add(device_ver1)
     appVer145.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2834,7 +2834,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3/sshgpg/st31_gpg_del_key",
         app=app28
     )
-    appVer146.providers.add(provider1, provider6)
+    appVer146.providers.add(provider1)
     appVer146.device_versions.add(device_ver1)
     appVer146.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2851,7 +2851,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.2/bitcoin/st31_bitcoin_del_key",
         app=app0
     )
-    appVer147.providers.add(provider1, provider6)
+    appVer147.providers.add(provider1)
     appVer147.device_versions.add(device_ver1)
     appVer147.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2868,7 +2868,7 @@ if __name__ == '__main__':
         delete_key="undefined",
         app=app40
     )
-    appVer148.providers.add(provider1, provider6)
+    appVer148.providers.add(provider1)
     appVer148.device_versions.add(device_ver1)
     appVer148.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2885,7 +2885,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.2/dash/st31_dash_del_key",
         app=app14
     )
-    appVer149.providers.add(provider1, provider6)
+    appVer149.providers.add(provider1)
     appVer149.device_versions.add(device_ver1)
     appVer149.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2902,7 +2902,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.2/dogecoin/st31_dogecoin_del_key",
         app=app15
     )
-    appVer150.providers.add(provider1, provider6)
+    appVer150.providers.add(provider1)
     appVer150.device_versions.add(device_ver1)
     appVer150.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2919,7 +2919,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.2/ethereum/st31_etc_del_key",
         app=app16
     )
-    appVer151.providers.add(provider1, provider6)
+    appVer151.providers.add(provider1)
     appVer151.device_versions.add(device_ver1)
     appVer151.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2936,7 +2936,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.2/fido_u2f/st31_fido_u2f_del_key",
         app=app17
     )
-    appVer152.providers.add(provider1, provider6)
+    appVer152.providers.add(provider1)
     appVer152.device_versions.add(device_ver1)
     appVer152.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2953,7 +2953,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.2/litecoin/st31_litecoin_del_key",
         app=app18
     )
-    appVer153.providers.add(provider1, provider6)
+    appVer153.providers.add(provider1)
     appVer153.device_versions.add(device_ver1)
     appVer153.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2970,7 +2970,7 @@ if __name__ == '__main__':
         delete_key="undefined",
         app=app28
     )
-    appVer154.providers.add(provider1, provider6)
+    appVer154.providers.add(provider1)
     appVer154.device_versions.add(device_ver1)
     appVer154.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2987,7 +2987,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.2/stratis/st31_stratis_del_key",
         app=app19
     )
-    appVer155.providers.add(provider1, provider6)
+    appVer155.providers.add(provider1)
     appVer155.device_versions.add(device_ver1)
     appVer155.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -3004,7 +3004,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.2/zcash/st31_zcash_del_key",
         app=app21
     )
-    appVer156.providers.add(provider1, provider6)
+    appVer156.providers.add(provider1)
     appVer156.device_versions.add(device_ver1)
     appVer156.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -3021,7 +3021,7 @@ if __name__ == '__main__':
         delete_key="undefined",
         app=app0
     )
-    appVer157.providers.add(provider1, provider6)
+    appVer157.providers.add(provider1)
     appVer157.device_versions.add(device_ver1)
     appVer157.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -3038,7 +3038,7 @@ if __name__ == '__main__':
         delete_key="undefined",
         app=app16
     )
-    appVer158.providers.add(provider1, provider6)
+    appVer158.providers.add(provider1)
     appVer158.device_versions.add(device_ver1)
     appVer158.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -3055,7 +3055,7 @@ if __name__ == '__main__':
         delete_key="undefined",
         app=app17
     )
-    appVer159.providers.add(provider1, provider6)
+    appVer159.providers.add(provider1)
     appVer159.device_versions.add(device_ver1)
     appVer159.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -3072,7 +3072,7 @@ if __name__ == '__main__':
         delete_key="undefined",
         app=app18
     )
-    appVer160.providers.add(provider1, provider6)
+    appVer160.providers.add(provider1)
     appVer160.device_versions.add(device_ver1)
     appVer160.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -3089,6 +3089,6 @@ if __name__ == '__main__':
         delete_key="undefined",
         app=app28
     )
-    appVer161.providers.add(provider1, provider6)
+    appVer161.providers.add(provider1)
     appVer161.device_versions.add(device_ver1)
     appVer161.se_firmware_final_versions.add(firmware_final_ver1)
