@@ -274,9 +274,9 @@ if __name__ == '__main__':
 
     # APP CREATION
     app0 = Application.objects.create(name="Bitcoin")
-    app0.providers.add(provider1)
+    app0.providers.add(provider1, provider2)
     app1 = Application.objects.create(name="Bitcoin Cash")
-    app1.providers.add(provider1)
+    app1.providers.add(provider1, provider2)
     app2 = Application.objects.create(name="Bitcoin Gold")
     app2.providers.add(provider1)
     app3 = Application.objects.create(name="Bitcoin Private")
@@ -306,7 +306,7 @@ if __name__ == '__main__':
     app15 = Application.objects.create(name="Dogecoin")
     app15.providers.add(provider1)
     app16 = Application.objects.create(name="Ethereum")
-    app16.providers.add(provider1)
+    app16.providers.add(provider1, provider2)
     app17 = Application.objects.create(name="Fido U2F")
     app17.providers.add(provider1)
     app18 = Application.objects.create(name="Litecoin")
@@ -314,7 +314,7 @@ if __name__ == '__main__':
     app19 = Application.objects.create(name="Stratis")
     app19.providers.add(provider1)
     app20 = Application.objects.create(name="Ripple")
-    app20.providers.add(provider1)
+    app20.providers.add(provider1, provider2)
     app21 = Application.objects.create(name="Zcash")
     app21.providers.add(provider1)
     app22 = Application.objects.create(name="ZenCash")
@@ -641,9 +641,10 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/ethereum/app_del_key",
         app=app16
     )
-    appVer17.providers.add(provider1)
+    appVer17.providers.add(provider1, provider2)
     appVer17.device_versions.add(device_ver5)
-    appVer17.se_firmware_final_versions.add(firmware_final_ver3)
+    appVer17.se_firmware_final_versions.add(
+        firmware_final_ver3, firmware_final_ver4)
     # nanos-1.4 ,
     appVer18 = ApplicationVersion.objects.create(
         name="Fido U2F",
@@ -709,9 +710,10 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/ripple/app_del_key",
         app=app20
     )
-    appVer21.providers.add(provider1)
+    appVer21.providers.add(provider1, provider2)
     appVer21.device_versions.add(device_ver5)
-    appVer21.se_firmware_final_versions.add(firmware_final_ver3)
+    appVer21.se_firmware_final_versions.add(
+        firmware_final_ver3, firmware_final_ver4)
     # nanos-1.4 ,
     appVer22 = ApplicationVersion.objects.create(
         name="Zcash",
@@ -1000,7 +1002,7 @@ if __name__ == '__main__':
     )
     appVer38.providers.add(provider2)
     appVer38.device_versions.add(device_ver5)
-    appVer38.se_firmware_final_versions.add(firmware_final_ver3)
+    appVer38.se_firmware_final_versions.add(firmware_final_ver4)
     # nanos-1.4 ,
     appVer39 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -1015,9 +1017,10 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin/app_del_key",
         app=app0
     )
-    appVer39.providers.add(provider1)
+    appVer39.providers.add(provider1, provider2)
     appVer39.device_versions.add(device_ver5)
-    appVer39.se_firmware_final_versions.add(firmware_final_ver3)
+    appVer39.se_firmware_final_versions.add(
+        firmware_final_ver3, firmware_final_ver4)
     # nanos-1.4 ,
     appVer40 = ApplicationVersion.objects.create(
         name="Bitcoin Cash",
@@ -1032,43 +1035,10 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin_cash/app_del_key",
         app=app1
     )
-    appVer40.providers.add(provider1)
+    appVer40.providers.add(provider1, provider2)
     appVer40.device_versions.add(device_ver5)
-    appVer40.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 ,
-    appVer41 = ApplicationVersion.objects.create(
-        name="Ethereum",
-        version=65560,
-        display_name="Ethereum",
-        icon="ethereum",
-        hash="0000000000000000000000000000000000000000000000000000000000000000",
-        perso="perso_11",
-        firmware="nanos/1.4.2/ethereum/app_1.0.24",
-        firmware_key="nanos/1.4.2/ethereum/app_1.0.24_key",
-        delete="nanos/1.4.2/ethereum/app_del",
-        delete_key="nanos/1.4.2/ethereum/app_del_key",
-        app=app16
-    )
-    appVer41.providers.add(provider1)
-    appVer41.device_versions.add(device_ver5)
-    appVer41.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 ,
-    appVer42 = ApplicationVersion.objects.create(
-        name="Ripple",
-        version=65540,
-        display_name="Ripple",
-        icon="ripple",
-        hash="0000000000000000000000000000000000000000000000000000000000000000",
-        perso="perso_11",
-        firmware="nanos/1.4.2/ripple/app_1.0.4",
-        firmware_key="nanos/1.4.2/ripple/app_1.0.4_key",
-        delete="nanos/1.4.2/ripple/app_del",
-        delete_key="nanos/1.4.2/ripple/app_del_key",
-        app=app20
-    )
-    appVer42.providers.add(provider1)
-    appVer42.device_versions.add(device_ver5)
-    appVer42.se_firmware_final_versions.add(firmware_final_ver3)
+    appVer40.se_firmware_final_versions.add(
+        firmware_final_ver3, firmware_final_ver4)
     # nanos-1.4 ,
     appVer43 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -2035,9 +2005,10 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin_cash/app_del_key",
         app=app1
     )
-    appVer99.providers.add(provider1)
+    appVer99.providers.add(provider1, provider2)
     appVer99.device_versions.add(device_ver1)
-    appVer99.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer99.se_firmware_final_versions.add(
+        firmware_final_ver1, firmware_final_ver5)
     # nanos ,
     appVer100 = ApplicationVersion.objects.create(
         name="Dash",
@@ -2256,9 +2227,10 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ripple/app_del_key",
         app=app20
     )
-    appVer112.providers.add(provider1)
+    appVer112.providers.add(provider1, provider2)
     appVer112.device_versions.add(device_ver1)
-    appVer112.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer112.se_firmware_final_versions.add(
+        firmware_final_ver1, firmware_final_ver5)
     # nanos ,
     appVer113 = ApplicationVersion.objects.create(
         name="PoSW",
@@ -2613,26 +2585,10 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin/st31_bitcoin_del_key",
         app=app0
     )
-    appVer133.providers.add(provider1)
+    appVer133.providers.add(provider1, provider2)
     appVer133.device_versions.add(device_ver1)
-    appVer133.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos ,
-    appVer134 = ApplicationVersion.objects.create(
-        name="Bitcoin Cash",
-        version=65800,
-        display_name="Bitcoin Cash",
-        icon="bitcoin_cash",
-        hash="a7b1d4f91ff90697c2a532bfed60b85e5f4ff55bbfc92fe9d3d13994fe0a8cbf",
-        perso="perso_11",
-        firmware="nanos/1.3.1/bitcoin_cash/app_1.1.8",
-        firmware_key="nanos/1.3.1/bitcoin_cash/app_1.1.8_key",
-        delete="nanos/1.3.1/bitcoin_cash/app_del",
-        delete_key="nanos/1.3.1/bitcoin_cash/app_del_key",
-        app=app1
-    )
-    appVer134.providers.add(provider1)
-    appVer134.device_versions.add(device_ver1)
-    appVer134.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer133.se_firmware_final_versions.add(
+        firmware_final_ver1, firmware_final_ver5)
     # nanos ,
     appVer135 = ApplicationVersion.objects.create(
         name="Ethereum",
@@ -2647,9 +2603,10 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ethereum/st31_etc_del_key",
         app=app16
     )
-    appVer135.providers.add(provider1)
+    appVer135.providers.add(provider1, provider2)
     appVer135.device_versions.add(device_ver1)
-    appVer135.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer135.se_firmware_final_versions.add(
+        firmware_final_ver1, firmware_final_ver5)
     # nanos ,
     appVer136 = ApplicationVersion.objects.create(
         name="Ripple",
@@ -2683,7 +2640,7 @@ if __name__ == '__main__':
     )
     appVer137.providers.add(provider2)
     appVer137.device_versions.add(device_ver1)
-    appVer137.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer137.se_firmware_final_versions.add(firmware_final_ver5)
     # nanos ,
     appVer138 = ApplicationVersion.objects.create(
         name="Bitcoin",
