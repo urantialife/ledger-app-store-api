@@ -35,8 +35,6 @@ urlpatterns = [
     path('devices/<int:pk>', views.DeviceDetail.as_view()),
     path('device_versions', views.DeviceVersionView.as_view()),
     path('device_versions/<int:pk>', views.DeviceVersionDetail.as_view()),
-    path('device_versions_target_id',
-         views.device_by_target_id),
     ### PUBLISHERS ###
     path('publishers', views.PublisherView.as_view()),
     path('publishers/<int:pk>', views.PublisherDetail.as_view()),
@@ -55,4 +53,6 @@ urlpatterns = [
     ### LIVE CALLS ###
     path('get_latest_firmware', views.get_latest),
     path('get_apps', views.get_app_to_display),
+    path('get_device_version',
+         views.device_by_target_id),
 ]

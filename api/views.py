@@ -61,13 +61,13 @@ def get_app_to_display(request):
     current_se_firmware_final_version_id = request.data.get(
         'current_se_firmware_final_version')
     current_device_version_id = request.data.get('device_version')
-    providers_id_list = request.data.get('providers')
+    provider = request.data.get('provider')
     compatible_apps = None
     try:
         compatible_apps = ApplicationVersion.objects.filter(
             device_versions__id=current_device_version_id,
             se_firmware_final_versions=current_se_firmware_final_version_id,
-            providers__in=providers_id_list
+            providers=provider
         )
     except ApplicationVersion.DoesNotExist:
         print("execption")
@@ -162,15 +162,13 @@ def se_firmware_final_version_by_name_and_device(request):
 @api_view(["POST"])
 def se_firmware_osu_version_by_name_and_device(request):
     se_firmware_version_name = request.data.get('se_firmware_name')
-    if 'device_version' in request.data:
-        device_version_id = request.data.get('device_version')
-        se_firmware_ver = get_object_or_404(
-            SeFirmwareOSUVersion, name=se_firmware_version_name, device_versions__id=device_version_id)
-    else:
-        target_id = request.data.get('target_id')
-        device_ver = get_object_or_404(DeviceVersion, target_id=target_id)
-        se_firmware_ver = get_object_or_404(
-            SeFirmwareOSUVersion, name=se_firmware_version_name, device_versions=device_ver)
+    provider = request.data.get('provider')
+    device_version_id = request.data.get('device_version')
+    se_firmware_ver = get_object_or_404(
+        SeFirmwareOSUVersion, name=se_firmware_version_name,
+        device_versions__id=device_version_id,
+        providers=provider
+    )
 
     serializer = SeFirmwareOSUVersionSerializer(se_firmware_ver)
     return Response(serializer.data)
@@ -181,14 +179,14 @@ def get_latest(request):
     current_se_firmware_final_version_id = request.data.get(
         'current_se_firmware_final_version')
     current_device_version_id = request.data.get('device_version')
-    providers_id_list = request.data.get('providers')
+    provider = request.data.get('provider')
 
     next_se_firmware_osu_versions = None
     try:
         next_se_firmware_osu_versions = SeFirmwareOSUVersion.objects.filter(
             device_versions=current_device_version_id,
             previous_se_firmware_final_versions__id=current_se_firmware_final_version_id,
-            providers__in=providers_id_list
+            providers=provider
         )
     except SeFirmwareOSUVersion.DoesNotExist:
         None
