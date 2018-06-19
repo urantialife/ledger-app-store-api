@@ -8,12 +8,10 @@ from api.models import *
 
 
 if __name__ == '__main__':
-    provider1 = Provider.objects.create(name="Ledger Live default")
-    provider2 = Provider.objects.create(name="DAS")
-    provider3 = Provider.objects.create(name="Bitclub")
-    provider4 = Provider.objects.create(name="Shitcoins")
-    provider5 = Provider.objects.create(name="Beta testing")
-    provider6 = Provider.objects.create(name="Live developer mode")
+    provider1 = Provider.objects.create(name="vanilla")
+    provider2 = Provider.objects.create(name="das")
+    provider3 = Provider.objects.create(name="club")
+    provider4 = Provider.objects.create(name="shitcoins")
 
     # DEVICE CREATION
 
@@ -21,12 +19,19 @@ if __name__ == '__main__':
     device2 = Device.objects.create(name="Ledger Blue")
     device3 = Device.objects.create(name="Ledger Aramis")
 
+    device_ver0 = DeviceVersion.objects.create(
+        name="nanos-club",
+        target_id=823132162,
+        device=device1
+    )
+    device_ver0.providers.add(provider3)
+
     device_ver1 = DeviceVersion.objects.create(
         name="nanos",
         target_id=823132162,
         device=device1
     )
-    device_ver1.providers.add(provider1, provider2, provider3)
+    device_ver1.providers.add(provider1, provider2)
 
     device_ver2 = DeviceVersion.objects.create(
         name="blue_2",
@@ -50,7 +55,7 @@ if __name__ == '__main__':
         target_id=823132163,
         device=device1
     )
-    device_ver5.providers.add(provider1, provider2, provider3)
+    device_ver5.providers.add(provider1, provider2)
 
     # FIRMWARE CREATION
     firmware0 = SeFirmware.objects.create(name="Ledger blue 2 firmware")
@@ -60,7 +65,7 @@ if __name__ == '__main__':
     firmware2 = SeFirmware.objects.create(name="DAS firmware")
     firmware2.providers.add(provider2)
     firmware3 = SeFirmware.objects.create(name="Bitclub firmware")
-    firmware2.providers.add(provider3)
+    firmware3.providers.add(provider3)
 
     # FIRMWARE FINAL CREATION
     firmware_final_ver0 = SeFirmwareFinalVersion.objects.create(
@@ -134,6 +139,30 @@ if __name__ == '__main__':
     )
     firmware_final_ver5.device_versions.add(device_ver1)
     firmware_final_ver5.providers.add(provider2)
+
+    firmware_final_ver6 = SeFirmwareFinalVersion.objects.create(
+        name="1.3.1-club",
+        version=int.from_bytes(bytes([0, 1, 3, 1]), 'big'),
+        perso="perso_club_10",
+        firmware="nanos/1.3.1-club/upgrade_1.3.1_club",
+        firmware_key="nanos/1.3.1-club/upgrade_1.3.1_club_key",
+        hash="74d10f134677adb030bafce8adb70c6510e7181a9aae509159f904be01edeed2",
+        se_firmware=firmware3
+    )
+    firmware_final_ver6.device_versions.add(device_ver0)
+    firmware_final_ver6.providers.add(provider3)
+
+    firmware_final_ver7 = SeFirmwareFinalVersion.objects.create(
+        name="1.2.0-club",
+        version=int.from_bytes(bytes([0, 1, 2, 0]), 'big'),
+        perso="perso_club_10",
+        firmware="",
+        firmware_key="",
+        hash="",
+        se_firmware=firmware3
+    )
+    firmware_final_ver7.device_versions.add(device_ver0)
+    firmware_final_ver7.providers.add(provider3)
 
     # MCU CREATION
     mcu = Mcu.objects.create(name="Ledger")
@@ -230,6 +259,19 @@ if __name__ == '__main__':
         firmware_final_ver5)
     firmware_osu_ver5.providers.add(provider2)
 
+    firmware_osu_ver6 = SeFirmwareOSUVersion.objects.create(
+        name="1.3.1-club-osu",
+        perso="perso_club_10",
+        firmware="nanos/1.3.1-club/upgrade_osu_1.3.1_club",
+        firmware_key="nanos/1.3.1-club/upgrade_osu_1.3.1_club_key",
+        hash="78ef4503452b5810b42e6e715d4fe8ff3765f06758c78eefe3977e1949a12503",
+        next_se_firmware_final_version=firmware_final_ver6
+    )
+    firmware_osu_ver6.device_versions.add(device_ver0)
+    firmware_osu_ver6.previous_se_firmware_final_versions.add(
+        firmware_final_ver7)
+    firmware_osu_ver6.providers.add(provider3)
+
     # APP CREATION
     app0 = Application.objects.create(name="Bitcoin")
     app0.providers.add(provider1, provider6)
@@ -313,7 +355,7 @@ if __name__ == '__main__':
     app39.providers.add(provider1, provider6)
     app40 = Application.objects.create(name="Bitcoin Beta")
     app40.providers.add(provider1, provider6)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer1 = ApplicationVersion.objects.create(
         name="Bitcoin",
         version=66054,
@@ -330,7 +372,7 @@ if __name__ == '__main__':
     appVer1.providers.add(provider1, provider6)
     appVer1.device_versions.add(device_ver5)
     appVer1.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer2 = ApplicationVersion.objects.create(
         name="Bitcoin Cash",
         version=66054,
@@ -347,7 +389,7 @@ if __name__ == '__main__':
     appVer2.providers.add(provider1, provider6)
     appVer2.device_versions.add(device_ver5)
     appVer2.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer3 = ApplicationVersion.objects.create(
         name="Bitcoin Gold",
         version=66054,
@@ -364,7 +406,7 @@ if __name__ == '__main__':
     appVer3.providers.add(provider1, provider6)
     appVer3.device_versions.add(device_ver5)
     appVer3.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer4 = ApplicationVersion.objects.create(
         name="Bitcoin Private",
         version=66054,
@@ -381,7 +423,7 @@ if __name__ == '__main__':
     appVer4.providers.add(provider1, provider6)
     appVer4.device_versions.add(device_ver5)
     appVer4.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer5 = ApplicationVersion.objects.create(
         name="Bitcoin testnet",
         version=66054,
@@ -398,7 +440,7 @@ if __name__ == '__main__':
     appVer5.providers.add(provider1, provider6)
     appVer5.device_versions.add(device_ver5)
     appVer5.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer6 = ApplicationVersion.objects.create(
         name="Digibyte",
         version=66054,
@@ -415,7 +457,7 @@ if __name__ == '__main__':
     appVer6.providers.add(provider1, provider6)
     appVer6.device_versions.add(device_ver5)
     appVer6.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer7 = ApplicationVersion.objects.create(
         name="HCash",
         version=66054,
@@ -432,7 +474,7 @@ if __name__ == '__main__':
     appVer7.providers.add(provider1, provider6)
     appVer7.device_versions.add(device_ver5)
     appVer7.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer8 = ApplicationVersion.objects.create(
         name="Qtum",
         version=66054,
@@ -449,7 +491,7 @@ if __name__ == '__main__':
     appVer8.providers.add(provider1, provider6)
     appVer8.device_versions.add(device_ver5)
     appVer8.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer9 = ApplicationVersion.objects.create(
         name="PIVX",
         version=66054,
@@ -466,7 +508,7 @@ if __name__ == '__main__':
     appVer9.providers.add(provider1, provider6)
     appVer9.device_versions.add(device_ver5)
     appVer9.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer10 = ApplicationVersion.objects.create(
         name="Stealth",
         version=66054,
@@ -483,7 +525,7 @@ if __name__ == '__main__':
     appVer10.providers.add(provider1, provider6)
     appVer10.device_versions.add(device_ver5)
     appVer10.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer11 = ApplicationVersion.objects.create(
         name="Vertcoin",
         version=66054,
@@ -500,7 +542,7 @@ if __name__ == '__main__':
     appVer11.providers.add(provider1, provider6)
     appVer11.device_versions.add(device_ver5)
     appVer11.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer12 = ApplicationVersion.objects.create(
         name="Viacoin",
         version=66054,
@@ -517,7 +559,7 @@ if __name__ == '__main__':
     appVer12.providers.add(provider1, provider6)
     appVer12.device_versions.add(device_ver5)
     appVer12.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer13 = ApplicationVersion.objects.create(
         name="Ubiq",
         version=65560,
@@ -534,7 +576,7 @@ if __name__ == '__main__':
     appVer13.providers.add(provider1, provider6)
     appVer13.device_versions.add(device_ver5)
     appVer13.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer14 = ApplicationVersion.objects.create(
         name="Expanse",
         version=65560,
@@ -551,7 +593,7 @@ if __name__ == '__main__':
     appVer14.providers.add(provider1, provider6)
     appVer14.device_versions.add(device_ver5)
     appVer14.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer15 = ApplicationVersion.objects.create(
         name="Dash",
         version=66054,
@@ -568,7 +610,7 @@ if __name__ == '__main__':
     appVer15.providers.add(provider1, provider6)
     appVer15.device_versions.add(device_ver5)
     appVer15.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer16 = ApplicationVersion.objects.create(
         name="Dogecoin",
         version=66054,
@@ -585,7 +627,7 @@ if __name__ == '__main__':
     appVer16.providers.add(provider1, provider6)
     appVer16.device_versions.add(device_ver5)
     appVer16.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer17 = ApplicationVersion.objects.create(
         name="Ethereum",
         version=65560,
@@ -602,7 +644,7 @@ if __name__ == '__main__':
     appVer17.providers.add(provider1, provider6)
     appVer17.device_versions.add(device_ver5)
     appVer17.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer18 = ApplicationVersion.objects.create(
         name="Fido U2F",
         version=66052,
@@ -619,7 +661,7 @@ if __name__ == '__main__':
     appVer18.providers.add(provider1, provider6)
     appVer18.device_versions.add(device_ver5)
     appVer18.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer19 = ApplicationVersion.objects.create(
         name="Litecoin",
         version=66054,
@@ -636,7 +678,7 @@ if __name__ == '__main__':
     appVer19.providers.add(provider1, provider6)
     appVer19.device_versions.add(device_ver5)
     appVer19.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer20 = ApplicationVersion.objects.create(
         name="Stratis",
         version=66054,
@@ -653,7 +695,7 @@ if __name__ == '__main__':
     appVer20.providers.add(provider1, provider6)
     appVer20.device_versions.add(device_ver5)
     appVer20.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer21 = ApplicationVersion.objects.create(
         name="Ripple",
         version=65540,
@@ -670,7 +712,7 @@ if __name__ == '__main__':
     appVer21.providers.add(provider1, provider6)
     appVer21.device_versions.add(device_ver5)
     appVer21.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer22 = ApplicationVersion.objects.create(
         name="Zcash",
         version=66054,
@@ -687,7 +729,7 @@ if __name__ == '__main__':
     appVer22.providers.add(provider1, provider6)
     appVer22.device_versions.add(device_ver5)
     appVer22.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer23 = ApplicationVersion.objects.create(
         name="ZenCash",
         version=66054,
@@ -704,7 +746,7 @@ if __name__ == '__main__':
     appVer23.providers.add(provider1, provider6)
     appVer23.device_versions.add(device_ver5)
     appVer23.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer24 = ApplicationVersion.objects.create(
         name="Komodo",
         version=66054,
@@ -721,7 +763,7 @@ if __name__ == '__main__':
     appVer24.providers.add(provider1, provider6)
     appVer24.device_versions.add(device_ver5)
     appVer24.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer25 = ApplicationVersion.objects.create(
         name="Peercoin",
         version=66054,
@@ -738,7 +780,7 @@ if __name__ == '__main__':
     appVer25.providers.add(provider1, provider6)
     appVer25.device_versions.add(device_ver5)
     appVer25.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer26 = ApplicationVersion.objects.create(
         name="PoSW",
         version=66054,
@@ -755,7 +797,7 @@ if __name__ == '__main__':
     appVer26.providers.add(provider1, provider6)
     appVer26.device_versions.add(device_ver5)
     appVer26.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer27 = ApplicationVersion.objects.create(
         name="Ark",
         version=259,
@@ -772,7 +814,7 @@ if __name__ == '__main__':
     appVer27.providers.add(provider1, provider6)
     appVer27.device_versions.add(device_ver5)
     appVer27.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer28 = ApplicationVersion.objects.create(
         name="Neo",
         version=66305,
@@ -789,7 +831,7 @@ if __name__ == '__main__':
     appVer28.providers.add(provider1, provider6)
     appVer28.device_versions.add(device_ver5)
     appVer28.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer29 = ApplicationVersion.objects.create(
         name="SSH/GPG Agent",
         version=4,
@@ -806,7 +848,7 @@ if __name__ == '__main__':
     appVer29.providers.add(provider1, provider6)
     appVer29.device_versions.add(device_ver5)
     appVer29.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer30 = ApplicationVersion.objects.create(
         name="Passwords Manager",
         version=4,
@@ -823,7 +865,7 @@ if __name__ == '__main__':
     appVer30.providers.add(provider1, provider6)
     appVer30.device_versions.add(device_ver5)
     appVer30.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer31 = ApplicationVersion.objects.create(
         name="Stellar",
         version=131328,
@@ -840,7 +882,7 @@ if __name__ == '__main__':
     appVer31.providers.add(provider1, provider6)
     appVer31.device_versions.add(device_ver5)
     appVer31.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer32 = ApplicationVersion.objects.create(
         name="Woleet",
         version=66053,
@@ -857,7 +899,7 @@ if __name__ == '__main__':
     appVer32.providers.add(provider1, provider6)
     appVer32.device_versions.add(device_ver5)
     appVer32.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer33 = ApplicationVersion.objects.create(
         name="Monero",
         version=65536,
@@ -874,7 +916,7 @@ if __name__ == '__main__':
     appVer33.providers.add(provider1, provider6)
     appVer33.device_versions.add(device_ver5)
     appVer33.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer34 = ApplicationVersion.objects.create(
         name="Hello",
         version=65537,
@@ -891,7 +933,7 @@ if __name__ == '__main__':
     appVer34.providers.add(provider1, provider6)
     appVer34.device_versions.add(device_ver5)
     appVer34.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer35 = ApplicationVersion.objects.create(
         name="Open PGP",
         version=66049,
@@ -908,7 +950,7 @@ if __name__ == '__main__':
     appVer35.providers.add(provider1, provider6)
     appVer35.device_versions.add(device_ver5)
     appVer35.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer36 = ApplicationVersion.objects.create(
         name="Nano",
         version=65536,
@@ -925,7 +967,7 @@ if __name__ == '__main__':
     appVer36.providers.add(provider1, provider6)
     appVer36.device_versions.add(device_ver5)
     appVer36.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer37 = ApplicationVersion.objects.create(
         name="Nimiq",
         version=257,
@@ -942,7 +984,7 @@ if __name__ == '__main__':
     appVer37.providers.add(provider1, provider6)
     appVer37.device_versions.add(device_ver5)
     appVer37.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer38 = ApplicationVersion.objects.create(
         name="DasCoin",
         version=65794,
@@ -959,7 +1001,7 @@ if __name__ == '__main__':
     appVer38.providers.add(provider2)
     appVer38.device_versions.add(device_ver5)
     appVer38.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer39 = ApplicationVersion.objects.create(
         name="Bitcoin",
         version=66053,
@@ -976,7 +1018,7 @@ if __name__ == '__main__':
     appVer39.providers.add(provider1, provider6)
     appVer39.device_versions.add(device_ver5)
     appVer39.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer40 = ApplicationVersion.objects.create(
         name="Bitcoin Cash",
         version=66053,
@@ -993,7 +1035,7 @@ if __name__ == '__main__':
     appVer40.providers.add(provider1, provider6)
     appVer40.device_versions.add(device_ver5)
     appVer40.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer41 = ApplicationVersion.objects.create(
         name="Ethereum",
         version=65560,
@@ -1010,7 +1052,7 @@ if __name__ == '__main__':
     appVer41.providers.add(provider1, provider6)
     appVer41.device_versions.add(device_ver5)
     appVer41.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer42 = ApplicationVersion.objects.create(
         name="Ripple",
         version=65540,
@@ -1027,7 +1069,7 @@ if __name__ == '__main__':
     appVer42.providers.add(provider1, provider6)
     appVer42.device_versions.add(device_ver5)
     appVer42.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer43 = ApplicationVersion.objects.create(
         name="Bitcoin",
         version=66052,
@@ -1044,7 +1086,7 @@ if __name__ == '__main__':
     appVer43.providers.add(provider1, provider6)
     appVer43.device_versions.add(device_ver5)
     appVer43.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer44 = ApplicationVersion.objects.create(
         name="Bitcoin Cash",
         version=66052,
@@ -1061,7 +1103,7 @@ if __name__ == '__main__':
     appVer44.providers.add(provider1, provider6)
     appVer44.device_versions.add(device_ver5)
     appVer44.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer45 = ApplicationVersion.objects.create(
         name="Bitcoin Gold",
         version=66052,
@@ -1078,7 +1120,7 @@ if __name__ == '__main__':
     appVer45.providers.add(provider1, provider6)
     appVer45.device_versions.add(device_ver5)
     appVer45.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer46 = ApplicationVersion.objects.create(
         name="Bitcoin testnet",
         version=66052,
@@ -1095,7 +1137,7 @@ if __name__ == '__main__':
     appVer46.providers.add(provider1, provider6)
     appVer46.device_versions.add(device_ver5)
     appVer46.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer47 = ApplicationVersion.objects.create(
         name="Digibyte",
         version=66052,
@@ -1112,7 +1154,7 @@ if __name__ == '__main__':
     appVer47.providers.add(provider1, provider6)
     appVer47.device_versions.add(device_ver5)
     appVer47.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer48 = ApplicationVersion.objects.create(
         name="HCash",
         version=66052,
@@ -1129,7 +1171,7 @@ if __name__ == '__main__':
     appVer48.providers.add(provider1, provider6)
     appVer48.device_versions.add(device_ver5)
     appVer48.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer49 = ApplicationVersion.objects.create(
         name="Qtum",
         version=66052,
@@ -1146,7 +1188,7 @@ if __name__ == '__main__':
     appVer49.providers.add(provider1, provider6)
     appVer49.device_versions.add(device_ver5)
     appVer49.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer50 = ApplicationVersion.objects.create(
         name="PIVX",
         version=66052,
@@ -1163,7 +1205,7 @@ if __name__ == '__main__':
     appVer50.providers.add(provider1, provider6)
     appVer50.device_versions.add(device_ver5)
     appVer50.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer51 = ApplicationVersion.objects.create(
         name="Stealthcoin",
         version=66052,
@@ -1180,7 +1222,7 @@ if __name__ == '__main__':
     appVer51.providers.add(provider1, provider6)
     appVer51.device_versions.add(device_ver5)
     appVer51.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer52 = ApplicationVersion.objects.create(
         name="Vertcoin",
         version=66052,
@@ -1197,7 +1239,7 @@ if __name__ == '__main__':
     appVer52.providers.add(provider1, provider6)
     appVer52.device_versions.add(device_ver5)
     appVer52.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer53 = ApplicationVersion.objects.create(
         name="Viacoin",
         version=66052,
@@ -1214,7 +1256,7 @@ if __name__ == '__main__':
     appVer53.providers.add(provider1, provider6)
     appVer53.device_versions.add(device_ver5)
     appVer53.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer54 = ApplicationVersion.objects.create(
         name="Ubiq",
         version=65558,
@@ -1231,7 +1273,7 @@ if __name__ == '__main__':
     appVer54.providers.add(provider1, provider6)
     appVer54.device_versions.add(device_ver5)
     appVer54.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer55 = ApplicationVersion.objects.create(
         name="Expanse",
         version=65558,
@@ -1248,7 +1290,7 @@ if __name__ == '__main__':
     appVer55.providers.add(provider1, provider6)
     appVer55.device_versions.add(device_ver5)
     appVer55.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer56 = ApplicationVersion.objects.create(
         name="Dash",
         version=66052,
@@ -1265,7 +1307,7 @@ if __name__ == '__main__':
     appVer56.providers.add(provider1, provider6)
     appVer56.device_versions.add(device_ver5)
     appVer56.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer57 = ApplicationVersion.objects.create(
         name="Dogecoin",
         version=66052,
@@ -1282,7 +1324,7 @@ if __name__ == '__main__':
     appVer57.providers.add(provider1, provider6)
     appVer57.device_versions.add(device_ver5)
     appVer57.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer58 = ApplicationVersion.objects.create(
         name="Ethereum",
         version=65558,
@@ -1299,7 +1341,7 @@ if __name__ == '__main__':
     appVer58.providers.add(provider1, provider6)
     appVer58.device_versions.add(device_ver5)
     appVer58.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer59 = ApplicationVersion.objects.create(
         name="Fido U2F",
         version=66051,
@@ -1316,7 +1358,7 @@ if __name__ == '__main__':
     appVer59.providers.add(provider1, provider6)
     appVer59.device_versions.add(device_ver5)
     appVer59.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer60 = ApplicationVersion.objects.create(
         name="Litecoin",
         version=66052,
@@ -1333,7 +1375,7 @@ if __name__ == '__main__':
     appVer60.providers.add(provider1, provider6)
     appVer60.device_versions.add(device_ver5)
     appVer60.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer61 = ApplicationVersion.objects.create(
         name="Stratis",
         version=66052,
@@ -1350,7 +1392,7 @@ if __name__ == '__main__':
     appVer61.providers.add(provider1, provider6)
     appVer61.device_versions.add(device_ver5)
     appVer61.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer62 = ApplicationVersion.objects.create(
         name="Ripple",
         version=65539,
@@ -1367,7 +1409,7 @@ if __name__ == '__main__':
     appVer62.providers.add(provider1, provider6)
     appVer62.device_versions.add(device_ver5)
     appVer62.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer63 = ApplicationVersion.objects.create(
         name="Zcash",
         version=66052,
@@ -1384,7 +1426,7 @@ if __name__ == '__main__':
     appVer63.providers.add(provider1, provider6)
     appVer63.device_versions.add(device_ver5)
     appVer63.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer64 = ApplicationVersion.objects.create(
         name="Komodo",
         version=66052,
@@ -1401,7 +1443,7 @@ if __name__ == '__main__':
     appVer64.providers.add(provider1, provider6)
     appVer64.device_versions.add(device_ver5)
     appVer64.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer65 = ApplicationVersion.objects.create(
         name="SSH/GPG Agent",
         version=3,
@@ -1418,7 +1460,7 @@ if __name__ == '__main__':
     appVer65.providers.add(provider1, provider6)
     appVer65.device_versions.add(device_ver5)
     appVer65.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer66 = ApplicationVersion.objects.create(
         name="PoSW",
         version=66052,
@@ -1435,7 +1477,7 @@ if __name__ == '__main__':
     appVer66.providers.add(provider1, provider6)
     appVer66.device_versions.add(device_ver5)
     appVer66.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer67 = ApplicationVersion.objects.create(
         name="Ark",
         version=258,
@@ -1452,7 +1494,7 @@ if __name__ == '__main__':
     appVer67.providers.add(provider1, provider6)
     appVer67.device_versions.add(device_ver5)
     appVer67.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer68 = ApplicationVersion.objects.create(
         name="Neo",
         version=65794,
@@ -1469,7 +1511,7 @@ if __name__ == '__main__':
     appVer68.providers.add(provider1, provider6)
     appVer68.device_versions.add(device_ver5)
     appVer68.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer69 = ApplicationVersion.objects.create(
         name="SSH/GPG Agent",
         version=4,
@@ -1486,7 +1528,7 @@ if __name__ == '__main__':
     appVer69.providers.add(provider1, provider6)
     appVer69.device_versions.add(device_ver5)
     appVer69.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer70 = ApplicationVersion.objects.create(
         name="Passwords Manager",
         version=3,
@@ -1503,7 +1545,7 @@ if __name__ == '__main__':
     appVer70.providers.add(provider1, provider6)
     appVer70.device_versions.add(device_ver5)
     appVer70.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer71 = ApplicationVersion.objects.create(
         name="Stellar",
         version=131074,
@@ -1520,7 +1562,7 @@ if __name__ == '__main__':
     appVer71.providers.add(provider1, provider6)
     appVer71.device_versions.add(device_ver5)
     appVer71.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer72 = ApplicationVersion.objects.create(
         name="Monero",
         version=3073,
@@ -1537,7 +1579,7 @@ if __name__ == '__main__':
     appVer72.providers.add(provider1, provider6)
     appVer72.device_versions.add(device_ver5)
     appVer72.se_firmware_final_versions.add(firmware_final_ver3)
-    # nanos-1.4 , 
+    # nanos-1.4 ,
     appVer73 = ApplicationVersion.objects.create(
         name="Open PGP",
         version=65793,
@@ -1554,7 +1596,7 @@ if __name__ == '__main__':
     appVer73.providers.add(provider1, provider6)
     appVer73.device_versions.add(device_ver5)
     appVer73.se_firmware_final_versions.add(firmware_final_ver3)
-    # blue_2 , 
+    # blue_2 ,
     appVer74 = ApplicationVersion.objects.create(
         name="Bitcoin",
         version=65810,
@@ -1571,7 +1613,7 @@ if __name__ == '__main__':
     appVer74.providers.add(provider1, provider6)
     appVer74.device_versions.add(device_ver2)
     appVer74.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer75 = ApplicationVersion.objects.create(
         name="Bitcoin Cash",
         version=65800,
@@ -1588,7 +1630,7 @@ if __name__ == '__main__':
     appVer75.providers.add(provider1, provider6)
     appVer75.device_versions.add(device_ver2)
     appVer75.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer76 = ApplicationVersion.objects.create(
         name="Dash",
         version=65795,
@@ -1605,7 +1647,7 @@ if __name__ == '__main__':
     appVer76.providers.add(provider1, provider6)
     appVer76.device_versions.add(device_ver2)
     appVer76.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer77 = ApplicationVersion.objects.create(
         name="Dogecoin",
         version=65795,
@@ -1622,7 +1664,7 @@ if __name__ == '__main__':
     appVer77.providers.add(provider1, provider6)
     appVer77.device_versions.add(device_ver2)
     appVer77.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer78 = ApplicationVersion.objects.create(
         name="Ethereum",
         version=65558,
@@ -1639,7 +1681,7 @@ if __name__ == '__main__':
     appVer78.providers.add(provider1, provider6)
     appVer78.device_versions.add(device_ver2)
     appVer78.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer79 = ApplicationVersion.objects.create(
         name="Fido U2F",
         version=65792,
@@ -1656,7 +1698,7 @@ if __name__ == '__main__':
     appVer79.providers.add(provider1, provider6)
     appVer79.device_versions.add(device_ver2)
     appVer79.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer80 = ApplicationVersion.objects.create(
         name="Litecoin",
         version=65801,
@@ -1673,7 +1715,7 @@ if __name__ == '__main__':
     appVer80.providers.add(provider1, provider6)
     appVer80.device_versions.add(device_ver2)
     appVer80.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer81 = ApplicationVersion.objects.create(
         name="Stratis",
         version=65795,
@@ -1690,7 +1732,7 @@ if __name__ == '__main__':
     appVer81.providers.add(provider1, provider6)
     appVer81.device_versions.add(device_ver2)
     appVer81.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer82 = ApplicationVersion.objects.create(
         name="Zcash",
         version=65795,
@@ -1707,7 +1749,7 @@ if __name__ == '__main__':
     appVer82.providers.add(provider1, provider6)
     appVer82.device_versions.add(device_ver2)
     appVer82.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer83 = ApplicationVersion.objects.create(
         name="Ripple",
         version=65539,
@@ -1724,7 +1766,7 @@ if __name__ == '__main__':
     appVer83.providers.add(provider1, provider6)
     appVer83.device_versions.add(device_ver2)
     appVer83.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer84 = ApplicationVersion.objects.create(
         name="PoSW",
         version=65810,
@@ -1741,7 +1783,7 @@ if __name__ == '__main__':
     appVer84.providers.add(provider1, provider6)
     appVer84.device_versions.add(device_ver2)
     appVer84.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer85 = ApplicationVersion.objects.create(
         name="Ubiq",
         version=65558,
@@ -1758,7 +1800,7 @@ if __name__ == '__main__':
     appVer85.providers.add(provider1, provider6)
     appVer85.device_versions.add(device_ver2)
     appVer85.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer86 = ApplicationVersion.objects.create(
         name="Expanse",
         version=65556,
@@ -1775,7 +1817,7 @@ if __name__ == '__main__':
     appVer86.providers.add(provider1, provider6)
     appVer86.device_versions.add(device_ver2)
     appVer86.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer87 = ApplicationVersion.objects.create(
         name="PIVX",
         version=65804,
@@ -1792,7 +1834,7 @@ if __name__ == '__main__':
     appVer87.providers.add(provider1, provider6)
     appVer87.device_versions.add(device_ver2)
     appVer87.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer88 = ApplicationVersion.objects.create(
         name="Stealthcoin",
         version=65802,
@@ -1809,7 +1851,7 @@ if __name__ == '__main__':
     appVer88.providers.add(provider1, provider6)
     appVer88.device_versions.add(device_ver2)
     appVer88.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer89 = ApplicationVersion.objects.create(
         name="Vertcoin",
         version=65802,
@@ -1826,7 +1868,7 @@ if __name__ == '__main__':
     appVer89.providers.add(provider1, provider6)
     appVer89.device_versions.add(device_ver2)
     appVer89.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer90 = ApplicationVersion.objects.create(
         name="Viacoin",
         version=65802,
@@ -1843,7 +1885,7 @@ if __name__ == '__main__':
     appVer90.providers.add(provider1, provider6)
     appVer90.device_versions.add(device_ver2)
     appVer90.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer91 = ApplicationVersion.objects.create(
         name="Komodo",
         version=65804,
@@ -1860,7 +1902,7 @@ if __name__ == '__main__':
     appVer91.providers.add(provider1, provider6)
     appVer91.device_versions.add(device_ver2)
     appVer91.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer92 = ApplicationVersion.objects.create(
         name="Bitcoin Gold",
         version=65808,
@@ -1877,7 +1919,7 @@ if __name__ == '__main__':
     appVer92.providers.add(provider1, provider6)
     appVer92.device_versions.add(device_ver2)
     appVer92.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer93 = ApplicationVersion.objects.create(
         name="Digibyte",
         version=65809,
@@ -1894,7 +1936,7 @@ if __name__ == '__main__':
     appVer93.providers.add(provider1, provider6)
     appVer93.device_versions.add(device_ver2)
     appVer93.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer94 = ApplicationVersion.objects.create(
         name="HCash",
         version=65809,
@@ -1911,7 +1953,7 @@ if __name__ == '__main__':
     appVer94.providers.add(provider1, provider6)
     appVer94.device_versions.add(device_ver2)
     appVer94.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer95 = ApplicationVersion.objects.create(
         name="Qtum",
         version=65809,
@@ -1928,7 +1970,7 @@ if __name__ == '__main__':
     appVer95.providers.add(provider1, provider6)
     appVer95.device_versions.add(device_ver2)
     appVer95.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer96 = ApplicationVersion.objects.create(
         name="Neo",
         version=65794,
@@ -1945,7 +1987,7 @@ if __name__ == '__main__':
     appVer96.providers.add(provider1, provider6)
     appVer96.device_versions.add(device_ver2)
     appVer96.se_firmware_final_versions.add(firmware_final_ver0)
-    # blue_2 , 
+    # blue_2 ,
     appVer97 = ApplicationVersion.objects.create(
         name="Stellar",
         version=131074,
@@ -1962,7 +2004,7 @@ if __name__ == '__main__':
     appVer97.providers.add(provider1, provider6)
     appVer97.device_versions.add(device_ver2)
     appVer97.se_firmware_final_versions.add(firmware_final_ver0)
-    # nanos , 
+    # nanos ,
     appVer98 = ApplicationVersion.objects.create(
         name="Bitcoin",
         version=65810,
@@ -1979,7 +2021,7 @@ if __name__ == '__main__':
     appVer98.providers.add(provider1, provider6)
     appVer98.device_versions.add(device_ver1)
     appVer98.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer99 = ApplicationVersion.objects.create(
         name="Bitcoin Cash",
         version=65800,
@@ -1996,7 +2038,7 @@ if __name__ == '__main__':
     appVer99.providers.add(provider1, provider6)
     appVer99.device_versions.add(device_ver1)
     appVer99.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer100 = ApplicationVersion.objects.create(
         name="Dash",
         version=65797,
@@ -2013,7 +2055,7 @@ if __name__ == '__main__':
     appVer100.providers.add(provider1, provider6)
     appVer100.device_versions.add(device_ver1)
     appVer100.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer101 = ApplicationVersion.objects.create(
         name="Dogecoin",
         version=65797,
@@ -2030,7 +2072,7 @@ if __name__ == '__main__':
     appVer101.providers.add(provider1, provider6)
     appVer101.device_versions.add(device_ver1)
     appVer101.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer102 = ApplicationVersion.objects.create(
         name="Ethereum",
         version=65558,
@@ -2047,7 +2089,7 @@ if __name__ == '__main__':
     appVer102.providers.add(provider1, provider6)
     appVer102.device_versions.add(device_ver1)
     appVer102.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer103 = ApplicationVersion.objects.create(
         name="Fido U2F",
         version=66049,
@@ -2064,7 +2106,7 @@ if __name__ == '__main__':
     appVer103.providers.add(provider1, provider6)
     appVer103.device_versions.add(device_ver1)
     appVer103.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer104 = ApplicationVersion.objects.create(
         name="Komodo",
         version=65797,
@@ -2081,7 +2123,7 @@ if __name__ == '__main__':
     appVer104.providers.add(provider1, provider6)
     appVer104.device_versions.add(device_ver1)
     appVer104.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer105 = ApplicationVersion.objects.create(
         name="Litecoin",
         version=65801,
@@ -2098,7 +2140,7 @@ if __name__ == '__main__':
     appVer105.providers.add(provider1, provider6)
     appVer105.device_versions.add(device_ver1)
     appVer105.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer106 = ApplicationVersion.objects.create(
         name="Stratis",
         version=65797,
@@ -2115,7 +2157,7 @@ if __name__ == '__main__':
     appVer106.providers.add(provider1, provider6)
     appVer106.device_versions.add(device_ver1)
     appVer106.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer107 = ApplicationVersion.objects.create(
         name="Zcash",
         version=65797,
@@ -2132,7 +2174,7 @@ if __name__ == '__main__':
     appVer107.providers.add(provider1, provider6)
     appVer107.device_versions.add(device_ver1)
     appVer107.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer108 = ApplicationVersion.objects.create(
         name="SSH/GPG Agent",
         version=3,
@@ -2149,7 +2191,7 @@ if __name__ == '__main__':
     appVer108.providers.add(provider1, provider6)
     appVer108.device_versions.add(device_ver1)
     appVer108.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer109 = ApplicationVersion.objects.create(
         name="Passwords Manager",
         version=3,
@@ -2166,7 +2208,7 @@ if __name__ == '__main__':
     appVer109.providers.add(provider1, provider6)
     appVer109.device_versions.add(device_ver1)
     appVer109.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer110 = ApplicationVersion.objects.create(
         name="Open PGP",
         version=65792,
@@ -2183,7 +2225,7 @@ if __name__ == '__main__':
     appVer110.providers.add(provider1, provider6)
     appVer110.device_versions.add(device_ver1)
     appVer110.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer111 = ApplicationVersion.objects.create(
         name="Hello",
         version=65536,
@@ -2200,7 +2242,7 @@ if __name__ == '__main__':
     appVer111.providers.add(provider1, provider6)
     appVer111.device_versions.add(device_ver1)
     appVer111.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer112 = ApplicationVersion.objects.create(
         name="Ripple",
         version=65539,
@@ -2217,7 +2259,7 @@ if __name__ == '__main__':
     appVer112.providers.add(provider1, provider6)
     appVer112.device_versions.add(device_ver1)
     appVer112.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer113 = ApplicationVersion.objects.create(
         name="PoSW",
         version=65799,
@@ -2234,7 +2276,7 @@ if __name__ == '__main__':
     appVer113.providers.add(provider1, provider6)
     appVer113.device_versions.add(device_ver1)
     appVer113.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer114 = ApplicationVersion.objects.create(
         name="Ark",
         version=257,
@@ -2251,7 +2293,7 @@ if __name__ == '__main__':
     appVer114.providers.add(provider1, provider6)
     appVer114.device_versions.add(device_ver1)
     appVer114.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer115 = ApplicationVersion.objects.create(
         name="Ubiq",
         version=65558,
@@ -2268,7 +2310,7 @@ if __name__ == '__main__':
     appVer115.providers.add(provider1, provider6)
     appVer115.device_versions.add(device_ver1)
     appVer115.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer116 = ApplicationVersion.objects.create(
         name="Expanse",
         version=65556,
@@ -2285,7 +2327,7 @@ if __name__ == '__main__':
     appVer116.providers.add(provider1, provider6)
     appVer116.device_versions.add(device_ver1)
     appVer116.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer117 = ApplicationVersion.objects.create(
         name="PIVX",
         version=65804,
@@ -2302,7 +2344,7 @@ if __name__ == '__main__':
     appVer117.providers.add(provider1, provider6)
     appVer117.device_versions.add(device_ver1)
     appVer117.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer118 = ApplicationVersion.objects.create(
         name="Stealthcoin",
         version=65802,
@@ -2319,7 +2361,7 @@ if __name__ == '__main__':
     appVer118.providers.add(provider1, provider6)
     appVer118.device_versions.add(device_ver1)
     appVer118.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer119 = ApplicationVersion.objects.create(
         name="Vertcoin",
         version=65802,
@@ -2336,7 +2378,7 @@ if __name__ == '__main__':
     appVer119.providers.add(provider1, provider6)
     appVer119.device_versions.add(device_ver1)
     appVer119.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer120 = ApplicationVersion.objects.create(
         name="Viacoin",
         version=65802,
@@ -2353,7 +2395,7 @@ if __name__ == '__main__':
     appVer120.providers.add(provider1, provider6)
     appVer120.device_versions.add(device_ver1)
     appVer120.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer121 = ApplicationVersion.objects.create(
         name="Bitcoin testnet",
         version=65802,
@@ -2370,7 +2412,7 @@ if __name__ == '__main__':
     appVer121.providers.add(provider1, provider6)
     appVer121.device_versions.add(device_ver1)
     appVer121.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer122 = ApplicationVersion.objects.create(
         name="Neo",
         version=65793,
@@ -2387,7 +2429,7 @@ if __name__ == '__main__':
     appVer122.providers.add(provider1, provider6)
     appVer122.device_versions.add(device_ver1)
     appVer122.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer123 = ApplicationVersion.objects.create(
         name="Bitcoin Gold",
         version=65808,
@@ -2404,7 +2446,7 @@ if __name__ == '__main__':
     appVer123.providers.add(provider1, provider6)
     appVer123.device_versions.add(device_ver1)
     appVer123.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer124 = ApplicationVersion.objects.create(
         name="Stellar",
         version=131072,
@@ -2421,7 +2463,7 @@ if __name__ == '__main__':
     appVer124.providers.add(provider1, provider6)
     appVer124.device_versions.add(device_ver1)
     appVer124.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer125 = ApplicationVersion.objects.create(
         name="Digibyte",
         version=65809,
@@ -2438,7 +2480,7 @@ if __name__ == '__main__':
     appVer125.providers.add(provider1, provider6)
     appVer125.device_versions.add(device_ver1)
     appVer125.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer126 = ApplicationVersion.objects.create(
         name="HCash",
         version=65809,
@@ -2455,7 +2497,7 @@ if __name__ == '__main__':
     appVer126.providers.add(provider1, provider6)
     appVer126.device_versions.add(device_ver1)
     appVer126.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer127 = ApplicationVersion.objects.create(
         name="Qtum",
         version=65809,
@@ -2472,7 +2514,7 @@ if __name__ == '__main__':
     appVer127.providers.add(provider1, provider6)
     appVer127.device_versions.add(device_ver1)
     appVer127.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer128 = ApplicationVersion.objects.create(
         name="Bitcoin",
         version=65801,
@@ -2489,7 +2531,7 @@ if __name__ == '__main__':
     appVer128.providers.add(provider1, provider6)
     appVer128.device_versions.add(device_ver1)
     appVer128.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer129 = ApplicationVersion.objects.create(
         name="Ethereum",
         version=65554,
@@ -2506,7 +2548,7 @@ if __name__ == '__main__':
     appVer129.providers.add(provider1, provider6)
     appVer129.device_versions.add(device_ver1)
     appVer129.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer130 = ApplicationVersion.objects.create(
         name="Clubcoin",
         version=65805,
@@ -2523,7 +2565,7 @@ if __name__ == '__main__':
     appVer130.providers.add(provider1, provider6)
     appVer130.device_versions.add(device_ver1)
     appVer130.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer131 = ApplicationVersion.objects.create(
         name="Zcash",
         version=65797,
@@ -2540,7 +2582,7 @@ if __name__ == '__main__':
     appVer131.providers.add(provider1, provider6)
     appVer131.device_versions.add(device_ver1)
     appVer131.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer132 = ApplicationVersion.objects.create(
         name="Fido U2F",
         version=66049,
@@ -2557,7 +2599,7 @@ if __name__ == '__main__':
     appVer132.providers.add(provider1, provider6)
     appVer132.device_versions.add(device_ver1)
     appVer132.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer133 = ApplicationVersion.objects.create(
         name="Bitcoin",
         version=65801,
@@ -2574,7 +2616,7 @@ if __name__ == '__main__':
     appVer133.providers.add(provider1, provider6)
     appVer133.device_versions.add(device_ver1)
     appVer133.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer134 = ApplicationVersion.objects.create(
         name="Bitcoin Cash",
         version=65800,
@@ -2591,7 +2633,7 @@ if __name__ == '__main__':
     appVer134.providers.add(provider1, provider6)
     appVer134.device_versions.add(device_ver1)
     appVer134.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer135 = ApplicationVersion.objects.create(
         name="Ethereum",
         version=65554,
@@ -2608,7 +2650,7 @@ if __name__ == '__main__':
     appVer135.providers.add(provider1, provider6)
     appVer135.device_versions.add(device_ver1)
     appVer135.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer136 = ApplicationVersion.objects.create(
         name="Ripple",
         version=65539,
@@ -2625,7 +2667,7 @@ if __name__ == '__main__':
     appVer136.providers.add(provider1, provider6)
     appVer136.device_versions.add(device_ver1)
     appVer136.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer137 = ApplicationVersion.objects.create(
         name="DasCoin",
         version=65793,
@@ -2642,7 +2684,7 @@ if __name__ == '__main__':
     appVer137.providers.add(provider2)
     appVer137.device_versions.add(device_ver1)
     appVer137.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer138 = ApplicationVersion.objects.create(
         name="Bitcoin",
         version=65796,
@@ -2659,7 +2701,7 @@ if __name__ == '__main__':
     appVer138.providers.add(provider1, provider6)
     appVer138.device_versions.add(device_ver1)
     appVer138.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer139 = ApplicationVersion.objects.create(
         name="Dash",
         version=65796,
@@ -2676,7 +2718,7 @@ if __name__ == '__main__':
     appVer139.providers.add(provider1, provider6)
     appVer139.device_versions.add(device_ver1)
     appVer139.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer140 = ApplicationVersion.objects.create(
         name="Dogecoin",
         version=65796,
@@ -2693,7 +2735,7 @@ if __name__ == '__main__':
     appVer140.providers.add(provider1, provider6)
     appVer140.device_versions.add(device_ver1)
     appVer140.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer141 = ApplicationVersion.objects.create(
         name="Ethereum",
         version=65543,
@@ -2710,7 +2752,7 @@ if __name__ == '__main__':
     appVer141.providers.add(provider1, provider6)
     appVer141.device_versions.add(device_ver1)
     appVer141.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer142 = ApplicationVersion.objects.create(
         name="Fido U2F",
         version=66048,
@@ -2727,7 +2769,7 @@ if __name__ == '__main__':
     appVer142.providers.add(provider1, provider6)
     appVer142.device_versions.add(device_ver1)
     appVer142.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer143 = ApplicationVersion.objects.create(
         name="Litecoin",
         version=65796,
@@ -2744,7 +2786,7 @@ if __name__ == '__main__':
     appVer143.providers.add(provider1, provider6)
     appVer143.device_versions.add(device_ver1)
     appVer143.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer144 = ApplicationVersion.objects.create(
         name="Stratis",
         version=65796,
@@ -2761,7 +2803,7 @@ if __name__ == '__main__':
     appVer144.providers.add(provider1, provider6)
     appVer144.device_versions.add(device_ver1)
     appVer144.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer145 = ApplicationVersion.objects.create(
         name="Zcash",
         version=65796,
@@ -2778,7 +2820,7 @@ if __name__ == '__main__':
     appVer145.providers.add(provider1, provider6)
     appVer145.device_versions.add(device_ver1)
     appVer145.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer146 = ApplicationVersion.objects.create(
         name="SSH/GPG Agent",
         version=2,
@@ -2795,7 +2837,7 @@ if __name__ == '__main__':
     appVer146.providers.add(provider1, provider6)
     appVer146.device_versions.add(device_ver1)
     appVer146.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer147 = ApplicationVersion.objects.create(
         name="Bitcoin",
         version=65795,
@@ -2812,7 +2854,7 @@ if __name__ == '__main__':
     appVer147.providers.add(provider1, provider6)
     appVer147.device_versions.add(device_ver1)
     appVer147.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer148 = ApplicationVersion.objects.create(
         name="Bitcoin Beta",
         version=65794,
@@ -2829,7 +2871,7 @@ if __name__ == '__main__':
     appVer148.providers.add(provider1, provider6)
     appVer148.device_versions.add(device_ver1)
     appVer148.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer149 = ApplicationVersion.objects.create(
         name="Dash",
         version=65795,
@@ -2846,7 +2888,7 @@ if __name__ == '__main__':
     appVer149.providers.add(provider1, provider6)
     appVer149.device_versions.add(device_ver1)
     appVer149.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer150 = ApplicationVersion.objects.create(
         name="Dogecoin",
         version=65795,
@@ -2863,7 +2905,7 @@ if __name__ == '__main__':
     appVer150.providers.add(provider1, provider6)
     appVer150.device_versions.add(device_ver1)
     appVer150.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer151 = ApplicationVersion.objects.create(
         name="Ethereum",
         version=65541,
@@ -2880,7 +2922,7 @@ if __name__ == '__main__':
     appVer151.providers.add(provider1, provider6)
     appVer151.device_versions.add(device_ver1)
     appVer151.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer152 = ApplicationVersion.objects.create(
         name="Fido U2F",
         version=65792,
@@ -2897,7 +2939,7 @@ if __name__ == '__main__':
     appVer152.providers.add(provider1, provider6)
     appVer152.device_versions.add(device_ver1)
     appVer152.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer153 = ApplicationVersion.objects.create(
         name="Litecoin",
         version=65795,
@@ -2914,7 +2956,7 @@ if __name__ == '__main__':
     appVer153.providers.add(provider1, provider6)
     appVer153.device_versions.add(device_ver1)
     appVer153.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer154 = ApplicationVersion.objects.create(
         name="SSH/GPG Agent",
         version=1,
@@ -2931,7 +2973,7 @@ if __name__ == '__main__':
     appVer154.providers.add(provider1, provider6)
     appVer154.device_versions.add(device_ver1)
     appVer154.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer155 = ApplicationVersion.objects.create(
         name="Stratis",
         version=65795,
@@ -2948,7 +2990,7 @@ if __name__ == '__main__':
     appVer155.providers.add(provider1, provider6)
     appVer155.device_versions.add(device_ver1)
     appVer155.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer156 = ApplicationVersion.objects.create(
         name="Zcash",
         version=65795,
@@ -2965,7 +3007,7 @@ if __name__ == '__main__':
     appVer156.providers.add(provider1, provider6)
     appVer156.device_versions.add(device_ver1)
     appVer156.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer157 = ApplicationVersion.objects.create(
         name="Bitcoin",
         version=65536,
@@ -2982,7 +3024,7 @@ if __name__ == '__main__':
     appVer157.providers.add(provider1, provider6)
     appVer157.device_versions.add(device_ver1)
     appVer157.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer158 = ApplicationVersion.objects.create(
         name="Ethereum",
         version=65536,
@@ -2999,7 +3041,7 @@ if __name__ == '__main__':
     appVer158.providers.add(provider1, provider6)
     appVer158.device_versions.add(device_ver1)
     appVer158.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer159 = ApplicationVersion.objects.create(
         name="Fido U2F",
         version=65536,
@@ -3016,7 +3058,7 @@ if __name__ == '__main__':
     appVer159.providers.add(provider1, provider6)
     appVer159.device_versions.add(device_ver1)
     appVer159.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer160 = ApplicationVersion.objects.create(
         name="Litecoin",
         version=65536,
@@ -3033,7 +3075,7 @@ if __name__ == '__main__':
     appVer160.providers.add(provider1, provider6)
     appVer160.device_versions.add(device_ver1)
     appVer160.se_firmware_final_versions.add(firmware_final_ver1)
-    # nanos , 
+    # nanos ,
     appVer161 = ApplicationVersion.objects.create(
         name="SSH/GPG Agent",
         version=1,
