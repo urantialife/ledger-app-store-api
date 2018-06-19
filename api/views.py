@@ -238,9 +238,12 @@ class DeviceVersionDetailList(generics.ListAPIView):
     serializer_class = DeviceVersionDetailSerializer
 
 
-@api_view(["GET"])
-def device_by_target_id(request, target_id):
-    device_ver = get_object_or_404(DeviceVersion, target_id=target_id)
+@api_view(["POST"])
+def device_by_target_id(request):
+    target_id = request.data.get('target_id')
+    provider = request.data.get('provider')
+    device_ver = get_object_or_404(
+        DeviceVersion, target_id=target_id, providers=provider)
 
     serializer = DeviceVersionSerializer(device_ver)
     return Response(serializer.data)

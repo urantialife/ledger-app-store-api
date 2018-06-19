@@ -35,7 +35,7 @@ urlpatterns = [
     path('devices/<int:pk>', views.DeviceDetail.as_view()),
     path('device_versions', views.DeviceVersionView.as_view()),
     path('device_versions/<int:pk>', views.DeviceVersionDetail.as_view()),
-    path('device_versions_target_id/<int:target_id>',
+    path('device_versions_target_id',
          views.device_by_target_id),
     ### PUBLISHERS ###
     path('publishers', views.PublisherView.as_view()),
