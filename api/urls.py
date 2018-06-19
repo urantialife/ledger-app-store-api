@@ -26,10 +26,7 @@ urlpatterns = [
          views.SeFirmwareFinalVersionDetail.as_view()),
     path('firmware_osu_versions/<int:pk>',
          views.SeFirmwareOSUVersionDetail.as_view()),
-    path('firmware_final_versions_name',
-         views.se_firmware_final_version_by_name_and_device),
-    path('firmware_final_versions_name',
-         views.se_firmware_osu_version_by_name_and_device),
+
     ### DEVICES ###
     path('devices', views.DeviceView.as_view()),
     path('devices/<int:pk>', views.DeviceDetail.as_view()),
@@ -55,4 +52,8 @@ urlpatterns = [
     path('get_apps', views.get_app_to_display),
     path('get_device_version',
          views.device_by_target_id),
+    path('get_firmware_version',
+         views.get_firmware_version),
+    path('get_osu_version',
+         views.get_osu_version),
 ]

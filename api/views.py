@@ -143,25 +143,24 @@ class SeFirmwareOSUVersionDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 @api_view(["POST"])
-def se_firmware_final_version_by_name_and_device(request):
-    se_firmware_version_name = request.data.get('se_firmware_name')
-    if 'device_version' in request.data:
-        device_version_id = request.data.get('device_version')
-        se_firmware_ver = get_object_or_404(
-            SeFirmwareFinalVersion, name=se_firmware_version_name, device_versions__id=device_version_id)
-    else:
-        target_id = request.data.get('target_id')
-        device_ver = get_object_or_404(DeviceVersion, target_id=target_id)
-        se_firmware_ver = get_object_or_404(
-            SeFirmwareFinalVersion, name=se_firmware_version_name, device_versions=device_ver)
+def get_firmware_version(request):
+    se_firmware_version_name = request.data.get('version_name')
+    device_version_id = request.data.get('device_version')
+    provider = request.data.get('provider')
+    se_firmware_ver = get_object_or_404(
+        SeFirmwareFinalVersion,
+        name=se_firmware_version_name,
+        device_versions__id=device_version_id,
+        providers=provider
+    )
 
     serializer = SeFirmwareFinalVersionSerializer(se_firmware_ver)
     return Response(serializer.data)
 
 
 @api_view(["POST"])
-def se_firmware_osu_version_by_name_and_device(request):
-    se_firmware_version_name = request.data.get('se_firmware_name')
+def get_osu_version(request):
+    se_firmware_version_name = request.data.get('version_name')
     provider = request.data.get('provider')
     device_version_id = request.data.get('device_version')
     se_firmware_ver = get_object_or_404(
