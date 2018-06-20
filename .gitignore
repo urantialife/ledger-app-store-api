@@ -109,3 +109,5 @@ ENV/
 
 # Development DB
 *.sqlite3
+
+.vscode

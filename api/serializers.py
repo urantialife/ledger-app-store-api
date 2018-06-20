@@ -1,18 +1,79 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from api.models import U2FKey, SeFirmwareVersion, Application
+from api.models import U2FKey, SeFirmwareFinalVersion, SeFirmwareOSUVersion, Application
 from api.models import ApplicationVersion, Device, DeviceVersion, SeFirmware
 from api.models import Publisher, Provider, Category, Mcu, McuVersion
-
+import semver
 
 # VERSION RESOURCES SERIALIZERS
 
-class SeFirmwareVersionSerializer(serializers.ModelSerializer):
+
+class VersionField(serializers.Field):
+
+    def to_representation(self, obj):
+        b = obj.to_bytes(4, byteorder='big')
+        return '{0}.{1}.{2}'.format(b[1], b[2], b[3])
+
+    def to_internal_value(self, data):
+        v = semver.parse(data)
+        internal = bytes([0, v["major"], v["minor"], v["patch"]])
+        return int.from_bytes(internal, 'big')
+
+
+class SeFirmwareOSUVersionSerializer(serializers.ModelSerializer):
     providers = serializers.PrimaryKeyRelatedField(
         many=True,
         allow_null=True,
         queryset=Provider.objects.all(),
     )
+
+    next_se_firmware_final_version = serializers.PrimaryKeyRelatedField(
+        many=False,
+        queryset=SeFirmwareFinalVersion.objects.all(),
+    )
+
+    previous_se_firmware_final_versions = serializers.PrimaryKeyRelatedField(
+        many=True,
+        allow_null=True,
+        queryset=SeFirmwareFinalVersion.objects.all(),
+    )
+
+    device_versions = serializers.PrimaryKeyRelatedField(
+        many=True,
+        allow_null=True,
+        queryset=DeviceVersion.objects.all(),
+    )
+
+    class Meta:
+        model = SeFirmwareOSUVersion
+        fields = (
+            'id',
+            'name',
+            'description',
+            'display_name',
+            'notes',
+            'perso',
+            'firmware',
+            'firmware_key',
+            'hash',
+            'next_se_firmware_final_version',
+            'previous_se_firmware_final_versions',
+            'date_creation',
+            'date_last_modified',
+            'device_versions',
+            'providers',
+        )
+
+
+class SeFirmwareFinalVersionSerializer(serializers.ModelSerializer):
+
+    providers = serializers.PrimaryKeyRelatedField(
+        many=True,
+        allow_null=True,
+        queryset=Provider.objects.all(),
+    )
+
+    version = VersionField()
 
     se_firmware = serializers.PrimaryKeyRelatedField(
         many=False,
@@ -25,10 +86,9 @@ class SeFirmwareVersionSerializer(serializers.ModelSerializer):
         queryset=DeviceVersion.objects.all(),
     )
 
-    previous_se_firmware_versions = serializers.PrimaryKeyRelatedField(
+    osu_versions = SeFirmwareOSUVersionSerializer(
         many=True,
-        allow_null=True,
-        queryset=SeFirmwareVersion.objects.all(),
+        read_only=True,
     )
 
     mcu_versions = serializers.PrimaryKeyRelatedField(
@@ -42,30 +102,25 @@ class SeFirmwareVersionSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = SeFirmwareVersion
+        model = SeFirmwareFinalVersion
         fields = (
             'id',
             'name',
+            'version',
             'se_firmware',
             'description',
             'display_name',
             'notes',
-            'final_perso',
-            'final_target_id',
-            'final_firmware',
-            'final_firmware_key',
-            'final_hash',
-            'osu_perso',
-            'osu_target_id',
-            'osu_firmware',
-            'osu_firmware_key',
-            'osu_hash',
+            'perso',
+            'firmware',
+            'firmware_key',
+            'hash',
+            'osu_versions',
             'date_creation',
             'date_last_modified',
             'device_versions',
             'mcu_versions',
             'application_versions',
-            'previous_se_firmware_versions',
             'providers',
         )
 
@@ -76,6 +131,8 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
         allow_null=True,
         queryset=Provider.objects.all(),
     )
+
+    version = VersionField()
 
     app = serializers.PrimaryKeyRelatedField(
         many=False,
@@ -88,10 +145,10 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
         queryset=DeviceVersion.objects.all(),
     )
 
-    se_firmware_versions = serializers.PrimaryKeyRelatedField(
+    se_firmware_final_versions = serializers.PrimaryKeyRelatedField(
         many=True,
         allow_null=True,
-        queryset=SeFirmwareVersion.objects.all()
+        queryset=SeFirmwareFinalVersion.objects.all()
     )
 
     class Meta:
@@ -99,6 +156,7 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'version',
             'app',
             'description',
             'display_name',
@@ -112,7 +170,7 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
             'delete_key',
             'app',
             'device_versions',
-            'se_firmware_versions',
+            'se_firmware_final_versions',
             'providers',
             'date_creation',
             'date_last_modified',
@@ -136,7 +194,12 @@ class DeviceVersionSerializer(serializers.ModelSerializer):
         read_only=True,
     )
 
-    se_firmware_versions = serializers.PrimaryKeyRelatedField(
+    osu_versions = serializers.PrimaryKeyRelatedField(
+        many=True,
+        read_only=True,
+    )
+
+    se_firmware_final_versions = serializers.PrimaryKeyRelatedField(
         many=True,
         read_only=True,
     )
@@ -157,7 +220,8 @@ class DeviceVersionSerializer(serializers.ModelSerializer):
             'device',
             'providers',
             'mcu_versions',
-            'se_firmware_versions',
+            'se_firmware_final_versions',
+            'osu_versions',
             'application_versions',
             'date_creation',
             'date_last_modified',
@@ -166,7 +230,8 @@ class DeviceVersionSerializer(serializers.ModelSerializer):
 
 class DeviceVersionDetailSerializer(serializers.ModelSerializer):
     application_version = ApplicationVersionSerializer(many=True)
-    se_firmware_version = SeFirmwareVersionSerializer(many=True)
+    se_firmware_final_version = SeFirmwareFinalVersionSerializer(many=True)
+    se_firmware_osu_version = SeFirmwareOSUVersionSerializer(many=True)
 
     class Meta:
         model = DeviceVersion
@@ -177,7 +242,7 @@ class DeviceVersionDetailSerializer(serializers.ModelSerializer):
             'target_id',
             'description',
             'application_version',
-            'se_firmware_version',
+            'se_firmware_final_version',
             'date_creation',
             'date_last_modified',
         )
@@ -195,10 +260,10 @@ class McuVersionSerializer(serializers.ModelSerializer):
         queryset=Provider.objects.all(),
     )
 
-    se_firmware_versions = serializers.PrimaryKeyRelatedField(
+    se_firmware_final_versions = serializers.PrimaryKeyRelatedField(
         many=True,
         allow_null=True,
-        queryset=SeFirmwareVersion.objects.all(),
+        queryset=SeFirmwareFinalVersion.objects.all(),
     )
 
     device_versions = serializers.PrimaryKeyRelatedField(
@@ -217,7 +282,7 @@ class McuVersionSerializer(serializers.ModelSerializer):
             'providers',
             'device_versions',
             'from_bootloader_version',
-            'se_firmware_versions',
+            'se_firmware_final_versions',
             'date_creation',
             'date_last_modified',
         )
@@ -282,7 +347,7 @@ class SeFirmwareSerializer(serializers.ModelSerializer):
         queryset=Provider.objects.all(),
         allow_null=True,
     )
-    se_firmware_versions = SeFirmwareVersionSerializer(
+    se_firmware_final_versions = SeFirmwareFinalVersionSerializer(
         many=True,
         read_only=True
     )
@@ -293,7 +358,7 @@ class SeFirmwareSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'description',
-            'se_firmware_versions',
+            'se_firmware_final_versions',
             'providers',
             'date_creation',
             'date_last_modified',
