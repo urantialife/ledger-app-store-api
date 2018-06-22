@@ -56,4 +56,6 @@ urlpatterns = [
          views.get_firmware_version),
     path('get_osu_version',
          views.get_osu_version),
+    # PUBLIC CALLS
+    # path('get_supported_currencies', views.get_supported_currencies),
 ]
