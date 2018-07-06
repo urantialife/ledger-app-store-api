@@ -435,3 +435,28 @@ def finish_login(request):
 
     token, _ = Token.objects.get_or_create(user=user)
     return Response({"token": token.key})
+
+
+# @api_view(["GET"])
+# def get_supported_currencies(request):
+#     try:
+#         compatible_apps = ApplicationVersion.objects.filter(
+#             providers=1,
+#             app.category.name="currency"
+#         )
+#     except ApplicationVersion.DoesNotExist:
+#         None
+#     if not compatible_apps:
+#         return Response({"supported_currencies": {}, "result": "null"})
+
+#     listed_apps = []
+#     excluded_appVer = []
+#     for appVer in compatible_apps.order_by("-version"):
+#         if not(appVer.app.id in listed_apps):
+#             listed_apps.append(appVer.app.id)
+#         else:
+#             excluded_appVer.append(appVer.id)
+#     apps_to_display = compatible_apps.exclude(id__in=excluded_appVer)
+#     serializer = ApplicationVersionSerializer(
+#         apps_to_display.order_by("name"), many=True)
+#     return Response({"supported_currencies": serializer.data})

@@ -56,9 +56,21 @@ if __name__ == '__main__':
         device=device1
     )
     device_ver5.providers.add(provider1, provider2)
+    device_ver6 = DeviceVersion.objects.create(
+        name="blue_2hw10",
+        target_id=822083588,
+        device=device2
+    )
+    device_ver6.providers.add(provider1)
+    device_ver7 = DeviceVersion.objects.create(
+        name="blue_2hw15",
+        target_id=822149124,
+        device=device2
+    )
+    device_ver7.providers.add(provider1)
 
     # FIRMWARE CREATION
-    firmware0 = SeFirmware.objects.create(name="Ledger blue 2 firmware")
+    firmware0 = SeFirmware.objects.create(name="Ledger blue firmware")
     firmware0.providers.add(provider1)
     firmware = SeFirmware.objects.create(name="Ledger nano S firmware")
     firmware.providers.add(provider1)
@@ -68,8 +80,9 @@ if __name__ == '__main__':
     firmware3.providers.add(provider3)
 
     # FIRMWARE FINAL CREATION
+    # BLUE
     firmware_final_ver0 = SeFirmwareFinalVersion.objects.create(
-        name="2.0.1 blue only",
+        name="2.0.1",
         version=int.from_bytes(bytes([0, 2, 0, 1]), 'big'),
         perso="perso_11",
         firmware="",
@@ -80,6 +93,67 @@ if __name__ == '__main__':
     firmware_final_ver0.device_versions.add(device_ver2)
     firmware_final_ver0.providers.add(provider1)
 
+    firmware_final_ver8 = SeFirmwareFinalVersion.objects.create(
+        name="2.0.0",
+        version=int.from_bytes(bytes([0, 2, 0, 0]), 'big'),
+        perso="perso_11",
+        firmware="",
+        firmware_key="",
+        hash="",
+        se_firmware=firmware0
+    )
+    firmware_final_ver8.device_versions.add(device_ver2)
+    firmware_final_ver8.providers.add(provider1)
+
+    firmware_final_ver9 = SeFirmwareFinalVersion.objects.create(
+        name="2.1.1",
+        version=int.from_bytes(bytes([0, 2, 1, 1]), 'big'),
+        perso="perso_11",
+        firmware="blue/2.1.1/from_2.0-hw10/upgrade_2.1.1",
+        firmware_key="blue/2.1.1/from_2.0-hw10/upgrade_2.1.1_key",
+        hash="60fe0168a775ab96093a012b08a50df42980ed2a5696aeb764e906677c9d6151",
+        se_firmware=firmware0
+    )
+    firmware_final_ver9.device_versions.add(device_ver6)
+    firmware_final_ver9.providers.add(provider1)
+
+    firmware_final_ver10 = SeFirmwareFinalVersion.objects.create(
+        name="2.1.1",
+        version=int.from_bytes(bytes([0, 2, 1, 1]), 'big'),
+        perso="perso_11",
+        firmware="blue/2.1.1/from_2.0.1ngs-hw15/upgrade_2.1.1",
+        firmware_key="blue/2.1.1/from_2.0.1ngs-hw15/upgrade_2.1.1_key",
+        hash="54bbdadac9e6ef8e6c502f159777307ff1e23b7d042a2a82d9d8a386d6883c9c",
+        se_firmware=firmware0
+    )
+    firmware_final_ver10.device_versions.add(device_ver7)
+    firmware_final_ver10.providers.add(provider1)
+
+    firmware_final_ver11 = SeFirmwareFinalVersion.objects.create(
+        name="2.1.0",
+        version=int.from_bytes(bytes([0, 2, 1, 0]), 'big'),
+        perso="perso_11",
+        firmware="",
+        firmware_key="",
+        hash="",
+        se_firmware=firmware0
+    )
+    firmware_final_ver11.device_versions.add(device_ver6)
+    firmware_final_ver11.providers.add(provider1)
+
+    firmware_final_ver12 = SeFirmwareFinalVersion.objects.create(
+        name="2.1.0",
+        version=int.from_bytes(bytes([0, 2, 1, 0]), 'big'),
+        perso="perso_11",
+        firmware="",
+        firmware_key="",
+        hash="",
+        se_firmware=firmware0
+    )
+    firmware_final_ver12.device_versions.add(device_ver7)
+    firmware_final_ver12.providers.add(provider1)
+
+    # NANO S
     firmware_final_ver1 = SeFirmwareFinalVersion.objects.create(
         name="1.3.1",
         version=int.from_bytes(bytes([0, 1, 3, 1]), 'big'),
@@ -91,6 +165,18 @@ if __name__ == '__main__':
     )
     firmware_final_ver1.device_versions.add(device_ver1)
     firmware_final_ver1.providers.add(provider1)
+
+    firmware_final_ver1_2 = SeFirmwareFinalVersion.objects.create(
+        name="1.2.0",
+        version=int.from_bytes(bytes([0, 1, 2, 0]), 'big'),
+        perso="perso_11",
+        firmware="",
+        firmware_key="",
+        hash="",
+        se_firmware=firmware
+    )
+    firmware_final_ver1_2.device_versions.add(device_ver1)
+    firmware_final_ver1_2.providers.add(provider1)
 
     firmware_final_ver2 = SeFirmwareFinalVersion.objects.create(
         name="1.4.1",
@@ -164,29 +250,50 @@ if __name__ == '__main__':
     firmware_final_ver7.device_versions.add(device_ver0)
     firmware_final_ver7.providers.add(provider3)
 
+    firmware_final_ver7 = SeFirmwareFinalVersion.objects.create(
+        name="1.2.0-club",
+        version=int.from_bytes(bytes([0, 1, 2, 0]), 'big'),
+        perso="perso_club_10",
+        firmware="",
+        firmware_key="",
+        hash="",
+        se_firmware=firmware3
+    )
+    firmware_final_ver7.device_versions.add(device_ver0)
+    firmware_final_ver7.providers.add(provider3)
+
     # MCU CREATION
     mcu = Mcu.objects.create(name="Ledger")
+
+    mcu10 = McuVersion.objects.create(
+        name="1.0",
+        mcu=mcu,
+        from_bootloader_version=""
+    )
+    mcu10.device_versions.add(device_ver1, device_ver0)
+    mcu10.se_firmware_final_versions.add(
+        firmware_final_ver1, firmware_final_ver5, firmware_final_ver6, firmware_final_ver7, firmware_final_ver8)
 
     mcu11 = McuVersion.objects.create(
         name="1.1",
         mcu=mcu,
         from_bootloader_version=""
     )
-    mcu11.device_versions.add(device_ver1)
+    mcu11.device_versions.add(device_ver1, device_ver0)
     mcu11.se_firmware_final_versions.add(
-        firmware_final_ver1, firmware_final_ver5)
+        firmware_final_ver1, firmware_final_ver5, firmware_final_ver6, firmware_final_ver7, firmware_final_ver8)
 
     mcu15 = McuVersion.objects.create(
         name="1.5",
         mcu=mcu,
-        from_bootloader_version="0.6"
+        from_bootloader_version="0.6.0"
     )
     mcu15.device_versions.add(device_ver5)
     mcu15.se_firmware_final_versions.add(
         firmware_final_ver3, firmware_final_ver4)
 
     mcu06 = McuVersion.objects.create(
-        name="0.6",
+        name="0.6.0",
         mcu=mcu,
         from_bootloader_version="0.0.0"
     )
@@ -272,89 +379,94 @@ if __name__ == '__main__':
         firmware_final_ver7)
     firmware_osu_ver6.providers.add(provider3)
 
+    # CATEGORY
+    cat1 = Category.objects.create(name="Currencies")
+    cat2 = Category.objects.create(name="Developer tools")
+
     # APP CREATION
-    app0 = Application.objects.create(name="Bitcoin")
-    app0.providers.add(provider1, provider2)
-    app1 = Application.objects.create(name="Bitcoin Cash")
-    app1.providers.add(provider1, provider2)
-    app2 = Application.objects.create(name="Bitcoin Gold")
+    app0 = Application.objects.create(name="Bitcoin", category=cat1)
+    app0.providers.add(provider2, provider3, provider1)
+    app1 = Application.objects.create(name="Bitcoin Cash", category=cat1)
+    app1.providers.add(provider2, provider1)
+    app2 = Application.objects.create(name="Bitcoin Gold", category=cat1)
     app2.providers.add(provider1)
-    app3 = Application.objects.create(name="Bitcoin Private")
+    app3 = Application.objects.create(name="Bitcoin Private", category=cat1)
     app3.providers.add(provider1)
-    app4 = Application.objects.create(name="Bitcoin testnet")
+    app4 = Application.objects.create(name="Bitcoin testnet", category=cat2)
     app4.providers.add(provider1)
-    app5 = Application.objects.create(name="Digibyte")
+    app5 = Application.objects.create(name="Digibyte", category=cat1)
     app5.providers.add(provider1)
-    app6 = Application.objects.create(name="HCash")
+    app6 = Application.objects.create(name="HCash", category=cat1)
     app6.providers.add(provider1)
-    app7 = Application.objects.create(name="Qtum")
+    app7 = Application.objects.create(name="Qtum", category=cat1)
     app7.providers.add(provider1)
-    app8 = Application.objects.create(name="PIVX")
+    app8 = Application.objects.create(name="PIVX", category=cat1)
     app8.providers.add(provider1)
-    app9 = Application.objects.create(name="Stealth")
+    app9 = Application.objects.create(name="Stealth", category=cat1)
     app9.providers.add(provider1)
-    app10 = Application.objects.create(name="Vertcoin")
+    app10 = Application.objects.create(name="Vertcoin", category=cat1)
     app10.providers.add(provider1)
-    app11 = Application.objects.create(name="Viacoin")
+    app11 = Application.objects.create(name="Viacoin", category=cat1)
     app11.providers.add(provider1)
-    app12 = Application.objects.create(name="Ubiq")
+    app12 = Application.objects.create(name="Ubiq", category=cat1)
     app12.providers.add(provider1)
-    app13 = Application.objects.create(name="Expanse")
+    app13 = Application.objects.create(name="Expanse", category=cat1)
     app13.providers.add(provider1)
-    app14 = Application.objects.create(name="Dash")
+    app14 = Application.objects.create(name="Dash", category=cat1)
     app14.providers.add(provider1)
-    app15 = Application.objects.create(name="Dogecoin")
+    app15 = Application.objects.create(name="Dogecoin", category=cat1)
     app15.providers.add(provider1)
-    app16 = Application.objects.create(name="Ethereum")
-    app16.providers.add(provider1, provider2)
+    app16 = Application.objects.create(name="Ethereum", category=cat1)
+    app16.providers.add(provider2, provider3, provider1)
     app17 = Application.objects.create(name="Fido U2F")
-    app17.providers.add(provider1)
-    app18 = Application.objects.create(name="Litecoin")
+    app17.providers.add(provider3, provider1)
+    app18 = Application.objects.create(name="Litecoin", category=cat1)
     app18.providers.add(provider1)
-    app19 = Application.objects.create(name="Stratis")
+    app19 = Application.objects.create(name="Stratis", category=cat1)
     app19.providers.add(provider1)
-    app20 = Application.objects.create(name="Ripple")
-    app20.providers.add(provider1, provider2)
-    app21 = Application.objects.create(name="Zcash")
-    app21.providers.add(provider1)
-    app22 = Application.objects.create(name="ZenCash")
+    app20 = Application.objects.create(name="Ripple", category=cat1)
+    app20.providers.add(provider2, provider1)
+    app21 = Application.objects.create(name="Zcash", category=cat1)
+    app21.providers.add(provider3, provider1)
+    app22 = Application.objects.create(name="ZenCash", category=cat1)
     app22.providers.add(provider1)
-    app23 = Application.objects.create(name="Komodo")
+    app23 = Application.objects.create(name="Komodo", category=cat1)
     app23.providers.add(provider1)
-    app24 = Application.objects.create(name="Peercoin")
+    app24 = Application.objects.create(name="Peercoin", category=cat1)
     app24.providers.add(provider1)
-    app25 = Application.objects.create(name="PoSW")
+    app25 = Application.objects.create(name="PoSW", category=cat1)
     app25.providers.add(provider1)
-    app26 = Application.objects.create(name="Ark")
+    app26 = Application.objects.create(name="Ark", category=cat1)
     app26.providers.add(provider1)
-    app27 = Application.objects.create(name="Neo")
+    app27 = Application.objects.create(name="Neo", category=cat1)
     app27.providers.add(provider1)
-    app28 = Application.objects.create(name="SSH/GPG Agent")
+    app28 = Application.objects.create(name="SSH/GPG Agent", category=cat2)
     app28.providers.add(provider1)
-    app29 = Application.objects.create(name="Passwords Manager")
+    app29 = Application.objects.create(name="Passwords Manager", category=cat2)
     app29.providers.add(provider1)
-    app30 = Application.objects.create(name="Stellar")
+    app30 = Application.objects.create(name="Stellar", category=cat1)
     app30.providers.add(provider1)
-    app31 = Application.objects.create(name="Woleet")
+    app31 = Application.objects.create(name="Woleet", category=cat1)
     app31.providers.add(provider1)
-    app32 = Application.objects.create(name="Monero")
+    app32 = Application.objects.create(name="Monero", category=cat2)
     app32.providers.add(provider1)
     app33 = Application.objects.create(name="Hello")
     app33.providers.add(provider1)
-    app34 = Application.objects.create(name="Open PGP")
+    app34 = Application.objects.create(name="Open PGP", category=cat2)
     app34.providers.add(provider1)
-    app35 = Application.objects.create(name="Nano")
+    app35 = Application.objects.create(name="Nano", category=cat1)
     app35.providers.add(provider1)
-    app36 = Application.objects.create(name="Nimiq")
+    app36 = Application.objects.create(name="Nimiq", category=cat1)
     app36.providers.add(provider1)
-    app37 = Application.objects.create(name="DasCoin")
+    app37 = Application.objects.create(name="DasCoin", category=cat1)
     app37.providers.add(provider2)
-    app38 = Application.objects.create(name="Stealthcoin")
+    app38 = Application.objects.create(name="Stealthcoin", category=cat1)
     app38.providers.add(provider1)
-    app39 = Application.objects.create(name="Clubcoin")
-    app39.providers.add(provider1)
-    app40 = Application.objects.create(name="Bitcoin Beta")
+    app39 = Application.objects.create(name="Clubcoin", category=cat1)
+    app39.providers.add(provider3)
+    app40 = Application.objects.create(name="Bitcoin Beta", category=cat2)
     app40.providers.add(provider1)
+    # nanos-1.4
     # nanos-1.4 ,
     appVer1 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -641,10 +753,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/ethereum/app_del_key",
         app=app16
     )
-    appVer17.providers.add(provider1, provider2)
+    appVer17.providers.add(provider1)
     appVer17.device_versions.add(device_ver5)
-    appVer17.se_firmware_final_versions.add(
-        firmware_final_ver3, firmware_final_ver4)
+    appVer17.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer18 = ApplicationVersion.objects.create(
         name="Fido U2F",
@@ -710,10 +821,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/ripple/app_del_key",
         app=app20
     )
-    appVer21.providers.add(provider1, provider2)
+    appVer21.providers.add(provider1)
     appVer21.device_versions.add(device_ver5)
-    appVer21.se_firmware_final_versions.add(
-        firmware_final_ver3, firmware_final_ver4)
+    appVer21.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer22 = ApplicationVersion.objects.create(
         name="Zcash",
@@ -1002,7 +1112,7 @@ if __name__ == '__main__':
     )
     appVer38.providers.add(provider2)
     appVer38.device_versions.add(device_ver5)
-    appVer38.se_firmware_final_versions.add(firmware_final_ver4)
+    appVer38.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer39 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -1017,10 +1127,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin/app_del_key",
         app=app0
     )
-    appVer39.providers.add(provider1, provider2)
+    appVer39.providers.add(provider2)
     appVer39.device_versions.add(device_ver5)
-    appVer39.se_firmware_final_versions.add(
-        firmware_final_ver3, firmware_final_ver4)
+    appVer39.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer40 = ApplicationVersion.objects.create(
         name="Bitcoin Cash",
@@ -1035,10 +1144,43 @@ if __name__ == '__main__':
         delete_key="nanos/1.4.2/bitcoin_cash/app_del_key",
         app=app1
     )
-    appVer40.providers.add(provider1, provider2)
+    appVer40.providers.add(provider2)
     appVer40.device_versions.add(device_ver5)
-    appVer40.se_firmware_final_versions.add(
-        firmware_final_ver3, firmware_final_ver4)
+    appVer40.se_firmware_final_versions.add(firmware_final_ver3)
+    # nanos-1.4 ,
+    appVer41 = ApplicationVersion.objects.create(
+        name="Ethereum",
+        version=65560,
+        display_name="Ethereum",
+        icon="ethereum",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="nanos/1.4.2/ethereum/app_1.0.24",
+        firmware_key="nanos/1.4.2/ethereum/app_1.0.24_key",
+        delete="nanos/1.4.2/ethereum/app_del",
+        delete_key="nanos/1.4.2/ethereum/app_del_key",
+        app=app16
+    )
+    appVer41.providers.add(provider2)
+    appVer41.device_versions.add(device_ver5)
+    appVer41.se_firmware_final_versions.add(firmware_final_ver3)
+    # nanos-1.4 ,
+    appVer42 = ApplicationVersion.objects.create(
+        name="Ripple",
+        version=65540,
+        display_name="Ripple",
+        icon="ripple",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="nanos/1.4.2/ripple/app_1.0.4",
+        firmware_key="nanos/1.4.2/ripple/app_1.0.4_key",
+        delete="nanos/1.4.2/ripple/app_del",
+        delete_key="nanos/1.4.2/ripple/app_del_key",
+        app=app20
+    )
+    appVer42.providers.add(provider2)
+    appVer42.device_versions.add(device_ver5)
+    appVer42.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer43 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -1055,7 +1197,7 @@ if __name__ == '__main__':
     )
     appVer43.providers.add(provider1)
     appVer43.device_versions.add(device_ver5)
-    appVer43.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer43.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer44 = ApplicationVersion.objects.create(
         name="Bitcoin Cash",
@@ -1072,7 +1214,7 @@ if __name__ == '__main__':
     )
     appVer44.providers.add(provider1)
     appVer44.device_versions.add(device_ver5)
-    appVer44.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer44.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer45 = ApplicationVersion.objects.create(
         name="Bitcoin Gold",
@@ -1089,7 +1231,7 @@ if __name__ == '__main__':
     )
     appVer45.providers.add(provider1)
     appVer45.device_versions.add(device_ver5)
-    appVer45.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer45.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer46 = ApplicationVersion.objects.create(
         name="Bitcoin testnet",
@@ -1106,7 +1248,7 @@ if __name__ == '__main__':
     )
     appVer46.providers.add(provider1)
     appVer46.device_versions.add(device_ver5)
-    appVer46.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer46.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer47 = ApplicationVersion.objects.create(
         name="Digibyte",
@@ -1123,7 +1265,7 @@ if __name__ == '__main__':
     )
     appVer47.providers.add(provider1)
     appVer47.device_versions.add(device_ver5)
-    appVer47.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer47.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer48 = ApplicationVersion.objects.create(
         name="HCash",
@@ -1157,7 +1299,7 @@ if __name__ == '__main__':
     )
     appVer49.providers.add(provider1)
     appVer49.device_versions.add(device_ver5)
-    appVer49.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer49.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer50 = ApplicationVersion.objects.create(
         name="PIVX",
@@ -1174,7 +1316,7 @@ if __name__ == '__main__':
     )
     appVer50.providers.add(provider1)
     appVer50.device_versions.add(device_ver5)
-    appVer50.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer50.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer51 = ApplicationVersion.objects.create(
         name="Stealthcoin",
@@ -1191,7 +1333,7 @@ if __name__ == '__main__':
     )
     appVer51.providers.add(provider1)
     appVer51.device_versions.add(device_ver5)
-    appVer51.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer51.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer52 = ApplicationVersion.objects.create(
         name="Vertcoin",
@@ -1208,7 +1350,7 @@ if __name__ == '__main__':
     )
     appVer52.providers.add(provider1)
     appVer52.device_versions.add(device_ver5)
-    appVer52.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer52.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer53 = ApplicationVersion.objects.create(
         name="Viacoin",
@@ -1225,7 +1367,7 @@ if __name__ == '__main__':
     )
     appVer53.providers.add(provider1)
     appVer53.device_versions.add(device_ver5)
-    appVer53.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer53.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer54 = ApplicationVersion.objects.create(
         name="Ubiq",
@@ -1242,7 +1384,7 @@ if __name__ == '__main__':
     )
     appVer54.providers.add(provider1)
     appVer54.device_versions.add(device_ver5)
-    appVer54.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer54.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer55 = ApplicationVersion.objects.create(
         name="Expanse",
@@ -1259,7 +1401,7 @@ if __name__ == '__main__':
     )
     appVer55.providers.add(provider1)
     appVer55.device_versions.add(device_ver5)
-    appVer55.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer55.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer56 = ApplicationVersion.objects.create(
         name="Dash",
@@ -1276,7 +1418,7 @@ if __name__ == '__main__':
     )
     appVer56.providers.add(provider1)
     appVer56.device_versions.add(device_ver5)
-    appVer56.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer56.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer57 = ApplicationVersion.objects.create(
         name="Dogecoin",
@@ -1293,7 +1435,7 @@ if __name__ == '__main__':
     )
     appVer57.providers.add(provider1)
     appVer57.device_versions.add(device_ver5)
-    appVer57.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer57.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer58 = ApplicationVersion.objects.create(
         name="Ethereum",
@@ -1310,7 +1452,7 @@ if __name__ == '__main__':
     )
     appVer58.providers.add(provider1)
     appVer58.device_versions.add(device_ver5)
-    appVer58.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer58.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer59 = ApplicationVersion.objects.create(
         name="Fido U2F",
@@ -1327,7 +1469,7 @@ if __name__ == '__main__':
     )
     appVer59.providers.add(provider1)
     appVer59.device_versions.add(device_ver5)
-    appVer59.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer59.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer60 = ApplicationVersion.objects.create(
         name="Litecoin",
@@ -1344,7 +1486,7 @@ if __name__ == '__main__':
     )
     appVer60.providers.add(provider1)
     appVer60.device_versions.add(device_ver5)
-    appVer60.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer60.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer61 = ApplicationVersion.objects.create(
         name="Stratis",
@@ -1361,7 +1503,7 @@ if __name__ == '__main__':
     )
     appVer61.providers.add(provider1)
     appVer61.device_versions.add(device_ver5)
-    appVer61.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer61.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer62 = ApplicationVersion.objects.create(
         name="Ripple",
@@ -1378,7 +1520,7 @@ if __name__ == '__main__':
     )
     appVer62.providers.add(provider1)
     appVer62.device_versions.add(device_ver5)
-    appVer62.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer62.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer63 = ApplicationVersion.objects.create(
         name="Zcash",
@@ -1395,7 +1537,7 @@ if __name__ == '__main__':
     )
     appVer63.providers.add(provider1)
     appVer63.device_versions.add(device_ver5)
-    appVer63.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer63.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer64 = ApplicationVersion.objects.create(
         name="Komodo",
@@ -1412,7 +1554,7 @@ if __name__ == '__main__':
     )
     appVer64.providers.add(provider1)
     appVer64.device_versions.add(device_ver5)
-    appVer64.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer64.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer65 = ApplicationVersion.objects.create(
         name="SSH/GPG Agent",
@@ -1446,7 +1588,7 @@ if __name__ == '__main__':
     )
     appVer66.providers.add(provider1)
     appVer66.device_versions.add(device_ver5)
-    appVer66.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer66.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer67 = ApplicationVersion.objects.create(
         name="Ark",
@@ -1463,7 +1605,7 @@ if __name__ == '__main__':
     )
     appVer67.providers.add(provider1)
     appVer67.device_versions.add(device_ver5)
-    appVer67.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer67.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer68 = ApplicationVersion.objects.create(
         name="Neo",
@@ -1480,7 +1622,7 @@ if __name__ == '__main__':
     )
     appVer68.providers.add(provider1)
     appVer68.device_versions.add(device_ver5)
-    appVer68.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer68.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer69 = ApplicationVersion.objects.create(
         name="SSH/GPG Agent",
@@ -1497,7 +1639,7 @@ if __name__ == '__main__':
     )
     appVer69.providers.add(provider1)
     appVer69.device_versions.add(device_ver5)
-    appVer69.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer69.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer70 = ApplicationVersion.objects.create(
         name="Passwords Manager",
@@ -1514,7 +1656,7 @@ if __name__ == '__main__':
     )
     appVer70.providers.add(provider1)
     appVer70.device_versions.add(device_ver5)
-    appVer70.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer70.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer71 = ApplicationVersion.objects.create(
         name="Stellar",
@@ -1531,7 +1673,7 @@ if __name__ == '__main__':
     )
     appVer71.providers.add(provider1)
     appVer71.device_versions.add(device_ver5)
-    appVer71.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer71.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer72 = ApplicationVersion.objects.create(
         name="Monero",
@@ -1548,7 +1690,7 @@ if __name__ == '__main__':
     )
     appVer72.providers.add(provider1)
     appVer72.device_versions.add(device_ver5)
-    appVer72.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer72.se_firmware_final_versions.add(firmware_final_ver3)
     # nanos-1.4 ,
     appVer73 = ApplicationVersion.objects.create(
         name="Open PGP",
@@ -1565,7 +1707,7 @@ if __name__ == '__main__':
     )
     appVer73.providers.add(provider1)
     appVer73.device_versions.add(device_ver5)
-    appVer73.se_firmware_final_versions.add(firmware_final_ver2)
+    appVer73.se_firmware_final_versions.add(firmware_final_ver3)
     # blue_2 ,
     appVer74 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -1582,7 +1724,8 @@ if __name__ == '__main__':
     )
     appVer74.providers.add(provider1)
     appVer74.device_versions.add(device_ver2)
-    appVer74.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer74.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer75 = ApplicationVersion.objects.create(
         name="Bitcoin Cash",
@@ -1599,7 +1742,8 @@ if __name__ == '__main__':
     )
     appVer75.providers.add(provider1)
     appVer75.device_versions.add(device_ver2)
-    appVer75.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer75.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer76 = ApplicationVersion.objects.create(
         name="Dash",
@@ -1616,7 +1760,8 @@ if __name__ == '__main__':
     )
     appVer76.providers.add(provider1)
     appVer76.device_versions.add(device_ver2)
-    appVer76.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer76.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer77 = ApplicationVersion.objects.create(
         name="Dogecoin",
@@ -1633,7 +1778,8 @@ if __name__ == '__main__':
     )
     appVer77.providers.add(provider1)
     appVer77.device_versions.add(device_ver2)
-    appVer77.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer77.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer78 = ApplicationVersion.objects.create(
         name="Ethereum",
@@ -1650,7 +1796,8 @@ if __name__ == '__main__':
     )
     appVer78.providers.add(provider1)
     appVer78.device_versions.add(device_ver2)
-    appVer78.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer78.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer79 = ApplicationVersion.objects.create(
         name="Fido U2F",
@@ -1667,7 +1814,8 @@ if __name__ == '__main__':
     )
     appVer79.providers.add(provider1)
     appVer79.device_versions.add(device_ver2)
-    appVer79.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer79.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer80 = ApplicationVersion.objects.create(
         name="Litecoin",
@@ -1684,7 +1832,8 @@ if __name__ == '__main__':
     )
     appVer80.providers.add(provider1)
     appVer80.device_versions.add(device_ver2)
-    appVer80.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer80.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer81 = ApplicationVersion.objects.create(
         name="Stratis",
@@ -1701,7 +1850,8 @@ if __name__ == '__main__':
     )
     appVer81.providers.add(provider1)
     appVer81.device_versions.add(device_ver2)
-    appVer81.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer81.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer82 = ApplicationVersion.objects.create(
         name="Zcash",
@@ -1718,7 +1868,8 @@ if __name__ == '__main__':
     )
     appVer82.providers.add(provider1)
     appVer82.device_versions.add(device_ver2)
-    appVer82.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer82.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer83 = ApplicationVersion.objects.create(
         name="Ripple",
@@ -1735,7 +1886,8 @@ if __name__ == '__main__':
     )
     appVer83.providers.add(provider1)
     appVer83.device_versions.add(device_ver2)
-    appVer83.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer83.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer84 = ApplicationVersion.objects.create(
         name="PoSW",
@@ -1752,7 +1904,8 @@ if __name__ == '__main__':
     )
     appVer84.providers.add(provider1)
     appVer84.device_versions.add(device_ver2)
-    appVer84.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer84.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer85 = ApplicationVersion.objects.create(
         name="Ubiq",
@@ -1769,7 +1922,8 @@ if __name__ == '__main__':
     )
     appVer85.providers.add(provider1)
     appVer85.device_versions.add(device_ver2)
-    appVer85.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer85.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer86 = ApplicationVersion.objects.create(
         name="Expanse",
@@ -1786,7 +1940,8 @@ if __name__ == '__main__':
     )
     appVer86.providers.add(provider1)
     appVer86.device_versions.add(device_ver2)
-    appVer86.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer86.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer87 = ApplicationVersion.objects.create(
         name="PIVX",
@@ -1803,7 +1958,8 @@ if __name__ == '__main__':
     )
     appVer87.providers.add(provider1)
     appVer87.device_versions.add(device_ver2)
-    appVer87.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer87.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer88 = ApplicationVersion.objects.create(
         name="Stealthcoin",
@@ -1820,7 +1976,8 @@ if __name__ == '__main__':
     )
     appVer88.providers.add(provider1)
     appVer88.device_versions.add(device_ver2)
-    appVer88.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer88.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer89 = ApplicationVersion.objects.create(
         name="Vertcoin",
@@ -1837,7 +1994,8 @@ if __name__ == '__main__':
     )
     appVer89.providers.add(provider1)
     appVer89.device_versions.add(device_ver2)
-    appVer89.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer89.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer90 = ApplicationVersion.objects.create(
         name="Viacoin",
@@ -1854,7 +2012,8 @@ if __name__ == '__main__':
     )
     appVer90.providers.add(provider1)
     appVer90.device_versions.add(device_ver2)
-    appVer90.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer90.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer91 = ApplicationVersion.objects.create(
         name="Komodo",
@@ -1871,7 +2030,8 @@ if __name__ == '__main__':
     )
     appVer91.providers.add(provider1)
     appVer91.device_versions.add(device_ver2)
-    appVer91.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer91.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer92 = ApplicationVersion.objects.create(
         name="Bitcoin Gold",
@@ -1888,7 +2048,8 @@ if __name__ == '__main__':
     )
     appVer92.providers.add(provider1)
     appVer92.device_versions.add(device_ver2)
-    appVer92.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer92.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer93 = ApplicationVersion.objects.create(
         name="Digibyte",
@@ -1905,7 +2066,8 @@ if __name__ == '__main__':
     )
     appVer93.providers.add(provider1)
     appVer93.device_versions.add(device_ver2)
-    appVer93.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer93.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer94 = ApplicationVersion.objects.create(
         name="HCash",
@@ -1922,7 +2084,8 @@ if __name__ == '__main__':
     )
     appVer94.providers.add(provider1)
     appVer94.device_versions.add(device_ver2)
-    appVer94.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer94.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer95 = ApplicationVersion.objects.create(
         name="Qtum",
@@ -1939,7 +2102,8 @@ if __name__ == '__main__':
     )
     appVer95.providers.add(provider1)
     appVer95.device_versions.add(device_ver2)
-    appVer95.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer95.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer96 = ApplicationVersion.objects.create(
         name="Neo",
@@ -1956,7 +2120,8 @@ if __name__ == '__main__':
     )
     appVer96.providers.add(provider1)
     appVer96.device_versions.add(device_ver2)
-    appVer96.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer96.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # blue_2 ,
     appVer97 = ApplicationVersion.objects.create(
         name="Stellar",
@@ -1973,7 +2138,8 @@ if __name__ == '__main__':
     )
     appVer97.providers.add(provider1)
     appVer97.device_versions.add(device_ver2)
-    appVer97.se_firmware_final_versions.add(firmware_final_ver0)
+    appVer97.se_firmware_final_versions.add(
+        firmware_final_ver0, firmware_final_ver8)
     # nanos ,
     appVer98 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -2005,10 +2171,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin_cash/app_del_key",
         app=app1
     )
-    appVer99.providers.add(provider1, provider2)
+    appVer99.providers.add(provider1)
     appVer99.device_versions.add(device_ver1)
-    appVer99.se_firmware_final_versions.add(
-        firmware_final_ver1, firmware_final_ver5)
+    appVer99.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
     appVer100 = ApplicationVersion.objects.create(
         name="Dash",
@@ -2227,10 +2392,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ripple/app_del_key",
         app=app20
     )
-    appVer112.providers.add(provider1, provider2)
+    appVer112.providers.add(provider1)
     appVer112.device_versions.add(device_ver1)
-    appVer112.se_firmware_final_versions.add(
-        firmware_final_ver1, firmware_final_ver5)
+    appVer112.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
     appVer113 = ApplicationVersion.objects.create(
         name="PoSW",
@@ -2501,8 +2665,8 @@ if __name__ == '__main__':
         app=app0
     )
     appVer128.providers.add(provider3)
-    appVer128.device_versions.add(device_ver0)
-    appVer128.se_firmware_final_versions.add(firmware_final_ver6)
+    appVer128.device_versions.add(device_ver1)
+    appVer128.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
     appVer129 = ApplicationVersion.objects.create(
         name="Ethereum",
@@ -2518,8 +2682,8 @@ if __name__ == '__main__':
         app=app16
     )
     appVer129.providers.add(provider3)
-    appVer129.device_versions.add(device_ver0)
-    appVer129.se_firmware_final_versions.add(firmware_final_ver6)
+    appVer129.device_versions.add(device_ver1)
+    appVer129.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
     appVer130 = ApplicationVersion.objects.create(
         name="Clubcoin",
@@ -2535,8 +2699,8 @@ if __name__ == '__main__':
         app=app39
     )
     appVer130.providers.add(provider3)
-    appVer130.device_versions.add(device_ver0)
-    appVer130.se_firmware_final_versions.add(firmware_final_ver6)
+    appVer130.device_versions.add(device_ver1)
+    appVer130.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
     appVer131 = ApplicationVersion.objects.create(
         name="Zcash",
@@ -2552,8 +2716,8 @@ if __name__ == '__main__':
         app=app21
     )
     appVer131.providers.add(provider3)
-    appVer131.device_versions.add(device_ver0)
-    appVer131.se_firmware_final_versions.add(firmware_final_ver6)
+    appVer131.device_versions.add(device_ver1)
+    appVer131.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
     appVer132 = ApplicationVersion.objects.create(
         name="Fido U2F",
@@ -2569,8 +2733,8 @@ if __name__ == '__main__':
         app=app17
     )
     appVer132.providers.add(provider3)
-    appVer132.device_versions.add(device_ver0)
-    appVer132.se_firmware_final_versions.add(firmware_final_ver6)
+    appVer132.device_versions.add(device_ver1)
+    appVer132.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
     appVer133 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -2585,10 +2749,26 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/bitcoin/st31_bitcoin_del_key",
         app=app0
     )
-    appVer133.providers.add(provider1, provider2)
+    appVer133.providers.add(provider2)
     appVer133.device_versions.add(device_ver1)
-    appVer133.se_firmware_final_versions.add(
-        firmware_final_ver1, firmware_final_ver5)
+    appVer133.se_firmware_final_versions.add(firmware_final_ver1)
+    # nanos ,
+    appVer134 = ApplicationVersion.objects.create(
+        name="Bitcoin Cash",
+        version=65800,
+        display_name="Bitcoin Cash",
+        icon="bitcoin_cash",
+        hash="a7b1d4f91ff90697c2a532bfed60b85e5f4ff55bbfc92fe9d3d13994fe0a8cbf",
+        perso="perso_11",
+        firmware="nanos/1.3.1/bitcoin_cash/app_1.1.8",
+        firmware_key="nanos/1.3.1/bitcoin_cash/app_1.1.8_key",
+        delete="nanos/1.3.1/bitcoin_cash/app_del",
+        delete_key="nanos/1.3.1/bitcoin_cash/app_del_key",
+        app=app1
+    )
+    appVer134.providers.add(provider2)
+    appVer134.device_versions.add(device_ver1)
+    appVer134.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
     appVer135 = ApplicationVersion.objects.create(
         name="Ethereum",
@@ -2603,10 +2783,9 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ethereum/st31_etc_del_key",
         app=app16
     )
-    appVer135.providers.add(provider1, provider2)
+    appVer135.providers.add(provider2)
     appVer135.device_versions.add(device_ver1)
-    appVer135.se_firmware_final_versions.add(
-        firmware_final_ver1, firmware_final_ver5)
+    appVer135.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
     appVer136 = ApplicationVersion.objects.create(
         name="Ripple",
@@ -2621,7 +2800,7 @@ if __name__ == '__main__':
         delete_key="nanos/1.3.1/ripple/app_del_key",
         app=app20
     )
-    appVer136.providers.add(provider1)
+    appVer136.providers.add(provider2)
     appVer136.device_versions.add(device_ver1)
     appVer136.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
@@ -2640,7 +2819,7 @@ if __name__ == '__main__':
     )
     appVer137.providers.add(provider2)
     appVer137.device_versions.add(device_ver1)
-    appVer137.se_firmware_final_versions.add(firmware_final_ver5)
+    appVer137.se_firmware_final_versions.add(firmware_final_ver1)
     # nanos ,
     appVer138 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -2810,7 +2989,7 @@ if __name__ == '__main__':
     )
     appVer147.providers.add(provider1)
     appVer147.device_versions.add(device_ver1)
-    appVer147.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer147.se_firmware_final_versions.add(firmware_final_ver1_2)
     # nanos ,
     appVer148 = ApplicationVersion.objects.create(
         name="Bitcoin Beta",
@@ -2844,7 +3023,7 @@ if __name__ == '__main__':
     )
     appVer149.providers.add(provider1)
     appVer149.device_versions.add(device_ver1)
-    appVer149.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer149.se_firmware_final_versions.add(firmware_final_ver1_2)
     # nanos ,
     appVer150 = ApplicationVersion.objects.create(
         name="Dogecoin",
@@ -2861,7 +3040,7 @@ if __name__ == '__main__':
     )
     appVer150.providers.add(provider1)
     appVer150.device_versions.add(device_ver1)
-    appVer150.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer150.se_firmware_final_versions.add(firmware_final_ver1_2)
     # nanos ,
     appVer151 = ApplicationVersion.objects.create(
         name="Ethereum",
@@ -2878,7 +3057,7 @@ if __name__ == '__main__':
     )
     appVer151.providers.add(provider1)
     appVer151.device_versions.add(device_ver1)
-    appVer151.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer151.se_firmware_final_versions.add(firmware_final_ver1_2)
     # nanos ,
     appVer152 = ApplicationVersion.objects.create(
         name="Fido U2F",
@@ -2895,7 +3074,7 @@ if __name__ == '__main__':
     )
     appVer152.providers.add(provider1)
     appVer152.device_versions.add(device_ver1)
-    appVer152.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer152.se_firmware_final_versions.add(firmware_final_ver1_2)
     # nanos ,
     appVer153 = ApplicationVersion.objects.create(
         name="Litecoin",
@@ -2912,7 +3091,7 @@ if __name__ == '__main__':
     )
     appVer153.providers.add(provider1)
     appVer153.device_versions.add(device_ver1)
-    appVer153.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer153.se_firmware_final_versions.add(firmware_final_ver1_2)
     # nanos ,
     appVer154 = ApplicationVersion.objects.create(
         name="SSH/GPG Agent",
@@ -2946,7 +3125,7 @@ if __name__ == '__main__':
     )
     appVer155.providers.add(provider1)
     appVer155.device_versions.add(device_ver1)
-    appVer155.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer155.se_firmware_final_versions.add(firmware_final_ver1_2)
     # nanos ,
     appVer156 = ApplicationVersion.objects.create(
         name="Zcash",
@@ -2963,7 +3142,7 @@ if __name__ == '__main__':
     )
     appVer156.providers.add(provider1)
     appVer156.device_versions.add(device_ver1)
-    appVer156.se_firmware_final_versions.add(firmware_final_ver1)
+    appVer156.se_firmware_final_versions.add(firmware_final_ver1_2)
     # nanos ,
     appVer157 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -3049,3 +3228,975 @@ if __name__ == '__main__':
     appVer161.providers.add(provider1)
     appVer161.device_versions.add(device_ver1)
     appVer161.se_firmware_final_versions.add(firmware_final_ver1)
+    # blue_2hw10 ,
+    appVer162 = ApplicationVersion.objects.create(
+        name="Bitcoin",
+        version=66055,
+        display_name="Bitcoin",
+        icon="bitcoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/bitcoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/bitcoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/bitcoin/app_del",
+        delete_key="blue/2.1.0-hw15/bitcoin/app_del_key",
+        app=app0
+    )
+    appVer162.providers.add(provider1)
+    appVer162.device_versions.add(device_ver6)
+    appVer162.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer163 = ApplicationVersion.objects.create(
+        name="Bitcoin Cash",
+        version=66055,
+        display_name="Bitcoin Cash",
+        icon="bitcoin_cash",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/bitcoin_cash/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/bitcoin_cash/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/bitcoin_cash/app_del",
+        delete_key="blue/2.1.0-hw15/bitcoin_cash/app_del_key",
+        app=app1
+    )
+    appVer163.providers.add(provider1)
+    appVer163.device_versions.add(device_ver6)
+    appVer163.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer164 = ApplicationVersion.objects.create(
+        name="Bitcoin Gold",
+        version=66055,
+        display_name="Bitcoin Gold",
+        icon="bitcoin_gold",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/bitcoin_gold/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/bitcoin_gold/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/bitcoin_gold/app_del",
+        delete_key="blue/2.1.0-hw15/bitcoin_gold/app_del_key",
+        app=app2
+    )
+    appVer164.providers.add(provider1)
+    appVer164.device_versions.add(device_ver6)
+    appVer164.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer165 = ApplicationVersion.objects.create(
+        name="Bitcoin Private",
+        version=66055,
+        display_name="Bitcoin Private",
+        icon="bitcoin_private",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/bitcoin_private/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/bitcoin_private/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/bitcoin_private/app_del",
+        delete_key="blue/2.1.0-hw15/bitcoin_private/app_del_key",
+        app=app3
+    )
+    appVer165.providers.add(provider1)
+    appVer165.device_versions.add(device_ver6)
+    appVer165.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer166 = ApplicationVersion.objects.create(
+        name="Bitcoin testnet",
+        version=66055,
+        display_name="Bitcoin testnet",
+        icon="bitcoin_testnet",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/bitcoin_testnet/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/bitcoin_testnet/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/bitcoin_testnet/app_del",
+        delete_key="blue/2.1.0-hw15/bitcoin_testnet/app_del_key",
+        app=app4
+    )
+    appVer166.providers.add(provider1)
+    appVer166.device_versions.add(device_ver6)
+    appVer166.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer167 = ApplicationVersion.objects.create(
+        name="Digibyte",
+        version=66055,
+        display_name="Digibyte",
+        icon="digibyte",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/digibyte/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/digibyte/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/digibyte/app_del",
+        delete_key="blue/2.1.0-hw15/digibyte/app_del_key",
+        app=app5
+    )
+    appVer167.providers.add(provider1)
+    appVer167.device_versions.add(device_ver6)
+    appVer167.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer168 = ApplicationVersion.objects.create(
+        name="HCash",
+        version=66055,
+        display_name="HCash",
+        icon="hcash",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/hcash/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/hcash/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/hcash/app_del",
+        delete_key="blue/2.1.0-hw15/hcash/app_del_key",
+        app=app6
+    )
+    appVer168.providers.add(provider1)
+    appVer168.device_versions.add(device_ver6)
+    appVer168.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer169 = ApplicationVersion.objects.create(
+        name="Qtum",
+        version=66055,
+        display_name="Qtum",
+        icon="qtum",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/qtum/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/qtum/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/qtum/app_del",
+        delete_key="blue/2.1.0-hw15/qtum/app_del_key",
+        app=app7
+    )
+    appVer169.providers.add(provider1)
+    appVer169.device_versions.add(device_ver6)
+    appVer169.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer170 = ApplicationVersion.objects.create(
+        name="PIVX",
+        version=66055,
+        display_name="PIVX",
+        icon="pivx",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/pivx/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/pivx/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/pivx/app_del",
+        delete_key="blue/2.1.0-hw15/pivx/app_del_key",
+        app=app8
+    )
+    appVer170.providers.add(provider1)
+    appVer170.device_versions.add(device_ver6)
+    appVer170.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer171 = ApplicationVersion.objects.create(
+        name="Stealth",
+        version=66055,
+        display_name="Stealth",
+        icon="stealthcoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/stealthcoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/stealthcoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/stealthcoin/app_del",
+        delete_key="blue/2.1.0-hw15/stealthcoin/app_del_key",
+        app=app9
+    )
+    appVer171.providers.add(provider1)
+    appVer171.device_versions.add(device_ver6)
+    appVer171.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer172 = ApplicationVersion.objects.create(
+        name="Vertcoin",
+        version=66055,
+        display_name="Vertcoin",
+        icon="vertcoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/vertcoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/vertcoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/vertcoin/app_del",
+        delete_key="blue/2.1.0-hw15/vertcoin/app_del_key",
+        app=app10
+    )
+    appVer172.providers.add(provider1)
+    appVer172.device_versions.add(device_ver6)
+    appVer172.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer173 = ApplicationVersion.objects.create(
+        name="Peercoin",
+        version=66055,
+        display_name="Peercoin",
+        icon="peercoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/peercoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/peercoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/peercoin/app_del",
+        delete_key="blue/2.1.0-hw15/peercoin/app_del_key",
+        app=app24
+    )
+    appVer173.providers.add(provider1)
+    appVer173.device_versions.add(device_ver6)
+    appVer173.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer174 = ApplicationVersion.objects.create(
+        name="Viacoin",
+        version=66055,
+        display_name="Viacoin",
+        icon="viacoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/viacoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/viacoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/viacoin/app_del",
+        delete_key="blue/2.1.0-hw15/viacoin/app_del_key",
+        app=app11
+    )
+    appVer174.providers.add(provider1)
+    appVer174.device_versions.add(device_ver6)
+    appVer174.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer175 = ApplicationVersion.objects.create(
+        name="Ubiq",
+        version=65793,
+        display_name="Ubiq",
+        icon="ubiq",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/ubiq/app_1.1.1",
+        firmware_key="blue/2.1.0-hw15/ubiq/app_1.1.1_key",
+        delete="blue/2.1.0-hw15/ubiq/app_del",
+        delete_key="blue/2.1.0-hw15/ubiq/app_del_key",
+        app=app12
+    )
+    appVer175.providers.add(provider1)
+    appVer175.device_versions.add(device_ver6)
+    appVer175.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer176 = ApplicationVersion.objects.create(
+        name="Expanse",
+        version=65793,
+        display_name="Expanse",
+        icon="expanse",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/expanse/app_1.1.1",
+        firmware_key="blue/2.1.0-hw15/expanse/app_1.1.1_key",
+        delete="blue/2.1.0-hw15/expanse/app_del",
+        delete_key="blue/2.1.0-hw15/expanse/app_del_key",
+        app=app13
+    )
+    appVer176.providers.add(provider1)
+    appVer176.device_versions.add(device_ver6)
+    appVer176.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer177 = ApplicationVersion.objects.create(
+        name="Dash",
+        version=66055,
+        display_name="Dash",
+        icon="dash",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/dash/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/dash/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/dash/app_del",
+        delete_key="blue/2.1.0-hw15/dash/app_del_key",
+        app=app14
+    )
+    appVer177.providers.add(provider1)
+    appVer177.device_versions.add(device_ver6)
+    appVer177.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer178 = ApplicationVersion.objects.create(
+        name="Dogecoin",
+        version=66055,
+        display_name="Dogecoin",
+        icon="dogecoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/dogecoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/dogecoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/dogecoin/app_del",
+        delete_key="blue/2.1.0-hw15/dogecoin/app_del_key",
+        app=app15
+    )
+    appVer178.providers.add(provider1)
+    appVer178.device_versions.add(device_ver6)
+    appVer178.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer179 = ApplicationVersion.objects.create(
+        name="Ethereum",
+        version=65793,
+        display_name="Ethereum",
+        icon="ethereum",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/ethereum/app_1.1.1",
+        firmware_key="blue/2.1.0-hw15/ethereum/app_1.1.1_key",
+        delete="blue/2.1.0-hw15/ethereum/app_del",
+        delete_key="blue/2.1.0-hw15/ethereum/app_del_key",
+        app=app16
+    )
+    appVer179.providers.add(provider1)
+    appVer179.device_versions.add(device_ver6)
+    appVer179.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer180 = ApplicationVersion.objects.create(
+        name="Fido U2F",
+        version=66053,
+        display_name="Fido U2F",
+        icon="fido",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/u2f/app_1.2.5",
+        firmware_key="blue/2.1.0-hw15/u2f/app_1.2.5_key",
+        delete="blue/2.1.0-hw15/u2f/app_del",
+        delete_key="blue/2.1.0-hw15/u2f/app_del_key",
+        app=app17
+    )
+    appVer180.providers.add(provider1)
+    appVer180.device_versions.add(device_ver6)
+    appVer180.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer181 = ApplicationVersion.objects.create(
+        name="Litecoin",
+        version=66055,
+        display_name="Litecoin",
+        icon="litecoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/litecoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/litecoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/litecoin/app_del",
+        delete_key="blue/2.1.0-hw15/litecoin/app_del_key",
+        app=app18
+    )
+    appVer181.providers.add(provider1)
+    appVer181.device_versions.add(device_ver6)
+    appVer181.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer182 = ApplicationVersion.objects.create(
+        name="Stratis",
+        version=66055,
+        display_name="Stratis",
+        icon="stratis",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/stratis/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/stratis/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/stratis/app_del",
+        delete_key="blue/2.1.0-hw15/stratis/app_del_key",
+        app=app19
+    )
+    appVer182.providers.add(provider1)
+    appVer182.device_versions.add(device_ver6)
+    appVer182.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer183 = ApplicationVersion.objects.create(
+        name="Ripple",
+        version=65541,
+        display_name="Ripple",
+        icon="ripple",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/ripple/app_1.0.5",
+        firmware_key="blue/2.1.0-hw15/ripple/app_1.0.5_key",
+        delete="blue/2.1.0-hw15/ripple/app_del",
+        delete_key="blue/2.1.0-hw15/ripple/app_del_key",
+        app=app20
+    )
+    appVer183.providers.add(provider1)
+    appVer183.device_versions.add(device_ver6)
+    appVer183.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer184 = ApplicationVersion.objects.create(
+        name="Zcash",
+        version=66052,
+        display_name="Zcash",
+        icon="zcash",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/zcash/app_1.2.4",
+        firmware_key="blue/2.1.0-hw15/zcash/app_1.2.4_key",
+        delete="blue/2.1.0-hw15/zcash/app_del",
+        delete_key="blue/2.1.0-hw15/zcash/app_del_key",
+        app=app21
+    )
+    appVer184.providers.add(provider1)
+    appVer184.device_versions.add(device_ver6)
+    appVer184.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer185 = ApplicationVersion.objects.create(
+        name="ZenCash",
+        version=66052,
+        display_name="ZenCash",
+        icon="zencash",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/zencash/app_1.2.4",
+        firmware_key="blue/2.1.0-hw15/zencash/app_1.2.4_key",
+        delete="blue/2.1.0-hw15/zencash/app_del",
+        delete_key="blue/2.1.0-hw15/zencash/app_del_key",
+        app=app22
+    )
+    appVer185.providers.add(provider1)
+    appVer185.device_versions.add(device_ver6)
+    appVer185.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer186 = ApplicationVersion.objects.create(
+        name="Komodo",
+        version=66055,
+        display_name="Komodo",
+        icon="komodo",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/komodo/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/komodo/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/komodo/app_del",
+        delete_key="blue/2.1.0-hw15/komodo/app_del_key",
+        app=app23
+    )
+    appVer186.providers.add(provider1)
+    appVer186.device_versions.add(device_ver6)
+    appVer186.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer187 = ApplicationVersion.objects.create(
+        name="PoSW",
+        version=66055,
+        display_name="PoSW",
+        icon="posw",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/posw/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/posw/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/posw/app_del",
+        delete_key="blue/2.1.0-hw15/posw/app_del_key",
+        app=app25
+    )
+    appVer187.providers.add(provider1)
+    appVer187.device_versions.add(device_ver6)
+    appVer187.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw10 ,
+    appVer188 = ApplicationVersion.objects.create(
+        name="Stellar",
+        version=196608,
+        display_name="Stellar",
+        icon="stellar",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/stellar/app_3.0.0",
+        firmware_key="blue/2.1.0-hw15/stellar/app_3.0.0_key",
+        delete="blue/2.1.0-hw15/stellar/app_del",
+        delete_key="blue/2.1.0-hw15/stellar/app_del_key",
+        app=app30
+    )
+    appVer188.providers.add(provider1)
+    appVer188.device_versions.add(device_ver6)
+    appVer188.se_firmware_final_versions.add(
+        firmware_final_ver9, firmware_final_ver11)
+    # blue_2hw15 ,
+    appVer189 = ApplicationVersion.objects.create(
+        name="Bitcoin",
+        version=66055,
+        display_name="Bitcoin",
+        icon="bitcoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/bitcoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/bitcoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/bitcoin/app_del",
+        delete_key="blue/2.1.0-hw15/bitcoin/app_del_key",
+        app=app0
+    )
+    appVer189.providers.add(provider1)
+    appVer189.device_versions.add(device_ver7)
+    appVer189.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer190 = ApplicationVersion.objects.create(
+        name="Bitcoin Cash",
+        version=66055,
+        display_name="Bitcoin Cash",
+        icon="bitcoin_cash",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/bitcoin_cash/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/bitcoin_cash/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/bitcoin_cash/app_del",
+        delete_key="blue/2.1.0-hw15/bitcoin_cash/app_del_key",
+        app=app1
+    )
+    appVer190.providers.add(provider1)
+    appVer190.device_versions.add(device_ver7)
+    appVer190.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer191 = ApplicationVersion.objects.create(
+        name="Bitcoin Gold",
+        version=66055,
+        display_name="Bitcoin Gold",
+        icon="bitcoin_gold",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/bitcoin_gold/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/bitcoin_gold/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/bitcoin_gold/app_del",
+        delete_key="blue/2.1.0-hw15/bitcoin_gold/app_del_key",
+        app=app2
+    )
+    appVer191.providers.add(provider1)
+    appVer191.device_versions.add(device_ver7)
+    appVer191.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer192 = ApplicationVersion.objects.create(
+        name="Bitcoin Private",
+        version=66055,
+        display_name="Bitcoin Private",
+        icon="bitcoin_private",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/bitcoin_private/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/bitcoin_private/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/bitcoin_private/app_del",
+        delete_key="blue/2.1.0-hw15/bitcoin_private/app_del_key",
+        app=app3
+    )
+    appVer192.providers.add(provider1)
+    appVer192.device_versions.add(device_ver7)
+    appVer192.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer193 = ApplicationVersion.objects.create(
+        name="Bitcoin testnet",
+        version=66055,
+        display_name="Bitcoin testnet",
+        icon="bitcoin_testnet",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/bitcoin_testnet/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/bitcoin_testnet/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/bitcoin_testnet/app_del",
+        delete_key="blue/2.1.0-hw15/bitcoin_testnet/app_del_key",
+        app=app4
+    )
+    appVer193.providers.add(provider1)
+    appVer193.device_versions.add(device_ver7)
+    appVer193.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer194 = ApplicationVersion.objects.create(
+        name="Digibyte",
+        version=66055,
+        display_name="Digibyte",
+        icon="digibyte",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/digibyte/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/digibyte/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/digibyte/app_del",
+        delete_key="blue/2.1.0-hw15/digibyte/app_del_key",
+        app=app5
+    )
+    appVer194.providers.add(provider1)
+    appVer194.device_versions.add(device_ver7)
+    appVer194.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer195 = ApplicationVersion.objects.create(
+        name="HCash",
+        version=66055,
+        display_name="HCash",
+        icon="hcash",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/hcash/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/hcash/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/hcash/app_del",
+        delete_key="blue/2.1.0-hw15/hcash/app_del_key",
+        app=app6
+    )
+    appVer195.providers.add(provider1)
+    appVer195.device_versions.add(device_ver7)
+    appVer195.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer196 = ApplicationVersion.objects.create(
+        name="Qtum",
+        version=66055,
+        display_name="Qtum",
+        icon="qtum",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/qtum/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/qtum/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/qtum/app_del",
+        delete_key="blue/2.1.0-hw15/qtum/app_del_key",
+        app=app7
+    )
+    appVer196.providers.add(provider1)
+    appVer196.device_versions.add(device_ver7)
+    appVer196.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer197 = ApplicationVersion.objects.create(
+        name="PIVX",
+        version=66055,
+        display_name="PIVX",
+        icon="pivx",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/pivx/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/pivx/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/pivx/app_del",
+        delete_key="blue/2.1.0-hw15/pivx/app_del_key",
+        app=app8
+    )
+    appVer197.providers.add(provider1)
+    appVer197.device_versions.add(device_ver7)
+    appVer197.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer198 = ApplicationVersion.objects.create(
+        name="Stealth",
+        version=66055,
+        display_name="Stealth",
+        icon="stealthcoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/stealthcoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/stealthcoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/stealthcoin/app_del",
+        delete_key="blue/2.1.0-hw15/stealthcoin/app_del_key",
+        app=app9
+    )
+    appVer198.providers.add(provider1)
+    appVer198.device_versions.add(device_ver7)
+    appVer198.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer199 = ApplicationVersion.objects.create(
+        name="Vertcoin",
+        version=66055,
+        display_name="Vertcoin",
+        icon="vertcoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/vertcoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/vertcoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/vertcoin/app_del",
+        delete_key="blue/2.1.0-hw15/vertcoin/app_del_key",
+        app=app10
+    )
+    appVer199.providers.add(provider1)
+    appVer199.device_versions.add(device_ver7)
+    appVer199.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer200 = ApplicationVersion.objects.create(
+        name="Peercoin",
+        version=66055,
+        display_name="Peercoin",
+        icon="peercoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/peercoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/peercoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/peercoin/app_del",
+        delete_key="blue/2.1.0-hw15/peercoin/app_del_key",
+        app=app24
+    )
+    appVer200.providers.add(provider1)
+    appVer200.device_versions.add(device_ver7)
+    appVer200.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer201 = ApplicationVersion.objects.create(
+        name="Viacoin",
+        version=66055,
+        display_name="Viacoin",
+        icon="viacoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/viacoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/viacoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/viacoin/app_del",
+        delete_key="blue/2.1.0-hw15/viacoin/app_del_key",
+        app=app11
+    )
+    appVer201.providers.add(provider1)
+    appVer201.device_versions.add(device_ver7)
+    appVer201.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer202 = ApplicationVersion.objects.create(
+        name="Ubiq",
+        version=65793,
+        display_name="Ubiq",
+        icon="ubiq",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/ubiq/app_1.1.1",
+        firmware_key="blue/2.1.0-hw15/ubiq/app_1.1.1_key",
+        delete="blue/2.1.0-hw15/ubiq/app_del",
+        delete_key="blue/2.1.0-hw15/ubiq/app_del_key",
+        app=app12
+    )
+    appVer202.providers.add(provider1)
+    appVer202.device_versions.add(device_ver7)
+    appVer202.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer203 = ApplicationVersion.objects.create(
+        name="Expanse",
+        version=65793,
+        display_name="Expanse",
+        icon="expanse",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/expanse/app_1.1.1",
+        firmware_key="blue/2.1.0-hw15/expanse/app_1.1.1_key",
+        delete="blue/2.1.0-hw15/expanse/app_del",
+        delete_key="blue/2.1.0-hw15/expanse/app_del_key",
+        app=app13
+    )
+    appVer203.providers.add(provider1)
+    appVer203.device_versions.add(device_ver7)
+    appVer203.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer204 = ApplicationVersion.objects.create(
+        name="Dash",
+        version=66055,
+        display_name="Dash",
+        icon="dash",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/dash/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/dash/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/dash/app_del",
+        delete_key="blue/2.1.0-hw15/dash/app_del_key",
+        app=app14
+    )
+    appVer204.providers.add(provider1)
+    appVer204.device_versions.add(device_ver7)
+    appVer204.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer205 = ApplicationVersion.objects.create(
+        name="Dogecoin",
+        version=66055,
+        display_name="Dogecoin",
+        icon="dogecoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/dogecoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/dogecoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/dogecoin/app_del",
+        delete_key="blue/2.1.0-hw15/dogecoin/app_del_key",
+        app=app15
+    )
+    appVer205.providers.add(provider1)
+    appVer205.device_versions.add(device_ver7)
+    appVer205.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer206 = ApplicationVersion.objects.create(
+        name="Ethereum",
+        version=65793,
+        display_name="Ethereum",
+        icon="ethereum",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/ethereum/app_1.1.1",
+        firmware_key="blue/2.1.0-hw15/ethereum/app_1.1.1_key",
+        delete="blue/2.1.0-hw15/ethereum/app_del",
+        delete_key="blue/2.1.0-hw15/ethereum/app_del_key",
+        app=app16
+    )
+    appVer206.providers.add(provider1)
+    appVer206.device_versions.add(device_ver7)
+    appVer206.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer207 = ApplicationVersion.objects.create(
+        name="Fido U2F",
+        version=66053,
+        display_name="Fido U2F",
+        icon="fido",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/u2f/app_1.2.5",
+        firmware_key="blue/2.1.0-hw15/u2f/app_1.2.5_key",
+        delete="blue/2.1.0-hw15/u2f/app_del",
+        delete_key="blue/2.1.0-hw15/u2f/app_del_key",
+        app=app17
+    )
+    appVer207.providers.add(provider1)
+    appVer207.device_versions.add(device_ver7)
+    appVer207.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer208 = ApplicationVersion.objects.create(
+        name="Litecoin",
+        version=66055,
+        display_name="Litecoin",
+        icon="litecoin",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/litecoin/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/litecoin/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/litecoin/app_del",
+        delete_key="blue/2.1.0-hw15/litecoin/app_del_key",
+        app=app18
+    )
+    appVer208.providers.add(provider1)
+    appVer208.device_versions.add(device_ver7)
+    appVer208.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer209 = ApplicationVersion.objects.create(
+        name="Stratis",
+        version=66055,
+        display_name="Stratis",
+        icon="stratis",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/stratis/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/stratis/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/stratis/app_del",
+        delete_key="blue/2.1.0-hw15/stratis/app_del_key",
+        app=app19
+    )
+    appVer209.providers.add(provider1)
+    appVer209.device_versions.add(device_ver7)
+    appVer209.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer210 = ApplicationVersion.objects.create(
+        name="Ripple",
+        version=65541,
+        display_name="Ripple",
+        icon="ripple",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/ripple/app_1.0.5",
+        firmware_key="blue/2.1.0-hw15/ripple/app_1.0.5_key",
+        delete="blue/2.1.0-hw15/ripple/app_del",
+        delete_key="blue/2.1.0-hw15/ripple/app_del_key",
+        app=app20
+    )
+    appVer210.providers.add(provider1)
+    appVer210.device_versions.add(device_ver7)
+    appVer210.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer211 = ApplicationVersion.objects.create(
+        name="Zcash",
+        version=66052,
+        display_name="Zcash",
+        icon="zcash",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/zcash/app_1.2.4",
+        firmware_key="blue/2.1.0-hw15/zcash/app_1.2.4_key",
+        delete="blue/2.1.0-hw15/zcash/app_del",
+        delete_key="blue/2.1.0-hw15/zcash/app_del_key",
+        app=app21
+    )
+    appVer211.providers.add(provider1)
+    appVer211.device_versions.add(device_ver7)
+    appVer211.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer212 = ApplicationVersion.objects.create(
+        name="ZenCash",
+        version=66052,
+        display_name="ZenCash",
+        icon="zencash",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/zencash/app_1.2.4",
+        firmware_key="blue/2.1.0-hw15/zencash/app_1.2.4_key",
+        delete="blue/2.1.0-hw15/zencash/app_del",
+        delete_key="blue/2.1.0-hw15/zencash/app_del_key",
+        app=app22
+    )
+    appVer212.providers.add(provider1)
+    appVer212.device_versions.add(device_ver7)
+    appVer212.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer213 = ApplicationVersion.objects.create(
+        name="Komodo",
+        version=66055,
+        display_name="Komodo",
+        icon="komodo",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/komodo/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/komodo/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/komodo/app_del",
+        delete_key="blue/2.1.0-hw15/komodo/app_del_key",
+        app=app23
+    )
+    appVer213.providers.add(provider1)
+    appVer213.device_versions.add(device_ver7)
+    appVer213.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer214 = ApplicationVersion.objects.create(
+        name="PoSW",
+        version=66055,
+        display_name="PoSW",
+        icon="posw",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/posw/app_1.2.7",
+        firmware_key="blue/2.1.0-hw15/posw/app_1.2.7_key",
+        delete="blue/2.1.0-hw15/posw/app_del",
+        delete_key="blue/2.1.0-hw15/posw/app_del_key",
+        app=app25
+    )
+    appVer214.providers.add(provider1)
+    appVer214.device_versions.add(device_ver7)
+    appVer214.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
+    # blue_2hw15 ,
+    appVer215 = ApplicationVersion.objects.create(
+        name="Stellar",
+        version=196608,
+        display_name="Stellar",
+        icon="stellar",
+        hash="0000000000000000000000000000000000000000000000000000000000000000",
+        perso="perso_11",
+        firmware="blue/2.1.0-hw15/stellar/app_3.0.0",
+        firmware_key="blue/2.1.0-hw15/stellar/app_3.0.0_key",
+        delete="blue/2.1.0-hw15/stellar/app_del",
+        delete_key="blue/2.1.0-hw15/stellar/app_del_key",
+        app=app30
+    )
+    appVer215.providers.add(provider1)
+    appVer215.device_versions.add(device_ver7)
+    appVer215.se_firmware_final_versions.add(
+        firmware_final_ver10, firmware_final_ver12)
