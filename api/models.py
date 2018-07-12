@@ -183,7 +183,7 @@ class Application(Resource):
 class ApplicationVersion(Resource):
     version = models.IntegerField()
     display_name = models.CharField(max_length=255, null=True, blank=True)
-    icon = models.CharField(max_length=255, null=True, blank=True)
+    icon = models.FileField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     hash = models.CharField(max_length=255, null=True, blank=True)
     perso = models.CharField(max_length=255, null=True, blank=True)

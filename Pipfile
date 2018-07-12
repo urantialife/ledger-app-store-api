@@ -6,6 +6,7 @@ name = "pypi"
 [dev-packages]
 "pep8" = "*"
 "autopep8" = "*"
+pylint = "*"
 
 [packages]
 django = "*"
@@ -15,6 +16,8 @@ django-rest-swagger = "*"
 fire = "*"
 semver = "*"
 django-cors-headers = "*"
+"boto3" = "*"
+"django-s3-storage" = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
