@@ -26,7 +26,9 @@ urlpatterns = [
          views.SeFirmwareFinalVersionDetail.as_view()),
     path('firmware_osu_versions/<int:pk>',
          views.SeFirmwareOSUVersionDetail.as_view()),
-
+    ### ICONS ###
+    path('icons', views.IconView.as_view()),
+    path('icons/<int:pk>', views.IconDetail.as_view()),
     ### DEVICES ###
     path('devices', views.DeviceView.as_view()),
     path('devices/<int:pk>', views.DeviceDetail.as_view()),

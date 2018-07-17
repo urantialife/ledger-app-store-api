@@ -2,8 +2,17 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from api.models import U2FKey, SeFirmwareFinalVersion, SeFirmwareOSUVersion, Application
 from api.models import ApplicationVersion, Device, DeviceVersion, SeFirmware
-from api.models import Publisher, Provider, Category, Mcu, McuVersion
+from api.models import Publisher, Provider, Category, Mcu, McuVersion, Icon
 import semver
+
+class IconSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Icon
+        fields = (
+            'id',
+            'name',
+            'file',
+        )
 
 # VERSION RESOURCES SERIALIZERS
 
@@ -130,6 +139,12 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
         many=True,
         allow_null=True,
         queryset=Provider.objects.all(),
+    )
+
+    icon = serializers.PrimaryKeyRelatedField(
+        many=False,
+        allow_null=True,
+        queryset=Icon.objects.all(),
     )
 
     version = VersionField()
