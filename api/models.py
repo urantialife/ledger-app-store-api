@@ -193,7 +193,8 @@ class Application(Resource):
 class ApplicationVersion(Resource):
     version = models.IntegerField()
     display_name = models.CharField(max_length=255, null=True, blank=True)
-    icon = models.ForeignKey(
+    icon = models.CharField(max_length=255, blank=True, null=True)
+    picture = models.ForeignKey(
         Icon,
         related_name="application_versions",
         on_delete=models.SET_NULL,

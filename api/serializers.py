@@ -141,7 +141,7 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
         queryset=Provider.objects.all(),
     )
 
-    icon = serializers.PrimaryKeyRelatedField(
+    picture = serializers.PrimaryKeyRelatedField(
         many=False,
         allow_null=True,
         queryset=Icon.objects.all(),
@@ -176,6 +176,7 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
             'description',
             'display_name',
             'icon',
+            'picture',
             'notes',
             'perso',
             'hash',
