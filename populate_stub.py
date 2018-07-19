@@ -81,6 +81,8 @@ if __name__ == '__main__':
     firmware3 = SeFirmware.objects.create(name="Bitclub firmware")
     firmware3.providers.add(provider3)
 
+    print("Firmware Top Level created")
+
     # FIRMWARE FINAL CREATION
     # BLUE
     firmware_final_ver0 = SeFirmwareFinalVersion.objects.create(
@@ -264,9 +266,12 @@ if __name__ == '__main__':
     firmware_final_ver7.device_versions.add(device_ver0)
     firmware_final_ver7.providers.add(provider3)
 
-    print("Firmwares created")
+    print("Firmwares Final created")
+
     # MCU CREATION
     mcu = Mcu.objects.create(name="Ledger")
+
+    print("MCU Top Level created")
 
     mcu10 = McuVersion.objects.create(
         name="1.0",
@@ -300,7 +305,8 @@ if __name__ == '__main__':
         mcu=mcu,
         from_bootloader_version="0.0.0"
     )
-    print("MCU created")
+
+    print("MCU versions created")
 
     # OSU CREATION
     firmware_osu_ver1 = SeFirmwareOSUVersion.objects.create(
@@ -382,11 +388,14 @@ if __name__ == '__main__':
     firmware_osu_ver6.previous_se_firmware_final_versions.add(
         firmware_final_ver7)
     firmware_osu_ver6.providers.add(provider3)
-    print("OSU created")
+
+    print("Firmware OSU created")
 
     # CATEGORY
     cat1 = Category.objects.create(name="Currencies")
     cat2 = Category.objects.create(name="Developer tools")
+
+    print("Categories created")
 
     # APP CREATION
     app0 = Application.objects.create(name="Bitcoin", category=cat1)
@@ -483,6 +492,9 @@ if __name__ == '__main__':
     app45.providers.add(provider1)
     app46 = Application.objects.create(name="Dascoin", category=cat1)
     app46.providers.add(provider2)
+
+    print("Application Top Level created")
+
     # blue_2hw15 ,
     appVer1 = ApplicationVersion.objects.create(
         name="Bitcoin",
@@ -4430,3 +4442,5 @@ if __name__ == '__main__':
     appVer215.providers.add(provider1)
     appVer215.device_versions.add(device_ver5)
     appVer215.se_firmware_final_versions.add(firmware_final_ver2)
+
+    print("App versions created")
