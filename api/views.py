@@ -12,13 +12,13 @@ from api.serializers import DeviceVersionSerializer
 from api.serializers import DeviceVersionDetailSerializer
 from api.serializers import SeFirmwareFinalVersionSerializer, SeFirmwareOSUVersionSerializer, DeviceSerializer
 from api.serializers import PublisherSerializer, ProviderSerializer
-from api.serializers import CategorySerializer
+from api.serializers import CategorySerializer, IconSerializer
 from api.serializers import McuSerializer, McuVersionSerializer
 from api.models import U2FRegistrationRequest, U2FAuthenticationRequest
 from api.models import U2FKey, ApplicationVersion, Application
 from api.models import SeFirmwareFinalVersion, SeFirmwareOSUVersion, SeFirmware, DeviceVersion
 from api.models import Device, Publisher, Provider, Category
-from api.models import Mcu, McuVersion
+from api.models import Mcu, McuVersion, Icon
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
@@ -330,6 +330,17 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = CategorySerializer
 
+############ ICON VIEWS ################
+class IconView(generics.ListCreateAPIView):
+    queryset = Icon.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    serializer_class = IconSerializer
+
+
+class IconDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Icon.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    serializer_class = IconSerializer
 
 ############ USERS VIEWS ################
 

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'corsheaders',
     'api.apps.ApiConfig',
+    'django_s3_storage',
 ]
 
 REST_FRAMEWORK = {
@@ -135,11 +136,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
-
 # CORS Config
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:9000',
     '127.0.0.1:9000'
 )
+
+AWS_REGION = os.environ.get('AWS_REGION')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_S3_BUCKET_NAME = os.environ.get('AWS_S3_BUCKET_NAME')
+AWS_S3_BUCKET_NAME_STATIC = 'ledger-app-store-assets-dev'
+
+STATIC_URL = '/static/'
+
+# AWS_LOCATION = 'static'
+
+DEFAULT_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'
+STATICFILES_STORAGE = 'django_s3_storage.storage.StaticS3Storage'

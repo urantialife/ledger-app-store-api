@@ -30,6 +30,16 @@ class Resource(models.Model):
         return "%s" % (self.name)
 
 
+class Icon(models.Model):
+    name = models.CharField(max_length=255)
+    file = models.FileField(blank=True, null=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
+    date_last_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
 class U2FKey(models.Model):
     user = models.ForeignKey(
         'auth.User',
@@ -183,7 +193,13 @@ class Application(Resource):
 class ApplicationVersion(Resource):
     version = models.IntegerField()
     display_name = models.CharField(max_length=255, null=True, blank=True)
-    icon = models.CharField(max_length=255, null=True, blank=True)
+    icon = models.CharField(max_length=255, blank=True, null=True)
+    picture = models.ForeignKey(
+        Icon,
+        related_name="application_versions",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
     notes = models.TextField(blank=True, null=True)
     hash = models.CharField(max_length=255, null=True, blank=True)
     perso = models.CharField(max_length=255, null=True, blank=True)
@@ -206,3 +222,4 @@ class ApplicationVersion(Resource):
         related_name="application_versions",
         blank=True,
     )
+
