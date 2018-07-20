@@ -32,7 +32,7 @@ class Resource(models.Model):
 
 class Icon(models.Model):
     name = models.CharField(max_length=255)
-    file = models.FileField(blank=True, null=True)
+    file = models.FileField(upload_to='icons/', blank=True, null=True)
     date_creation = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
 
