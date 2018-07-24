@@ -81,7 +81,6 @@ class Device(Resource):
 
 
 class DeviceVersion(Resource):
-    display_name = models.CharField(max_length=255, null=True, blank=True)
     target_id = models.CharField(max_length=255, null=True, blank=True)
     device = models.ForeignKey(
         Device,
@@ -96,7 +95,6 @@ class SeFirmware(Resource):
 
 class SeFirmwareFinalVersion(Resource):
     version = models.IntegerField()
-    display_name = models.CharField(max_length=255, null=True, blank=True)
     notes = models.TextField(blank=True, null=True)
     perso = models.CharField(max_length=255, null=True, blank=True)
 
@@ -121,7 +119,6 @@ class SeFirmwareFinalVersion(Resource):
 
 
 class SeFirmwareOSUVersion(Resource):
-    display_name = models.CharField(max_length=255, null=True, blank=True)
     notes = models.TextField(blank=True, null=True)
     perso = models.CharField(max_length=255, null=True, blank=True)
     firmware = models.CharField(max_length=255, null=True, blank=True)
@@ -192,7 +189,6 @@ class Application(Resource):
 
 class ApplicationVersion(Resource):
     version = models.IntegerField()
-    display_name = models.CharField(max_length=255, null=True, blank=True)
     icon = models.CharField(max_length=255, blank=True, null=True)
     picture = models.ForeignKey(
         Icon,
