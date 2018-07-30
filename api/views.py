@@ -56,6 +56,25 @@ class ApplicationVersionDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ApplicationVersionSerializer
 
 
+def matchProvider(provider):
+    if type(provider) == str:
+        return Provider.objects.get(name=provider).id
+    return provider
+
+
+def filterProvider(item, provider):
+    if type(provider) == list:
+        if type(provider[0]) == str:
+            return item.filter(providers__name__in=provider)
+        else:
+            return item.filter(providers__in=provider)
+    else:
+        if type(provider) == str:
+            return item.filter(providers__name=provider)
+        else:
+            return item.filter(providers=provider)
+
+
 @api_view(["POST"])
 def get_app_to_display(request):
     current_se_firmware_final_version_id = request.data.get(
@@ -64,11 +83,10 @@ def get_app_to_display(request):
     provider = request.data.get('provider')
     compatible_apps = None
     try:
-        compatible_apps = ApplicationVersion.objects.filter(
+        compatible_apps = filterProvider(ApplicationVersion.objects.filter(
             device_versions__id=current_device_version_id,
-            se_firmware_final_versions=current_se_firmware_final_version_id,
-            providers=provider
-        )
+            se_firmware_final_versions=current_se_firmware_final_version_id
+        ), provider)
     except ApplicationVersion.DoesNotExist:
         None
     if not compatible_apps:
@@ -144,7 +162,7 @@ class SeFirmwareOSUVersionDetail(generics.RetrieveUpdateDestroyAPIView):
 def get_firmware_version(request):
     se_firmware_version_name = request.data.get('version_name')
     device_version_id = request.data.get('device_version')
-    provider = request.data.get('provider')
+    provider = matchProvider(request.data.get('provider'))
     se_firmware_ver = get_object_or_404(
         SeFirmwareFinalVersion,
         name=se_firmware_version_name,
@@ -159,7 +177,7 @@ def get_firmware_version(request):
 @api_view(["POST"])
 def get_osu_version(request):
     se_firmware_version_name = request.data.get('version_name')
-    provider = request.data.get('provider')
+    provider = matchProvider(request.data.get('provider'))
     device_version_id = request.data.get('device_version')
     se_firmware_ver = get_object_or_404(
         SeFirmwareOSUVersion, name=se_firmware_version_name,
@@ -180,10 +198,10 @@ def get_latest(request):
 
     next_se_firmware_osu_versions = None
     try:
-        next_se_firmware_osu_versions = SeFirmwareOSUVersion.objects.filter(
+        next_se_firmware_osu_versions = filterProvider(SeFirmwareOSUVersion.objects.filter(
             device_versions=current_device_version_id,
-            previous_se_firmware_final_versions__id=current_se_firmware_final_version_id,
-            providers=provider
+            previous_se_firmware_final_versions__id=current_se_firmware_final_version_id),
+            provider
         )
     except SeFirmwareOSUVersion.DoesNotExist:
         None
@@ -236,7 +254,7 @@ class DeviceVersionDetailList(generics.ListAPIView):
 @api_view(["POST"])
 def device_by_target_id(request):
     target_id = request.data.get('target_id')
-    provider = request.data.get('provider')
+    provider = matchProvider(request.data.get('provider'))
     device_ver = get_object_or_404(
         DeviceVersion, target_id=target_id, providers=provider)
 
@@ -331,6 +349,8 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
 
 ############ ICON VIEWS ################
+
+
 class IconView(generics.ListCreateAPIView):
     queryset = Icon.objects.all()
     permission_classes = (IsAuthenticatedOrReadOnly,)
@@ -343,6 +363,7 @@ class IconDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = IconSerializer
 
 ############ USERS VIEWS ################
+
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
