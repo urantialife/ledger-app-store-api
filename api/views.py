@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.contrib.auth import authenticate
+from django.db.models.functions import Lower
 from api.serializers import UserSerializer, U2FKeySerializer
 from api.serializers import ApplicationVersionSerializer
 from api.serializers import ApplicationSerializer, SeFirmwareSerializer
@@ -101,7 +102,7 @@ def get_app_to_display(request):
             excluded_appVer.append(appVer.id)
     apps_to_display = compatible_apps.exclude(id__in=excluded_appVer)
     serializer = ApplicationVersionSerializer(
-        apps_to_display.order_by("name"), many=True)
+        apps_to_display.order_by(Lower("name")), many=True)
     return Response({"application_versions": serializer.data})
 
 
