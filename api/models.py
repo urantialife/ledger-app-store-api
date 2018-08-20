@@ -201,8 +201,8 @@ class ApplicationVersion(Resource):
     perso = models.CharField(max_length=255, null=True, blank=True)
     firmware = models.CharField(max_length=255, null=True, blank=True)
     firmware_key = models.CharField(max_length=255, null=True, blank=True)
-    delete = models.CharField(max_length=255, null=True, blank=True)
-    delete_key = models.CharField(max_length=255, null=True, blank=True)
+    delete_path = models.CharField(max_length=255, null=True, blank=True)
+    delete_key_path = models.CharField(max_length=255, null=True, blank=True)
     app = models.ForeignKey(
         Application,
         related_name='application_versions',
@@ -218,4 +218,3 @@ class ApplicationVersion(Resource):
         related_name="application_versions",
         blank=True,
     )
-
