@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET') or 'keep the secret key used in production
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') or True
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS') or [".ledger.fr", ".ledger.co", ".ledger.com", 'localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS') or [".ledger.fr", ".ledger.co", ".ledger.com", 'localhost', '127.0.0.1', '[::1]', '5.135.137.113']
 
 APP_ID = os.environ.get('APP_ID') or 'https://localhost:9000'
 
