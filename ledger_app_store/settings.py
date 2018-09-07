@@ -142,7 +142,8 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:9000',
     '127.0.0.1:9000',
     'vault.ledger.com',
-    'manager.api.live.ledger.com'
+    'manager.api.live.ledger.com',
+    '5.135.137.113'
 )
 
 AWS_REGION = os.environ.get('AWS_REGION')
