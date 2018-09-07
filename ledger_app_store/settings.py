@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET') or 'keep the secret key used in production
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') or True
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS') or []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS') or [".ledger.fr", ".ledger.co", ".ledger.com", 'localhost', '127.0.0.1', '[::1]']
 
 APP_ID = os.environ.get('APP_ID') or 'https://localhost:9000'
 
@@ -137,13 +137,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 # CORS Config
-CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ORIGIN_WHITELIST = (
     'localhost:9000',
     '127.0.0.1:9000',
     'vault.ledger.com',
-    'manager.api.live.ledger.com',
-    '5.135.137.113'
+    'manager.api.live.ledger.com'
 )
 
 AWS_REGION = os.environ.get('AWS_REGION')
