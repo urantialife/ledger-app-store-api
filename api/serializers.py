@@ -5,6 +5,7 @@ from api.models import ApplicationVersion, Device, DeviceVersion, SeFirmware
 from api.models import Publisher, Provider, Category, Mcu, McuVersion, Icon
 import semver
 
+
 class IconSerializer(serializers.ModelSerializer):
     class Meta:
         model = Icon
@@ -146,6 +147,9 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
     )
 
     version = VersionField()
+
+    delete = serializers.CharField(source='delete_path')
+    delete_key = serializers.CharField(source='delete_key_path')
 
     app = serializers.PrimaryKeyRelatedField(
         many=False,
