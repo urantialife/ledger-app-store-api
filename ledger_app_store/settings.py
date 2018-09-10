@@ -37,7 +37,7 @@ DEFAULT_ALLOWED_HOSTS = [
     '.blockchain.info'
 ]
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS') or [".ledger.fr", ".ledger.co", ".ledger.com", , ]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS') or DEFAULT_ALLOWED_HOSTS
 
 APP_ID = os.environ.get('APP_ID') or 'https://localhost:9000'
 
