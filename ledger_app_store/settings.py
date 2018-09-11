@@ -25,7 +25,19 @@ SECRET_KEY = os.environ.get('SECRET') or 'keep the secret key used in production
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') or True
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS') or [".ledger.fr", ".ledger.co", ".ledger.com", 'localhost', '127.0.0.1', '[::1]', '5.135.137.113']
+DEFAULT_ALLOWED_HOSTS = [
+    '.ledger.fr',
+    '.ledger.co',
+    '.ledger.com',
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+    '5.135.137.113',
+    '.blockchain.com',
+    '.blockchain.info'
+]
+
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS') or DEFAULT_ALLOWED_HOSTS
 
 APP_ID = os.environ.get('APP_ID') or 'https://localhost:9000'
 
@@ -143,5 +155,8 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:9000',
     '127.0.0.1:9000',
     'vault.ledger.com',
-    'manager.api.live.ledger.com'
+    'manager.api.live.ledger.com',
+    'wallet-frontend-v4.dev.blockchain.info',
+    'wallet-frontend-v4.staging.blockchain.info',
+    'blockchain.com'
 )
