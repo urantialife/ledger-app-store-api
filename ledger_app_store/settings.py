@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET') or 'keep the secret key used in production secret!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG') or True
+DEBUG = os.environ.get('DEBUG') or False
 
 DEFAULT_ALLOWED_HOSTS = [
     '.ledger.fr',
