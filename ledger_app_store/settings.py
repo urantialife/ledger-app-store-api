@@ -67,15 +67,13 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
 
@@ -159,4 +157,9 @@ CORS_ORIGIN_WHITELIST = (
     'wallet-frontend-v4.dev.blockchain.info',
     'wallet-frontend-v4.staging.blockchain.info',
     'blockchain.com'
+)
+
+CORS_ORIGIN_REGEX_WHITELIST = (
+    r'.+\.ledger\.(com|co|fr)$',
+    r'.+\.blockchain\.(info|com)$',
 )
