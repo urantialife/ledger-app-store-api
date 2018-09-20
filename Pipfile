@@ -15,6 +15,7 @@ django-rest-swagger = "*"
 fire = "*"
 semver = "*"
 django-cors-headers = "*"
+mysqlclient = "*"
 
 [requires]
 python_version = "3.6"
