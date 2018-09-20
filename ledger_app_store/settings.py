@@ -163,3 +163,10 @@ CORS_ORIGIN_REGEX_WHITELIST = (
     r'.+\.ledger\.(com|co|fr)$',
     r'.+\.blockchain\.(info|com)$',
 )
+
+
+# load local settings, ignore if missing
+try:
+    from .local_settings import *
+except ImportError:
+    pass
