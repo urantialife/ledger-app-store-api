@@ -5,7 +5,6 @@
 __pycache__/
 ledger_app_store/__pycache__/
 *.py[cod]
-api/migrations/
 *$py.class
 
 # C extensions

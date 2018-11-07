@@ -19,6 +19,7 @@ semver = "*"
 django-cors-headers = "*"
 "boto3" = "*"
 "django-s3-storage" = "*"
+mysqlclient = "*"
 
 [requires]
 python_version = "3.7"
