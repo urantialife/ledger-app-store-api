@@ -20,10 +20,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET') or 'keep the secret key used in production secret!'
+SECRET_KEY = os.environ.get(
+    'SECRET') or 'keep the secret key used in production secret!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG') or True
+DEBUG = os.environ.get('DEBUG') or False
+
+DEFAULT_ALLOWED_HOSTS = [
+    '.ledger.fr',
+    '.ledger.co',
+    '.ledger.com',
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+    '5.135.137.113',
+    '.blockchain.com',
+    '.blockchain.info'
+]
 
 DEFAULT_ALLOWED_HOSTS = [
     '.ledger.fr',
@@ -68,15 +81,13 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
 
@@ -172,3 +183,14 @@ STATIC_URL = '/static/'
 
 DEFAULT_FILE_STORAGE = 'django_s3_storage.storage.S3Storage'
 STATICFILES_STORAGE = 'django_s3_storage.storage.StaticS3Storage'
+CORS_ORIGIN_REGEX_WHITELIST = (
+    r'.+\.ledger\.(com|co|fr)$',
+    r'.+\.blockchain\.(info|com)$',
+)
+
+
+# load local settings, ignore if missing
+try:
+    from .local_settings import *
+except ImportError:
+    pass
