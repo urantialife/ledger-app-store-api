@@ -48,7 +48,7 @@ class U2FKey(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     last_used_at = models.DateTimeField(null=True)
-    publicKey = models.CharField(unique=True,max_length=255)
+    publicKey = models.CharField(unique=True, max_length=255)
     keyHandle = models.TextField()
     appId = models.TextField()
     version = models.CharField(max_length=255, default='U2F_V2')
@@ -185,6 +185,8 @@ class Application(Resource):
         on_delete=models.CASCADE,
         null=True,
     )
+
+    discontinued = models.BooleanField(blank=True, default=False)
 
 
 class ApplicationVersion(Resource):

@@ -351,6 +351,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
             'providers',
             'category',
             'publisher',
+            'discontinued',
             'date_creation',
             'date_last_modified',
         )
