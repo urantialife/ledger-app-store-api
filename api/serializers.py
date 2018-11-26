@@ -30,12 +30,6 @@ class VersionField(serializers.Field):
         return int.from_bytes(internal, 'big')
 
 
-class PictureField(serializers.Field):
-
-    def to_representation(self, obj):
-        return obj.file.url
-
-
 class SeFirmwareOSUVersionSerializer(serializers.ModelSerializer):
     providers = serializers.PrimaryKeyRelatedField(
         many=True,
@@ -146,7 +140,14 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
         queryset=Provider.objects.all(),
     )
 
-    picture = PictureField()
+    picture = serializers.PrimaryKeyRelatedField(
+        many=False,
+        allow_null=True,
+        queryset=Icon.objects.all(),
+    )
+
+    picture_url = serializers.SerializerMethodField('url_for_picture')
+
     version = VersionField()
 
     delete = serializers.CharField(source='delete_path')
@@ -169,6 +170,11 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
         queryset=SeFirmwareFinalVersion.objects.all()
     )
 
+    def url_for_picture(self, app):
+        if app.picture:
+            return app.picture.file.url
+        return ''
+
     class Meta:
         model = ApplicationVersion
         fields = (
@@ -179,6 +185,7 @@ class ApplicationVersionSerializer(serializers.ModelSerializer):
             'description',
             'icon',
             'picture',
+            'picture_url',
             'notes',
             'perso',
             'hash',
