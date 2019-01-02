@@ -72,7 +72,7 @@ def get_app_to_display(request):
     except ApplicationVersion.DoesNotExist:
         None
     if not compatible_apps:
-        return Response({"application_versions": {}, "result": "null"})
+        return Response({"application_versions": [], "result": "null"})
 
     listed_apps = []
     excluded_appVer = []
@@ -173,6 +173,7 @@ def get_osu_version(request):
 
 @api_view(["POST"])
 def get_latest(request):
+    hide_153 = request.query_params.get('livecommonversion', None) is None
     current_se_firmware_final_version_id = request.data.get(
         'current_se_firmware_final_version')
     current_device_version_id = request.data.get('device_version')
@@ -183,8 +184,11 @@ def get_latest(request):
         next_se_firmware_osu_versions = SeFirmwareOSUVersion.objects.filter(
             device_versions=current_device_version_id,
             previous_se_firmware_final_versions__id=current_se_firmware_final_version_id,
-            providers=provider
+            providers=provider,
         )
+        if hide_153:
+            next_se_firmware_osu_versions = next_se_firmware_osu_versions.filter(
+                next_se_firmware_final_version__version__lte=66819)
     except SeFirmwareOSUVersion.DoesNotExist:
         None
     if not next_se_firmware_osu_versions:
