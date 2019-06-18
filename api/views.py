@@ -91,7 +91,7 @@ def get_app_to_display(request):
     except ApplicationVersion.DoesNotExist:
         None
     if not compatible_apps:
-        return Response({"application_versions": {}, "result": "null"})
+        return Response({"application_versions": [], "result": "null"})
 
     listed_apps = []
     excluded_appVer = []
@@ -192,6 +192,7 @@ def get_osu_version(request):
 
 @api_view(["POST"])
 def get_latest(request):
+    hide_153 = request.query_params.get('livecommonversion', None) is None
     current_se_firmware_final_version_id = request.data.get(
         'current_se_firmware_final_version')
     current_device_version_id = request.data.get('device_version')
@@ -201,65 +202,68 @@ def get_latest(request):
     try:
         next_se_firmware_osu_versions = filterProvider(SeFirmwareOSUVersion.objects.filter(
             device_versions=current_device_version_id,
-            previous_se_firmware_final_versions__id=current_se_firmware_final_version_id),
-            provider
+            previous_se_firmware_final_versions__id=current_se_firmware_final_version_id,
+            providers=provider,
         )
+        if hide_153:
+            next_se_firmware_osu_versions=next_se_firmware_osu_versions.filter(
+                next_se_firmware_final_version__version__lte=66819)
     except SeFirmwareOSUVersion.DoesNotExist:
         None
     if not next_se_firmware_osu_versions:
         return Response({"se_firmware_osu_version": {}, "result": "null"})
 
-    res_osu_ver = None
+    res_osu_ver=None
     for osu_ver in next_se_firmware_osu_versions:
         if res_osu_ver is not None:
             if osu_ver.next_se_firmware_final_version.version >= res_osu_ver.next_se_firmware_final_version.version:
-                res_osu_ver = osu_ver
+                res_osu_ver=osu_ver
         else:
-            res_osu_ver = osu_ver
+            res_osu_ver=osu_ver
 
-    serializer = SeFirmwareOSUVersionSerializer(res_osu_ver)
+    serializer=SeFirmwareOSUVersionSerializer(res_osu_ver)
     return Response({"se_firmware_osu_version": serializer.data, "result": "success"})
 
 
 ############ DEVICES VIEWS #################
 
 class DeviceView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = Device.objects.all()
-    serializer_class = DeviceSerializer
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    queryset=Device.objects.all()
+    serializer_class=DeviceSerializer
 
 
 class DeviceDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = Device.objects.all()
-    serializer_class = DeviceSerializer
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    queryset=Device.objects.all()
+    serializer_class=DeviceSerializer
 
 
 class DeviceVersionView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = DeviceVersion.objects.all()
-    serializer_class = DeviceVersionSerializer
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    queryset=DeviceVersion.objects.all()
+    serializer_class=DeviceVersionSerializer
 
 
 class DeviceVersionDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = DeviceVersion.objects.all()
-    serializer_class = DeviceVersionSerializer
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    queryset=DeviceVersion.objects.all()
+    serializer_class=DeviceVersionSerializer
 
 
 class DeviceVersionDetailList(generics.ListAPIView):
-    queryset = DeviceVersion.objects.all()
-    serializer_class = DeviceVersionDetailSerializer
+    queryset=DeviceVersion.objects.all()
+    serializer_class=DeviceVersionDetailSerializer
 
 
 @api_view(["POST"])
 def device_by_target_id(request):
-    target_id = request.data.get('target_id')
-    provider = matchProvider(request.data.get('provider'))
-    device_ver = get_object_or_404(
+    target_id=request.data.get('target_id')
+    provider=matchProvider(request.data.get('provider'))
+    device_ver=get_object_or_404(
         DeviceVersion, target_id=target_id, providers=provider)
 
-    serializer = DeviceVersionSerializer(device_ver)
+    serializer=DeviceVersionSerializer(device_ver)
     return Response(serializer.data)
 
 
@@ -267,56 +271,56 @@ def device_by_target_id(request):
 
 
 class PublisherView(generics.ListCreateAPIView):
-    queryset = Publisher.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = PublisherSerializer
+    queryset=Publisher.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=PublisherSerializer
 
 
 class PublisherDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Publisher.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = PublisherSerializer
+    queryset=Publisher.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=PublisherSerializer
 
 
 ############ MCU VIEWS ################
 
 
 class McuView(generics.ListCreateAPIView):
-    queryset = Mcu.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = McuSerializer
+    queryset=Mcu.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=McuSerializer
 
 
 class McuDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Mcu.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = McuSerializer
+    queryset=Mcu.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=McuSerializer
 
 
 class McuVersionView(generics.ListCreateAPIView):
-    queryset = McuVersion.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = McuVersionSerializer
+    queryset=McuVersion.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=McuVersionSerializer
 
 
 class McuVersionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = McuVersion.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = McuVersionSerializer
+    queryset=McuVersion.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=McuVersionSerializer
 
 
 @api_view(["POST"])
 def mcu_version_by_bootloader_version(request):
-    bootloader_version = request.data.get('bootloader_version')
+    bootloader_version=request.data.get('bootloader_version')
     # device_version_id = request.data.get('device_version')
 
     try:
-        mcu_ver = McuVersion.objects.get(
+        mcu_ver=McuVersion.objects.get(
             from_bootloader_version=bootloader_version)
     except McuVersion.DoesNotExist:
         return Response("default")
 
-    serializer = McuVersionSerializer(mcu_ver)
+    serializer=McuVersionSerializer(mcu_ver)
     return Response(serializer.data)
 
 
@@ -324,64 +328,64 @@ def mcu_version_by_bootloader_version(request):
 
 
 class ProviderView(generics.ListCreateAPIView):
-    queryset = Provider.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = ProviderSerializer
+    queryset=Provider.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=ProviderSerializer
 
 
 class ProviderDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Provider.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = ProviderSerializer
+    queryset=Provider.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=ProviderSerializer
 
 
 ############ CATEGORY VIEWS ################
 
 
 class CategoryView(generics.ListCreateAPIView):
-    queryset = Category.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = CategorySerializer
+    queryset=Category.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=CategorySerializer
 
 
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Category.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = CategorySerializer
+    queryset=Category.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=CategorySerializer
 
 ############ ICON VIEWS ################
 
 
 class IconView(generics.ListCreateAPIView):
-    queryset = Icon.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = IconSerializer
+    queryset=Icon.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=IconSerializer
 
 
 class IconDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Icon.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = IconSerializer
+    queryset=Icon.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=IconSerializer
 
 ############ USERS VIEWS ################
 
 
 class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset=User.objects.all()
+    serializer_class=UserSerializer
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = UserSerializer
+    queryset=User.objects.all()
+    permission_classes=(IsAuthenticatedOrReadOnly,)
+    serializer_class=UserSerializer
 
 
 class RegisterKey(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes=(IsAuthenticated,)
 
     def get(self, request, format=None):
-        user = request.user
+        user=request.user
         # request = u2f.begin_registration(self.get_origin(), [
         #     key for key in user.u2f_key.all()
         # ])
@@ -393,19 +397,19 @@ class RegisterKey(APIView):
         if user.u2f_registration_request.exists():
             user.u2f_registration_request.first().delete()
 
-        reg_request = u2f.begin_registration(settings.APP_ID, [])
+        reg_request=u2f.begin_registration(settings.APP_ID, [])
         U2FRegistrationRequest.objects.create(
             user=user, body=json.dumps(reg_request))
         return Response(reg_request.data_for_client)
 
     def post(self, request, format=None):
-        user = request.user
-        response = request.data.get('response')
+        user=request.user
+        response=request.data.get('response')
 
-        reg_req = get_object_or_404(U2FRegistrationRequest, user=user)
-        reg_request = json.loads(reg_req.body)
+        reg_req=get_object_or_404(U2FRegistrationRequest, user=user)
+        reg_request=json.loads(reg_req.body)
 
-        device, attestation_cert = u2f.complete_registration(
+        device, attestation_cert=u2f.complete_registration(
             reg_request, response)
         U2FKey.objects.create(
             user=user,
@@ -419,10 +423,10 @@ class RegisterKey(APIView):
 
 @api_view(["POST"])
 def login(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
+    username=request.data.get('username')
+    password=request.data.get('password')
 
-    user = authenticate(username=username, password=password)
+    user=authenticate(username=username, password=password)
     if not user:
         return Response(
             {"error": "Login failed"},
@@ -433,40 +437,40 @@ def login(request):
         if user.u2f_authentication_request.exists():
             user.u2f_authentication_request.first().delete()
 
-        serializer = U2FKeySerializer(user.u2f_key.first())
+        serializer=U2FKeySerializer(user.u2f_key.first())
 
-        sign_request = u2f.begin_authentication(
+        sign_request=u2f.begin_authentication(
             settings.APP_ID, [serializer.data])
         U2FAuthenticationRequest.objects.create(
             user=user, body=json.dumps(sign_request))
         return Response(sign_request.data_for_client)
     else:
-        token, _ = Token.objects.get_or_create(user=user)
+        token, _=Token.objects.get_or_create(user=user)
         return Response({"token": token.key})
 
 
 @api_view(["POST"])
 def finish_login(request):
-    username = request.data.get('username')
-    response = request.data.get('response')
+    username=request.data.get('username')
+    response=request.data.get('response')
 
-    user = get_object_or_404(User, username=username)
-    auth_req = get_object_or_404(U2FAuthenticationRequest, user=user)
+    user=get_object_or_404(User, username=username)
+    auth_req=get_object_or_404(U2FAuthenticationRequest, user=user)
 
-    json_auth_req = json.loads(auth_req.body)
+    json_auth_req=json.loads(auth_req.body)
 
     try:
-        device, counter, _ = u2f.complete_authentication(
+        device, counter, _=u2f.complete_authentication(
             json_auth_req, response)
         # TODO: store login_counter and verify it's increasing
-        device = user.u2f_key.get(keyHandle=device['keyHandle'])
-        device.last_used_at = timezone.now()
+        device=user.u2f_key.get(keyHandle=device['keyHandle'])
+        device.last_used_at=timezone.now()
         device.save()
         auth_req.delete()
     except ValueError:
         return Response({"error": "U2F validation failed -- bad signature"}, status=HTTP_401_UNAUTHORIZED)
 
-    token, _ = Token.objects.get_or_create(user=user)
+    token, _=Token.objects.get_or_create(user=user)
     return Response({"token": token.key})
 
 
